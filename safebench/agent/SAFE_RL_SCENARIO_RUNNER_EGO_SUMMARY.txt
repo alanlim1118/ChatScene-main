@@ -1,0 +1,112 @@
+================================================================================
+SUMMARY: Safe-RL policy driving ScenarioRunner ego (hero) via
+         ChatScene-main/safebench/agent/run_safe_rl_external_goal.py
+================================================================================
+
+CONTEXT
+-------
+- ScenarioRunner runs OpenSCENARIO: ego has role_name "hero" and controller
+  module "external_control" so an external CARLA client can drive it.
+- run_safe_rl_external_goal.py connects to the same CARLA world, finds "hero",
+  and applies control every tick. It does NOT use the full Gym CarlaEnv or
+  CarlaRunner; it reuses the same state math and control mapping as SafeBench.
+
+PATH / PLANNING (not direct policy inputs)
+------------------------------------------
+1) Global route (once at start):
+   - Goal from --goal: x,y,z [,yaw]; yaw in the string is parsed but not used
+     for routing in this script (only x,y,z go into carla.Location).
+   - GlobalRoutePlanner(carla_map, route_resolution).trace_route(hero location,
+     goal location) -> list of lane waypoints.
+   - If empty: fallback waypoint = goal projected onto driving lane.
+
+2) Local route (every control step):
+   - SafeBench RoutePlanner(hero, buffer_size=12, init_waypoints=global waypoints)
+     produces short horizon waypoints [[x,y,yaw], ...] and hazard flags.
+   - The policy does NOT consume the raw path as a long vector; only derived
+     scalars below enter the network.
+
+POLICY INPUT (4-dimensional state vector, float32)
+--------------------------------------------------
+Same convention as SafeBench carla_env.py / obs_type 0 (after wrapper):
+
+  [0] lateral_dis
+      From get_preview_lane_dis(waypoints, ego_x, ego_y, idx=2): lateral
+      offset to a preview point on the local path.
+
+  [1] -delta_yaw
+      Negative of heading error vs path direction (ego yaw vs waypoint tangent).
+
+  [2] speed
+      Planar speed in m/s from ego velocity (sqrt(vx^2 + vy^2)).
+
+  [3] vehicle_front
+      Binary hazard flag (0/1) from RoutePlanner._get_hazard() ->
+      _is_vehicle_hazard(): uses world.get_actors(), same road_id/lane_id,
+      vehicle ahead within ~15 m (privileged simulator API / geometry, NOT
+      camera or lidar perception).
+
+NOT in the policy state (important):
+  - Traffic light status: RoutePlanner computes red_light but carla_env and
+    this script discard it when building the 4D vector. The policy cannot see
+    lights through this interface.
+  - Raw camera / lidar / bird's-eye pixels: only used in other obs_type setups
+    inside SafeBench; this external runner uses the same 4D state as typical
+    safe-RL (PPO/SAC/TD3) with obs_type 0.
+
+POLICY OUTPUT (2 numbers, then converted to CARLA controls)
+-----------------------------------------------------------
+1) Neural network (PPO/SAC/TD3 actor) outputs TWO values in [-1, 1]:
+   - Dimension 0: longitudinal "acceleration" command (signed).
+   - Dimension 1: steering command.
+
+2) Steer sign: Same as SafeBench RLAgent.get_action: the second output is
+   negated before mapping (res[0][1] = -res[0][1] in RLAgent;
+   steer_norm = -action[1] in run_safe_rl_external_goal.py).
+
+3) Conversion to carla.VehicleControl (matches CarlaEnv.step_before_tick):
+   - acc_norm, steer_norm clipped to [-1, 1], then scaled:
+     acc = acc_norm * acc_max   (acc_max = 3.0)
+     steer = steer_norm * steering_max   (steering_max = 0.3)
+   - Throttle / brake split from acc (not three independent policy heads):
+       if acc > 0: throttle = clip(acc/3, 0, 1), brake = 0
+       else:       throttle = 0, brake = clip(-acc/8, 0, 1)
+   - Final: VehicleControl(throttle=..., steer=steer, brake=...)
+
+So the policy does NOT directly output throttle and brake as two separate
+learned dimensions; it outputs one signed longitudinal command that is split
+into throttle OR brake by fixed rules.
+
+ALIGNMENT WITH ORIGINAL SAFEBENCH
+---------------------------------
+- Same 4D state definition and same acc/steer -> throttle/brake/steer mapping
+  as carla_env.py for continuous control.
+- Same steer flip as safebench/agent/safe_rl/rl_agent.py.
+- Differs in setup: no Gym reset/step/reward loop; route to goal comes from
+  GlobalRoutePlanner + --goal instead of scenario config trajectory only.
+- run_safe_rl_external_goal.py does not import carla_env.py; it imports
+  RoutePlanner, get_preview_lane_dis, and the policy classes only.
+
+RUNTIME NOTES
+-------------
+- MODEL_DEVICE environment variable must be set (e.g. cpu or cuda) for PyTorch
+  tensor device selection in SafeBench utilities.
+- PYTHONPATH: CARLA egg (matching Python version), PythonAPI/carla (for
+  agents.navigation), ChatScene-main (for safebench imports).
+- --sync: call world.tick() each iteration when CARLA runs in synchronous mode
+  (typical with ScenarioRunner).
+- Main loop runs until interrupted (or pygame window closed with --viewer);
+  there is no "reached goal -> stop" logic; --goal only seeds the route.
+- --viewer: optional pygame chase camera/HUD from automatic_control.py; does not
+  change policy inputs/outputs.
+
+WHAT THIS STACK IS / IS NOT
+----------------------------
+- Is: Low-dimensional closed-loop controller (MLP) on hand-crafted state, with
+  oracle "vehicle ahead" bit, not vision end-to-end.
+- Is not: Full SafeBench scenario training (CarlaRunner, scenario policies,
+  replay buffers) or traffic-light-aware policy through this 4D state.
+
+================================================================================
+End of summary
+================================================================================

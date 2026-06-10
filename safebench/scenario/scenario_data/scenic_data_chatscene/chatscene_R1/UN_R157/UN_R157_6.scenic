@@ -1,0 +1,43 @@
+'''The ego vehicle is traveling in a straight lane when a pedestrian target emerges from the roadside and begins crossing the lane at a constant speed of 5 km/h, forcing the system to calculate a predicted path and decelerate sufficiently to prevent contact'''
+Town = 'Town05'
+param map = localPath(f'../../maps/{Town}.xodr') 
+param carla_map = Town
+model scenic.simulators.carla.model
+EGO_MODEL = "vehicle.lincoln.mkz_2017"
+
+behavior AdvBehavior():
+    do CrossingBehavior(ego, globalParameters.OPT_ADV_SPEED, globalParameters.OPT_ADV_DISTANCE)
+
+param OPT_ADV_SPEED = Range(1, 5)  # Define the speed range for the adversarial pedestrian
+param OPT_ADV_DISTANCE = Range(0, 15)  # Define the proximity threshold to trigger the crossing behavior
+intersection = Uniform(*filter(lambda i: i.is4Way and not i.isSignalized, network.intersections))
+egoInitLane = Uniform(*intersection.incomingLanes)
+egoManeuver = Uniform(*filter(lambda m: m.type is ManeuverType.STRAIGHT, egoInitLane.maneuvers))
+egoTrajectory = [egoInitLane, egoManeuver.connectingLane, egoManeuver.endLane]
+egoSpawnPt = OrientedPoint in egoManeuver.startLane.centerline
+
+# Setting up the ego vehicle at the initial position
+ego = Car at egoSpawnPt,
+    with rolename 'hero',
+    with regionContainedIn None,
+    with blueprint EGO_MODEL
+
+require 10 <= (distance to intersection) <= 40
+# Parameters for scenario elements
+param OPT_GEO_BLOCKER_Y_DISTANCE = Range(0, 40)
+param OPT_GEO_X_DISTANCE = Range(-2, 2)
+param OPT_GEO_Y_DISTANCE = Range(2, 6)
+
+# Setup for the blocking car that the ego must bypass
+laneSec = network.laneSectionAt(ego)
+IntSpawnPt = OrientedPoint following roadDirection from egoSpawnPt for globalParameters.OPT_GEO_BLOCKER_Y_DISTANCE
+Blocker = Car at IntSpawnPt,
+    with heading IntSpawnPt.heading,
+    with regionContainedIn None
+
+# Setup for the pedestrian who suddenly appears and complicates the maneuver
+SHIFT = globalParameters.OPT_GEO_X_DISTANCE @ globalParameters.OPT_GEO_Y_DISTANCE
+AdvAgent = Pedestrian at Blocker offset along IntSpawnPt.heading by SHIFT,
+    with heading IntSpawnPt.heading + 90 deg,  # Perpendicular to the road, crossing the street
+    with regionContainedIn None,
+    with behavior AdvBehavior()

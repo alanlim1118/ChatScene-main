@@ -1,0 +1,148 @@
+Scenario,AdvObject,Behavior Description,Behavior Snippet,Geometry Description,Geometry Snippet,Spawn Description,Spawn Snippet,Success
+the subject vehicle passes by a left turn or right turn in front of an oncoming vehicle that is stopped to make a left turn or right turn at an intersection,Car,"The adversarial car is stopped, waiting to make a left or right turn at the intersection.","behavior AdvBehavior():
+    while (distance to self) > 60:
+        wait  # Wait until the vehicle is close enough to influence the ego's path.
+    do FollowTrajectoryBehavior(globalParameters.OPT_ADV_SPEED, advTrajectory) until (distance from self to egoTrajectory) < globalParameters.OPT_ADV_DISTANCE
+    # Executes a left turn maneuver.
+    take SetSteerAction(globalParameters.OPT_STEER)  # Full left turn
+    while True:
+        take SetSpeedAction(0)  # Eventually stops after completing the turn
+
+param OPT_ADV_SPEED = Range(5, 15)  # Speed at which the vehicle approaches the intersection.
+param OPT_ADV_DISTANCE = Range(0, 5)  # The critical distance to start the turn.
+param OPT_STEER = Range(-1.0, 0.0)",An intersection where the ego vehicle is passing by.,"intersection = Uniform(*filter(lambda i: i.is4Way or i.is3Way, network.intersections))
+egoManeuver = Uniform(*filter(lambda m: m.type is ManeuverType.RIGHT_TURN, intersection.maneuvers))
+egoInitLane = egoManeuver.startLane
+egoTrajectory = [egoInitLane, egoManeuver.connectingLane, egoManeuver.endLane]
+egoSpawnPt = OrientedPoint in egoInitLane.centerline
+
+ego = Car at egoSpawnPt,
+    with regionContainedIn None,
+    with blueprint EGO_MODEL","The adversarial car is oncoming, positioned at the intersection, waiting to make a left or right turn.","# Parameters for scenario elements
+param OPT_GEO_BLOCKER_Y_DISTANCE = Range(0, 40)
+param OPT_GEO_X_DISTANCE = Range(-8, 0)  # Offset for the agent in the opposite lane
+param OPT_GEO_Y_DISTANCE = Range(10, 30)
+
+# Setting up the parked car that blocks the ego's path
+laneSec = network.laneSectionAt(ego)  # Assuming network.laneSectionAt(ego) is predefined in the geometry part
+IntSpawnPt = OrientedPoint following roadDirection from egoSpawnPt for globalParameters.OPT_GEO_BLOCKER_Y_DISTANCE
+Blocker = Car at IntSpawnPt,
+    with heading IntSpawnPt.heading,
+    with regionContainedIn None
+
+# Setup for the motorcyclist who unexpectedly enters the scene
+SHIFT = globalParameters.OPT_GEO_X_DISTANCE @ globalParameters.OPT_GEO_Y_DISTANCE
+AdvAgent = {AdvObject} at Blocker offset along IntSpawnPt.heading by SHIFT,
+    with heading IntSpawnPt.heading + 180 deg,  # The agent is facing the opposite direction, indicating oncoming
+    with regionContainedIn laneSec._laneToLeft,  # Positioned in the left lane, assuming it's the oncoming traffic lane
+    with behavior AdvBehavior()",1
+"the subject vehicle follows a forward vehicle. After that, the forward vehicle turns right or left at a corner, and the subject vehicle goes straight.",Car,The adversarial car turns right or left at a corner.,"behavior AdvBehavior():
+    while (distance to self) > 60:
+        wait  # The adversarial vehicle waits until it is close enough to affect the ego's maneuver.
+    do FollowTrajectoryBehavior(globalParameters.OPT_ADV_SPEED, advTrajectory) until (distance from self to egoTrajectory) < globalParameters.OPT_STEER_DISTANCE
+    # Initiates a sudden right turn as it gets close to the intersection.
+    while True:
+        take SetSpeedAction(self.speed)  # Maintains its current speed
+        take SetSteerAction(globalParameters.OPT_STEER)  # Executes a sharp turn
+
+param OPT_ADV_SPEED = Range(5, 15)  # The speed at which the adversarial vehicle approaches the intersection.
+param OPT_STEER_DISTANCE = Range(0, 4)  # The distance at which the adversarial vehicle starts its sudden maneuver.
+param OPT_STEER = Range(0.5, 1.0)  # The intensity of the steering action, specifying the sharpness of the turn.",A road with a corner where the ego vehicle continues straight while the adversarial car turns.,"# Collecting lane sections that have a left lane (opposite traffic direction) and no right lane (single forward road)
+laneSecsWithLeftLane = []
+for lane in network.lanes:
+    for laneSec in lane.sections:
+        if laneSec._laneToLeft is not None and laneSec._laneToRight is None:
+            if laneSec._laneToLeft.isForward != laneSec.isForward:
+                laneSecsWithLeftLane.append(laneSec)
+
+# Selecting a random lane section that matches the criteria
+egoLaneSec = Uniform(*laneSecsWithLeftLane)
+egoSpawnPt = OrientedPoint in egoLaneSec.centerline
+
+# Ego vehicle setup
+ego = Car at egoSpawnPt,
+    with regionContainedIn None,
+    with blueprint EGO_MODEL",The adversarial car is directly in front of the ego vehicle on the same road.,"param OPT_GEO_Y_DISTANCE = Range(10, 30)  # Frontal distance range
+
+FrontSpawnPtOpp = OrientedPoint following roadDirection from egoSpawnPt for globalParameters.OPT_GEO_Y_DISTANCE
+AdvAgent = {AdvObject} at FrontSpawnPtOpp,
+    with heading FrontSpawnPtOpp.heading + 180 deg,  # Opposite direction to the car
+    with regionContainedIn None,
+    with behavior AdvBehavior()",1
+"the subject vehicle drives a small radius curved road of which the guard pipes are constructed to the outer side, and a stationary vehicle (M1 category), a stationary pedestrian target or a stationary bicycle target is positioned just outside of the guard pipes and where on the extension of the centre of the lane","Car, Pedestrian, or Bicycle (stationary)",The adversarial object remains stationary just outside the guard pipes.,"behavior WalkStraightBehavior(direction, speed):
+    while True:
+        take SetWalkingDirectionAction(direction)
+        take SetWalkingSpeedAction(speed)
+
+behavior AdvBehavior():
+    while (distance to self) > 60:
+        wait
+    do WalkStraightBehavior(IntSpawnPt.heading + 180 deg, globalParameters.OPT_ADV_SPEED) until (distance to self) < globalParameters.OPT_ADV_DISTANCE
+    take SetWalkingSpeedAction(0)
+
+param OPT_ADV_DISTANCE = Range(0, 20)
+param OPT_ADV_SPEED = Range(0, 5)",A small radius curved road with guard pipes constructed on the outer side.,"# Identifying lane sections with both left and right lanes moving in the same forward direction
+laneSecsWithBothSides = []
+for lane in network.lanes:
+    for laneSec in lane.sections:
+        if (laneSec._laneToLeft is not None and laneSec._laneToLeft.isForward == laneSec.isForward) and 
+           (laneSec._laneToRight is not None and laneSec._laneToRight.isForward == laneSec.isForward):
+            laneSecsWithBothSides.append(laneSec)
+
+# Selecting a random lane section from identified sections for the ego vehicle
+egoLaneSec = Uniform(*laneSecsWithBothSides)
+egoSpawnPt = OrientedPoint in egoLaneSec.centerline
+
+# Ego vehicle setup
+ego = Car at egoSpawnPt,
+    with regionContainedIn None,
+    with blueprint EGO_MODEL","The adversarial object is positioned just outside the guard pipes, aligned with the extension of the center of the lane.","# Parameters for scenario elements
+param OPT_GEO_BLOCKER_Y_DISTANCE = Range(0, 40)
+param OPT_GEO_X_DISTANCE = Range(-8, 0)  # Offset for the agent in the opposite lane
+param OPT_GEO_Y_DISTANCE = Range(10, 30)
+
+# Setting up the parked car that blocks the ego's path
+laneSec = network.laneSectionAt(ego)  # Assuming network.laneSectionAt(ego) is predefined in the geometry part
+IntSpawnPt = OrientedPoint following roadDirection from egoSpawnPt for globalParameters.OPT_GEO_BLOCKER_Y_DISTANCE
+Blocker = Car at IntSpawnPt,
+    with heading IntSpawnPt.heading,
+    with regionContainedIn None
+
+# Setup for the motorcyclist who unexpectedly enters the scene
+SHIFT = globalParameters.OPT_GEO_X_DISTANCE @ globalParameters.OPT_GEO_Y_DISTANCE
+AdvAgent = {AdvObject} at Blocker offset along IntSpawnPt.heading by SHIFT,
+    with heading IntSpawnPt.heading + 180 deg,  # The agent is facing the opposite direction, indicating oncoming
+    with regionContainedIn laneSec._laneToLeft,  # Positioned in the left lane, assuming it's the oncoming traffic lane
+    with behavior AdvBehavior()",1
+the subject vehicle changes the lane in front of the signboard which is positioned in the centre of the lane and notifies the driver that the lane is reduced,None (There is no adversarial object in this scenario as described).,None (There is no adversarial behavior from an adversarial object in this scenario).,"behavior AdvBehavior():
+    while (distance to self) > 60:
+        wait  # Wait until the vehicle is close enough to influence the ego's path.
+    do FollowTrajectoryBehavior(globalParameters.OPT_ADV_SPEED, advTrajectory) until (distance from self to egoTrajectory) < globalParameters.OPT_ADV_DISTANCE
+    # Executes a left turn maneuver.
+    take SetSteerAction(globalParameters.OPT_STEER)  # Full left turn
+    while True:
+        take SetSpeedAction(0)  # Eventually stops after completing the turn
+
+param OPT_ADV_SPEED = Range(5, 15)  # Speed at which the vehicle approaches the intersection.
+param OPT_ADV_DISTANCE = Range(0, 5)  # The critical distance to start the turn.
+param OPT_STEER = Range(-1.0, 0.0)","The scenario occurs on a road where there is a signboard positioned in the center of the lane, indicating that the lane is reduced.","# Identifying lane sections with a right lane moving in the same forward direction
+laneSecsWithRightLane = []
+for lane in network.lanes:
+    for laneSec in lane.sections:
+        if laneSec._laneToRight is not None and laneSec._laneToRight.isForward == laneSec.isForward:
+            laneSecsWithRightLane.append(laneSec)
+
+# Selecting a random lane section from identified sections for the ego vehicle
+egoLaneSec = Uniform(*laneSecsWithRightLane)
+egoSpawnPt = OrientedPoint in egoLaneSec.centerline
+
+# Ego vehicle setup
+ego = Car at egoSpawnPt,
+    with regionContainedIn None,
+    with blueprint EGO_MODEL",None (There is no adversarial object to specify a spawn position for in this scenario).,"param OPT_GEO_Y_DISTANCE = Range(10, 30)  # Frontal distance range
+
+FrontSpawnPtOpp = OrientedPoint following roadDirection from egoSpawnPt for globalParameters.OPT_GEO_Y_DISTANCE
+AdvAgent = {AdvObject} at FrontSpawnPtOpp,
+    with heading FrontSpawnPtOpp.heading + 180 deg,  # Opposite direction to the car
+    with regionContainedIn None,
+    with behavior AdvBehavior()",1

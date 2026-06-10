@@ -1,0 +1,92 @@
+{
+    "OPT_scenario_025_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_ADV_DIST": {
+                "low": 15.0,
+                "high": 25.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 10.0,
+                "high": 15.0
+            },
+            "OPT_ADV_THRESHOLD": {
+                "low": 20.0,
+                "high": 30.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_ADV_DIST": {
+                "low": 16.87,
+                "high": 23.46
+            },
+            "OPT_ADV_SPEED": {
+                "low": 11.21,
+                "high": 14.34
+            },
+            "OPT_ADV_THRESHOLD": {
+                "low": 23.07,
+                "high": 29.01
+            }
+        },
+        "opt_time_2": {
+            "OPT_ADV_DIST": {
+                "low": 17.85,
+                "high": 23.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 11.55,
+                "high": 14.08
+            },
+            "OPT_ADV_THRESHOLD": {
+                "low": 24.23,
+                "high": 28.84
+            }
+        },
+        "opt_time_3": {
+            "OPT_ADV_DIST": {
+                "low": 17.88,
+                "high": 22.49
+            },
+            "OPT_ADV_SPEED": {
+                "low": 11.8,
+                "high": 14.01
+            },
+            "OPT_ADV_THRESHOLD": {
+                "low": 24.46,
+                "high": 28.56
+            }
+        },
+        "opt_time_4": {
+            "OPT_ADV_DIST": {
+                "low": 18.23,
+                "high": 22.44
+            },
+            "OPT_ADV_SPEED": {
+                "low": 11.87,
+                "high": 13.89
+            },
+            "OPT_ADV_THRESHOLD": {
+                "low": 24.69,
+                "high": 28.46
+            }
+        },
+        "opt_time_5": {
+            "OPT_ADV_DIST": {
+                "low": 18.28,
+                "high": 22.18
+            },
+            "OPT_ADV_SPEED": {
+                "low": 11.92,
+                "high": 13.83
+            },
+            "OPT_ADV_THRESHOLD": {
+                "low": 24.78,
+                "high": 28.34
+            }
+        },
+        "select_id": [
+            14,
+            33
+        ]
+    }
+}

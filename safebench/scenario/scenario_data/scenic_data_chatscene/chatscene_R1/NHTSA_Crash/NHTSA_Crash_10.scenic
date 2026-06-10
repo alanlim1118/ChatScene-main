@@ -1,0 +1,53 @@
+'''Vehicle A, in an attempt to pass vehicle B, cut around B, but too closely. Driver A misjudged the distance between cars and clipped the corner of B.'''
+Town = 'Town05'
+param map = localPath(f'../../maps/{Town}.xodr') 
+param carla_map = Town
+model scenic.simulators.carla.model
+EGO_MODEL = "vehicle.lincoln.mkz_2017"
+
+behavior AdvBehavior():
+    while (distance to self) > 60:
+        wait  # The adversarial car waits until it is within 60 meters of the ego vehicle.
+
+    do FollowLaneBehavior(globalParameters.OPT_ADV_SPEED) until (
+        distance to self < globalParameters.OPT_ADV_DISTANCE)
+
+    while True:
+        take SetSteerAction(globalParameters.OPT_ADV_STEER)  # Adjust steering dynamically.
+
+        # Wait for a dynamically determined duration before changing steering again.
+        for _ in range(globalParameters.OPT_WAIT_STEER):
+            wait
+
+param OPT_ADV_SPEED = Range(0, 20)  # Controls the initial speed of the adversarial car.
+param OPT_ADV_DISTANCE = Range(0, 20)  # Specifies the distance at which the car begins its maneuver.
+param OPT_ADV_STEER = Range(-1, 1)  # Range for steering actions.
+param OPT_WAIT_STEER = Range(5, 20)  # Variable wait time before changing steering.
+intersection = Uniform(*filter(lambda i: i.is4Way and not i.isSignalized, network.intersections))
+egoInitLane = Uniform(*intersection.incomingLanes)
+egoManeuver = Uniform(*filter(lambda m: m.type is ManeuverType.STRAIGHT, egoInitLane.maneuvers))
+egoTrajectory = [egoInitLane, egoManeuver.connectingLane, egoManeuver.endLane]
+egoSpawnPt = OrientedPoint in egoManeuver.startLane.centerline
+
+# Setting up the ego vehicle at the initial position
+ego = Car at egoSpawnPt,
+    with rolename 'hero',
+    with regionContainedIn None,
+    with blueprint EGO_MODEL
+
+require 10 <= (distance to intersection) <= 40
+param OPT_GEO_BLOCKER_X_DISTANCE = Range(-8, -2)  # Negative range for left side
+param OPT_GEO_BLOCKER_Y_DISTANCE = Range(15, 50)
+param OPT_GEO_X_DISTANCE = Range(-2, 2)
+param OPT_GEO_Y_DISTANCE = Range(2, 6)
+
+LeftFrontSpawnPt = OrientedPoint following roadDirection from egoSpawnPt for globalParameters.OPT_GEO_BLOCKER_Y_DISTANCE
+Blocker = Car left of LeftFrontSpawnPt by globalParameters.OPT_GEO_BLOCKER_X_DISTANCE,
+    with heading LeftFrontSpawnPt.heading,
+    with regionContainedIn None
+
+SHIFT = globalParameters.OPT_GEO_X_DISTANCE @ globalParameters.OPT_GEO_Y_DISTANCE
+AdvAgent = Car at Blocker offset along LeftFrontSpawnPt.heading by SHIFT,
+    with heading LeftFrontSpawnPt.heading - 90 deg,  # Adjusted for spawning from the left
+    with regionContainedIn None,
+    with behavior AdvBehavior()

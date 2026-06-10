@@ -1,0 +1,20 @@
+{
+    "OPT_scenario_001_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_NPC_SPEED": {
+                "low": 5.0,
+                "high": 10.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_NPC_SPEED": {
+                "low": 5.0,
+                "high": 10.0
+            }
+        },
+        "select_id": [
+            2,
+            4
+        ]
+    }
+}

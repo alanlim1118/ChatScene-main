@@ -1,0 +1,20 @@
+{
+    "OPT_scenario_004_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_ADV_SPEED": {
+                "low": 7.0,
+                "high": 10.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_ADV_SPEED": {
+                "low": 7.0,
+                "high": 10.0
+            }
+        },
+        "select_id": [
+            1,
+            6
+        ]
+    }
+}

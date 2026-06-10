@@ -1,0 +1,44 @@
+{
+    "OPT_scenario_008_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_DISTANCE": {
+                "low": 5.0,
+                "high": 10.0
+            },
+            "OPT_ADV_WAIT_TIME": {
+                "low": 1.0,
+                "high": 3.0
+            },
+            "OPT_ADV_DRIVE_TIME": {
+                "low": 1.5,
+                "high": 3.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 5.0,
+                "high": 8.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_DISTANCE": {
+                "low": 5.87,
+                "high": 9.04
+            },
+            "OPT_ADV_WAIT_TIME": {
+                "low": 1.68,
+                "high": 2.48
+            },
+            "OPT_ADV_DRIVE_TIME": {
+                "low": 2.08,
+                "high": 3.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 5.65,
+                "high": 7.11
+            }
+        },
+        "select_id": [
+            3,
+            4
+        ]
+    }
+}

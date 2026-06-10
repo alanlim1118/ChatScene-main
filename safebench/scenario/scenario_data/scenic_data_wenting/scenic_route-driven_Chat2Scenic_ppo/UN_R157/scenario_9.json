@@ -1,0 +1,44 @@
+{
+    "OPT_scenario_009_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_LEAD_DISTANCE": {
+                "low": 10.0,
+                "high": 15.0
+            },
+            "OPT_STATIONARY_DISTANCE": {
+                "low": 20.0,
+                "high": 30.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 10.0,
+                "high": 15.0
+            },
+            "OPT_REVEAL_DIST": {
+                "low": 10.0,
+                "high": 15.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_LEAD_DISTANCE": {
+                "low": 10.54,
+                "high": 13.57
+            },
+            "OPT_STATIONARY_DISTANCE": {
+                "low": 22.97,
+                "high": 29.05
+            },
+            "OPT_ADV_SPEED": {
+                "low": 10.64,
+                "high": 13.97
+            },
+            "OPT_REVEAL_DIST": {
+                "low": 11.2,
+                "high": 13.56
+            }
+        },
+        "select_id": [
+            1,
+            5
+        ]
+    }
+}

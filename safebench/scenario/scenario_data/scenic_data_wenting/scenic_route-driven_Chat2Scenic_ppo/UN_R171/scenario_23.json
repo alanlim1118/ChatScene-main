@@ -1,0 +1,28 @@
+{
+    "OPT_scenario_023_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_TRUCK_SPEED": {
+                "low": 8.0,
+                "high": 13.0
+            },
+            "OPT_TRIGGER_DIST": {
+                "low": 12.0,
+                "high": 18.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_TRUCK_SPEED": {
+                "low": 9.02,
+                "high": 12.1
+            },
+            "OPT_TRIGGER_DIST": {
+                "low": 12.3,
+                "high": 15.84
+            }
+        },
+        "select_id": [
+            2,
+            9
+        ]
+    }
+}

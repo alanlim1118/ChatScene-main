@@ -1,0 +1,68 @@
+{
+    "OPT_scenario_014_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_DISTANCE": {
+                "low": 20.0,
+                "high": 40.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 5.0,
+                "high": 15.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_DISTANCE": {
+                "low": 27.8,
+                "high": 36.13
+            },
+            "OPT_ADV_SPEED": {
+                "low": 6.35,
+                "high": 12.42
+            }
+        },
+        "opt_time_2": {
+            "OPT_DISTANCE": {
+                "low": 28.74,
+                "high": 35.43
+            },
+            "OPT_ADV_SPEED": {
+                "low": 7.01,
+                "high": 11.66
+            }
+        },
+        "opt_time_3": {
+            "OPT_DISTANCE": {
+                "low": 28.92,
+                "high": 35.32
+            },
+            "OPT_ADV_SPEED": {
+                "low": 6.95,
+                "high": 11.25
+            }
+        },
+        "opt_time_4": {
+            "OPT_DISTANCE": {
+                "low": 29.6,
+                "high": 35.42
+            },
+            "OPT_ADV_SPEED": {
+                "low": 7.34,
+                "high": 11.14
+            }
+        },
+        "opt_time_5": {
+            "OPT_DISTANCE": {
+                "low": 29.97,
+                "high": 35.11
+            },
+            "OPT_ADV_SPEED": {
+                "low": 7.47,
+                "high": 10.9
+            }
+        },
+        "select_id": [
+            0,
+            3
+        ]
+    }
+}

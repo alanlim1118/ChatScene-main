@@ -1,0 +1,92 @@
+{
+    "OPT_scenario_024_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_ADV_DISTANCE": {
+                "low": 15.0,
+                "high": 25.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 15.0,
+                "high": 20.0
+            },
+            "OPT_MERGE_TRIGGER_DIST": {
+                "low": 20.0,
+                "high": 25.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_ADV_DISTANCE": {
+                "low": 15.86,
+                "high": 18.63
+            },
+            "OPT_ADV_SPEED": {
+                "low": 15.71,
+                "high": 18.46
+            },
+            "OPT_MERGE_TRIGGER_DIST": {
+                "low": 21.75,
+                "high": 24.74
+            }
+        },
+        "opt_time_2": {
+            "OPT_ADV_DISTANCE": {
+                "low": 16.3,
+                "high": 18.42
+            },
+            "OPT_ADV_SPEED": {
+                "low": 16.03,
+                "high": 18.22
+            },
+            "OPT_MERGE_TRIGGER_DIST": {
+                "low": 22.36,
+                "high": 24.65
+            }
+        },
+        "opt_time_3": {
+            "OPT_ADV_DISTANCE": {
+                "low": 16.31,
+                "high": 18.2
+            },
+            "OPT_ADV_SPEED": {
+                "low": 16.25,
+                "high": 18.16
+            },
+            "OPT_MERGE_TRIGGER_DIST": {
+                "low": 22.48,
+                "high": 24.5
+            }
+        },
+        "opt_time_4": {
+            "OPT_ADV_DISTANCE": {
+                "low": 16.46,
+                "high": 18.18
+            },
+            "OPT_ADV_SPEED": {
+                "low": 16.32,
+                "high": 18.05
+            },
+            "OPT_MERGE_TRIGGER_DIST": {
+                "low": 22.6,
+                "high": 24.45
+            }
+        },
+        "opt_time_5": {
+            "OPT_ADV_DISTANCE": {
+                "low": 16.48,
+                "high": 18.07
+            },
+            "OPT_ADV_SPEED": {
+                "low": 16.36,
+                "high": 18.0
+            },
+            "OPT_MERGE_TRIGGER_DIST": {
+                "low": 22.64,
+                "high": 24.39
+            }
+        },
+        "select_id": [
+            0,
+            13
+        ]
+    }
+}

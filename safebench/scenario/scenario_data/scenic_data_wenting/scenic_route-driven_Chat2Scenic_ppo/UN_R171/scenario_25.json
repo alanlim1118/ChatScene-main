@@ -1,0 +1,28 @@
+{
+    "OPT_scenario_025_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_ADV_SPEED": {
+                "low": 10.0,
+                "high": 15.0
+            },
+            "OPT_ADV_THRESHOLD": {
+                "low": 20.0,
+                "high": 30.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_ADV_SPEED": {
+                "low": 10.5,
+                "high": 13.85
+            },
+            "OPT_ADV_THRESHOLD": {
+                "low": 21.76,
+                "high": 28.39
+            }
+        },
+        "select_id": [
+            1,
+            2
+        ]
+    }
+}

@@ -1,0 +1,36 @@
+{
+    "OPT_scenario_009_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_DISTANCE": {
+                "low": 15.0,
+                "high": 25.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 15.0,
+                "high": 18.0
+            },
+            "OPT_ADV_BRAKE_DELAY": {
+                "low": 1.0,
+                "high": 3.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_DISTANCE": {
+                "low": 15.93,
+                "high": 20.22
+            },
+            "OPT_ADV_SPEED": {
+                "low": 16.15,
+                "high": 17.44
+            },
+            "OPT_ADV_BRAKE_DELAY": {
+                "low": 1.45,
+                "high": 2.44
+            }
+        },
+        "select_id": [
+            2,
+            8
+        ]
+    }
+}

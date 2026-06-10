@@ -1,0 +1,44 @@
+{
+    "OPT_scenario_013_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_DIST_AHEAD": {
+                "low": 15.0,
+                "high": 25.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_DIST_AHEAD": {
+                "low": 19.42,
+                "high": 23.99
+            }
+        },
+        "opt_time_2": {
+            "OPT_DIST_AHEAD": {
+                "low": 20.12,
+                "high": 24.24
+            }
+        },
+        "opt_time_3": {
+            "OPT_DIST_AHEAD": {
+                "low": 20.61,
+                "high": 24.35
+            }
+        },
+        "opt_time_4": {
+            "OPT_DIST_AHEAD": {
+                "low": 21.05,
+                "high": 24.38
+            }
+        },
+        "opt_time_5": {
+            "OPT_DIST_AHEAD": {
+                "low": 21.29,
+                "high": 24.41
+            }
+        },
+        "select_id": [
+            39,
+            42
+        ]
+    }
+}

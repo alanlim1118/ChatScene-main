@@ -1,0 +1,36 @@
+{
+    "OPT_scenario_018_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_EGO_TO_LEAD_DIST": {
+                "low": 10.0,
+                "high": 15.0
+            },
+            "OPT_LEAD_TO_OBSTACLE_DIST": {
+                "low": 20.0,
+                "high": 30.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 10.0,
+                "high": 15.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_EGO_TO_LEAD_DIST": {
+                "low": 11.3,
+                "high": 14.75
+            },
+            "OPT_LEAD_TO_OBSTACLE_DIST": {
+                "low": 23.99,
+                "high": 29.21
+            },
+            "OPT_ADV_SPEED": {
+                "low": 11.28,
+                "high": 14.12
+            }
+        },
+        "select_id": [
+            2,
+            6
+        ]
+    }
+}

@@ -1,0 +1,44 @@
+{
+    "OPT_scenario_021_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_EGO_TO_LEAD_DIST": {
+                "low": 15.0,
+                "high": 20.0
+            },
+            "OPT_LEAD_TO_PROP_DIST": {
+                "low": 10.0,
+                "high": 15.0
+            },
+            "OPT_LEAD_SPEED": {
+                "low": 15.0,
+                "high": 20.0
+            },
+            "OPT_SWERVE_DIST": {
+                "low": 10.0,
+                "high": 15.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_EGO_TO_LEAD_DIST": {
+                "low": 15.32,
+                "high": 17.9
+            },
+            "OPT_LEAD_TO_PROP_DIST": {
+                "low": 10.98,
+                "high": 13.62
+            },
+            "OPT_LEAD_SPEED": {
+                "low": 15.29,
+                "high": 18.35
+            },
+            "OPT_SWERVE_DIST": {
+                "low": 10.46,
+                "high": 13.85
+            }
+        },
+        "select_id": [
+            8,
+            9
+        ]
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "OPT_scenario_030_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_DISTANCE": {
+                "low": 20.0,
+                "high": 30.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_DISTANCE": {
+                "low": 27.36,
+                "high": 27.9
+            }
+        },
+        "select_id": [
+            0,
+            4
+        ]
+    }
+}

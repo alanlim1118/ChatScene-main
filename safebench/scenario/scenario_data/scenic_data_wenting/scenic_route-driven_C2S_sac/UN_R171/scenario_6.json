@@ -1,0 +1,44 @@
+{
+    "OPT_scenario_006_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_ADV_SPEED": {
+                "low": 7.0,
+                "high": 10.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_ADV_SPEED": {
+                "low": 7.0,
+                "high": 10.0
+            }
+        },
+        "opt_time_2": {
+            "OPT_ADV_SPEED": {
+                "low": 7.0,
+                "high": 10.0
+            }
+        },
+        "opt_time_3": {
+            "OPT_ADV_SPEED": {
+                "low": 7.0,
+                "high": 10.0
+            }
+        },
+        "opt_time_4": {
+            "OPT_ADV_SPEED": {
+                "low": 7.0,
+                "high": 10.0
+            }
+        },
+        "opt_time_5": {
+            "OPT_ADV_SPEED": {
+                "low": 7.0,
+                "high": 10.0
+            }
+        },
+        "select_id": [
+            0,
+            1
+        ]
+    }
+}

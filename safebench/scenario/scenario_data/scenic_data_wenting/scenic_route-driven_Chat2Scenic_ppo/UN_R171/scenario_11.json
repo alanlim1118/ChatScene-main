@@ -1,0 +1,28 @@
+{
+    "OPT_scenario_011_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_ADV_DIST": {
+                "low": 15.0,
+                "high": 25.0
+            },
+            "OPT_OFFSET": {
+                "low": 0.8,
+                "high": 1.5
+            }
+        },
+        "opt_time_1": {
+            "OPT_ADV_DIST": {
+                "low": 16.9,
+                "high": 19.67
+            },
+            "OPT_OFFSET": {
+                "low": 0.94,
+                "high": 1.39
+            }
+        },
+        "select_id": [
+            1,
+            9
+        ]
+    }
+}

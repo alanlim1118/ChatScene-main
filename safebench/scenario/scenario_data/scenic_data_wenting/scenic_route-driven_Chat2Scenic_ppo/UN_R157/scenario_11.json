@@ -1,0 +1,44 @@
+{
+    "OPT_scenario_011_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_LEAD_DISTANCE": {
+                "low": 10.0,
+                "high": 15.0
+            },
+            "OPT_OBSTACLE_DISTANCE_FROM_LEAD": {
+                "low": 15.0,
+                "high": 25.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 10.0,
+                "high": 15.0
+            },
+            "OPT_SWERVE_DISTANCE": {
+                "low": 5.0,
+                "high": 10.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_LEAD_DISTANCE": {
+                "low": 10.78,
+                "high": 13.76
+            },
+            "OPT_OBSTACLE_DISTANCE_FROM_LEAD": {
+                "low": 18.03,
+                "high": 23.91
+            },
+            "OPT_ADV_SPEED": {
+                "low": 10.73,
+                "high": 13.78
+            },
+            "OPT_SWERVE_DISTANCE": {
+                "low": 6.44,
+                "high": 9.23
+            }
+        },
+        "select_id": [
+            5,
+            9
+        ]
+    }
+}

@@ -1,0 +1,36 @@
+{
+    "OPT_scenario_021_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_FOLLOW_DISTANCE": {
+                "low": 10.0,
+                "high": 20.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 7.0,
+                "high": 10.0
+            },
+            "OPT_ADV_DURATION": {
+                "low": 2.0,
+                "high": 5.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_FOLLOW_DISTANCE": {
+                "low": 10.1,
+                "high": 16.32
+            },
+            "OPT_ADV_SPEED": {
+                "low": 8.25,
+                "high": 9.63
+            },
+            "OPT_ADV_DURATION": {
+                "low": 2.38,
+                "high": 3.57
+            }
+        },
+        "select_id": [
+            7,
+            9
+        ]
+    }
+}

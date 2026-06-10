@@ -1,0 +1,33 @@
+{
+  "num_pickle_files": 12,
+  "source_files": [
+    "scenario_1/scenario_1_rl_scenic_seed_0/eval_results/OPT_scenario_001_ROUTE-0_results.pkl",
+    "scenario_10/scenario_10_rl_scenic_seed_0/eval_results/OPT_scenario_010_ROUTE-0_results.pkl",
+    "scenario_11/scenario_11_rl_scenic_seed_0/eval_results/OPT_scenario_011_ROUTE-0_results.pkl",
+    "scenario_12/scenario_12_rl_scenic_seed_0/eval_results/OPT_scenario_012_ROUTE-0_results.pkl",
+    "scenario_2/scenario_2_rl_scenic_seed_0/eval_results/OPT_scenario_002_ROUTE-0_results.pkl",
+    "scenario_3/scenario_3_rl_scenic_seed_0/eval_results/OPT_scenario_003_ROUTE-0_results.pkl",
+    "scenario_4/scenario_4_rl_scenic_seed_0/eval_results/OPT_scenario_004_ROUTE-0_results.pkl",
+    "scenario_5/scenario_5_rl_scenic_seed_0/eval_results/OPT_scenario_005_ROUTE-0_results.pkl",
+    "scenario_6/scenario_6_rl_scenic_seed_0/eval_results/OPT_scenario_006_ROUTE-0_results.pkl",
+    "scenario_7/scenario_7_rl_scenic_seed_0/eval_results/OPT_scenario_007_ROUTE-0_results.pkl",
+    "scenario_8/scenario_8_rl_scenic_seed_0/eval_results/OPT_scenario_008_ROUTE-0_results.pkl",
+    "scenario_9/scenario_9_rl_scenic_seed_0/eval_results/OPT_scenario_009_ROUTE-0_results.pkl"
+  ],
+  "average_metrics": {
+    "avg_acceleration": 0.314626,
+    "avg_lane_invasion_freq": 0.083333,
+    "avg_red_light_freq": 0.222222,
+    "avg_stop_sign_freq": 0.0,
+    "avg_time_spent": 0.121111,
+    "avg_yaw_velocity": 0.040069,
+    "collision_rate": 0.611111,
+    "comfort_os": 0.853991,
+    "final_score": 0.629202,
+    "out_of_road_length": 0.006772,
+    "route_completion": 0.498804,
+    "route_following_stability": 0.876503,
+    "safety_os": 0.589431,
+    "task_os": 0.751399
+  }
+}

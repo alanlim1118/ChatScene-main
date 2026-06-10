@@ -1,0 +1,116 @@
+{
+    "OPT_scenario_020_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_PROP_DIST": {
+                "low": 20.0,
+                "high": 30.0
+            },
+            "OPT_LEAD_ADDITIONAL_DIST": {
+                "low": 15.0,
+                "high": 25.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 20.0,
+                "high": 25.0
+            },
+            "OPT_CUT_OUT_DIST": {
+                "low": 15.0,
+                "high": 20.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_PROP_DIST": {
+                "low": 22.93,
+                "high": 27.29
+            },
+            "OPT_LEAD_ADDITIONAL_DIST": {
+                "low": 19.07,
+                "high": 24.51
+            },
+            "OPT_ADV_SPEED": {
+                "low": 20.72,
+                "high": 23.6
+            },
+            "OPT_CUT_OUT_DIST": {
+                "low": 16.43,
+                "high": 19.83
+            }
+        },
+        "opt_time_2": {
+            "OPT_PROP_DIST": {
+                "low": 23.72,
+                "high": 27.07
+            },
+            "OPT_LEAD_ADDITIONAL_DIST": {
+                "low": 19.6,
+                "high": 23.98
+            },
+            "OPT_ADV_SPEED": {
+                "low": 20.96,
+                "high": 23.26
+            },
+            "OPT_CUT_OUT_DIST": {
+                "low": 16.47,
+                "high": 19.43
+            }
+        },
+        "opt_time_3": {
+            "OPT_PROP_DIST": {
+                "low": 23.98,
+                "high": 26.91
+            },
+            "OPT_LEAD_ADDITIONAL_DIST": {
+                "low": 19.96,
+                "high": 23.8
+            },
+            "OPT_ADV_SPEED": {
+                "low": 21.11,
+                "high": 23.11
+            },
+            "OPT_CUT_OUT_DIST": {
+                "low": 16.58,
+                "high": 19.13
+            }
+        },
+        "opt_time_4": {
+            "OPT_PROP_DIST": {
+                "low": 24.15,
+                "high": 26.92
+            },
+            "OPT_LEAD_ADDITIONAL_DIST": {
+                "low": 20.1,
+                "high": 23.59
+            },
+            "OPT_ADV_SPEED": {
+                "low": 21.25,
+                "high": 23.04
+            },
+            "OPT_CUT_OUT_DIST": {
+                "low": 16.69,
+                "high": 19.02
+            }
+        },
+        "opt_time_5": {
+            "OPT_PROP_DIST": {
+                "low": 24.15,
+                "high": 26.77
+            },
+            "OPT_LEAD_ADDITIONAL_DIST": {
+                "low": 20.29,
+                "high": 23.53
+            },
+            "OPT_ADV_SPEED": {
+                "low": 21.29,
+                "high": 22.98
+            },
+            "OPT_CUT_OUT_DIST": {
+                "low": 16.79,
+                "high": 18.98
+            }
+        },
+        "select_id": [
+            13,
+            49
+        ]
+    }
+}

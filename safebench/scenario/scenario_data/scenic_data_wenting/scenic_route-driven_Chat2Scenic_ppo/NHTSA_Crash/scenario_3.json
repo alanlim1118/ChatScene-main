@@ -1,0 +1,20 @@
+{
+    "OPT_scenario_003_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_PEDESTRIAN_DISTANCE": {
+                "low": 20.0,
+                "high": 30.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_PEDESTRIAN_DISTANCE": {
+                "low": 20.0,
+                "high": 30.0
+            }
+        },
+        "select_id": [
+            0,
+            5
+        ]
+    }
+}

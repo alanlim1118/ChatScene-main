@@ -1,0 +1,44 @@
+{
+    "OPT_scenario_012_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_DISTANCE": {
+                "low": 50.0,
+                "high": 70.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_DISTANCE": {
+                "low": 51.37,
+                "high": 54.44
+            }
+        },
+        "opt_time_2": {
+            "OPT_DISTANCE": {
+                "low": 51.72,
+                "high": 54.24
+            }
+        },
+        "opt_time_3": {
+            "OPT_DISTANCE": {
+                "low": 52.06,
+                "high": 54.33
+            }
+        },
+        "opt_time_4": {
+            "OPT_DISTANCE": {
+                "low": 52.21,
+                "high": 54.21
+            }
+        },
+        "opt_time_5": {
+            "OPT_DISTANCE": {
+                "low": 52.3,
+                "high": 54.16
+            }
+        },
+        "select_id": [
+            6,
+            15
+        ]
+    }
+}

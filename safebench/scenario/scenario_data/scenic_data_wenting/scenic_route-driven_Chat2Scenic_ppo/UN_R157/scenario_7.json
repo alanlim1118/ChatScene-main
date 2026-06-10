@@ -1,0 +1,28 @@
+{
+    "OPT_scenario_007_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_DIST_EGO_TO_MOTO": {
+                "low": 30.0,
+                "high": 40.0
+            },
+            "OPT_DIST_MOTO_TO_CAR": {
+                "low": 5.0,
+                "high": 10.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_DIST_EGO_TO_MOTO": {
+                "low": 31.96,
+                "high": 34.88
+            },
+            "OPT_DIST_MOTO_TO_CAR": {
+                "low": 6.95,
+                "high": 9.42
+            }
+        },
+        "select_id": [
+            2,
+            7
+        ]
+    }
+}
