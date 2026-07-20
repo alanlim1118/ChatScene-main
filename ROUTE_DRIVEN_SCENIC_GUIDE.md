@@ -6,7 +6,7 @@ This guide summarizes how to:
 - Generate a route pickle for Scenic **2.x** files with `scripts/generate_scenic_route_pickle_v2.py` — see [Section 2-v2](#2-v2-scenic-2x-route-pickle-generation-generate_scenic_route_pickle_v2py)
 - Migrate Scenic `Range(...)` params to `OPT_*` naming with `scripts/migrate_opt_range_params.py`
 - Run SafeBench Scenic with `scripts/run_eval.py` (train_scenario → eval), or batch over a whole bench with `scripts/run_eval_batch.py`
-- Run SafeBench Scenic **2.x** with `scripts/run_eval_v2.py` + `eval_scenic_v2.yaml` — see [Section 4-v2](#4-v2-running-safebench--scenic-2x-run_eval_v2py)
+- Run SafeBench Scenic **2.x** with `scripts/run_eval_v2.py` + `eval_scenic_v2.yaml` — see [Section 4-v2](#4-v2-running-safebench--scenic-2x-run_eval_v2py), or batch over a whole bench with `scripts/run_eval_v2_batch.py` — see [Section 4-v2-batch](#4-v2-batch-batch-train_scenario--eval--scenic-2x-run_eval_v2_batchpy)
 - Run JSON-free Scenic eval with `scripts/run_eval_scenic.py` or batch over a whole bench with `scripts/run_eval_scenic_batch.py`
 - Average evaluation metrics across runs with `scripts/average_eval_results.py`
 - Organize directories / configs for **bench layout** Scenic files (e.g. `ChatScene/scenario_001.scenic`)
@@ -654,6 +654,130 @@ If the ego sits still until timeout (`route_completion: 0.0`, near-zero `avg_acc
 3. After migration/regeneration, CARLA spawn Y should equal `-trajectory[0].y` (Scenic → CARLA flip). A ~2×|y| meter error usually means double Y-flip.
 
 v1 pickles (Scenic coords, no `route_format`) continue to work with the default `"scenic"` conversion path — see [Section 2-v2.3](#2-v2.3-loader-behavior-scenicdataloader).
+
+---
+
+## 4-v2-batch) Batch train_scenario / eval — Scenic 2.x (`run_eval_v2_batch.py`)
+
+[scripts/run_eval_v2_batch.py](scripts/run_eval_v2_batch.py) is the batch wrapper around [run_eval_v2.py](scripts/run_eval_v2.py) (Section 4-v2). Use it to run `train_scenario` or `eval` over every `scenario_*.scenic` file in a bench directory instead of invoking `run_eval_v2.py` once per scenario ID.
+
+Unlike `run_eval_batch.py` (Section 4-batch), it does **not** read `scenic_dir`/`bench_id` from the scenario YAML — you pass the scenic directory directly, and `bench_id` is derived from that directory's basename.
+
+### 4-v2-batch.1 When to use it
+
+- Run `train_scenario` across an entire Scenic 2.x bench to produce OPT-selection JSON for every scenario.
+- Run `eval` across an entire bench after training.
+- Re-run a bench after partial completion (completed routes are skipped by `ScenicRunnerV2`).
+- Optionally average metrics across the bench in one step with `--average`.
+
+### 4-v2-batch.2 Basic usage
+
+```bash
+source env.scenic2.sh
+
+python scripts/run_eval_v2_batch.py <scenic_dir> [options...]
+```
+
+`<scenic_dir>` can be given as a positional argument or via `--scenic_dir`; it must contain `scenario_<N>.scenic` files directly (e.g. `.../UN_R171/scenario_001.scenic`). `bench_id` is derived automatically as `osp.basename(scenic_dir)`.
+
+**Preview commands without running CARLA:**
+
+```bash
+python scripts/run_eval_v2_batch.py \
+  safebench/scenario/scenario_data/scenic_data_wenting/UN_R171 \
+  --dry_run
+```
+
+**Step 1 — `train_scenario`** (OPT selection on the surrogate policy):
+
+```bash
+python scripts/run_eval_v2_batch.py \
+  safebench/scenario/scenario_data/scenic_data_wenting/UN_R171 \
+  --mode train_scenario \
+  --scenario_cfg eval_scenic_v2.yaml \
+  --test_policy sac \
+  --route_id 0 \
+  --port 2002 \
+  --tm_port 8002 \
+  --device cpu
+```
+
+**Step 2 — `eval`** (after `scenario_<id>.json` exists for each scenario; add `--save_video` if needed, then average):
+
+```bash
+python scripts/run_eval_v2_batch.py \
+  safebench/scenario/scenario_data/scenic_data_wenting/UN_R171 \
+  --mode eval \
+  --scenario_cfg eval_scenic_v2.yaml \
+  --test_policy sac \
+  --route_id 0 \
+  --port 2002 \
+  --tm_port 8002 \
+  --device cpu \
+  --average
+```
+
+**Evaluate a subset only** (`--scenario_range` and `--scenario_ids` are combinable; IDs not found on disk are warned about and skipped):
+
+```bash
+python scripts/run_eval_v2_batch.py \
+  safebench/scenario/scenario_data/scenic_data_wenting/UN_R171 \
+  --mode eval --test_policy sac --route_id 0 \
+  --scenario_range 1-9
+```
+
+### 4-v2-batch.3 Flags
+
+**Batch-specific** (consumed by `run_eval_v2_batch.py`):
+
+| Flag | Purpose |
+|------|---------|
+| `scenic_dir` / `--scenic_dir` | Directory containing `scenario_*.scenic` files (required; positional or flag) |
+| `--scenario_ids` | Optional explicit list of scenario IDs |
+| `--scenario_range` | Inclusive range, e.g. `1-9` |
+| `--continue_on_error` | Default `True`; keep going if one subprocess fails |
+| `--no-continue_on_error` | Stop the batch on the first failure |
+| `--dry_run` | Print discovered IDs and subprocess commands only |
+| `--average` | After all runs, call `average_eval_results.py` on the bench output dir |
+| `--average_output` | Override path for `average_eval_results.json` |
+
+**Everything else is forwarded verbatim to `run_eval_v2.py`** — e.g. `--agent_cfg`, `--scenario_cfg`, `--mode`/`-m`, `--route_id`, `--port`, `--tm_port`, `--device`, `--seed`, `--save_video`, `--test_policy`, `--test_epoch`, `--threads`, `--max_episode_step`, `--frame_skip`, `--fixed_delta_seconds`, `--auto_ego`.
+
+Defaults when a flag isn't passed: `--scenario_cfg eval_scenic_v2.yaml`, `--agent_cfg adv_scenic.yaml`, `--mode eval`, `--test_policy sac`. Only `train_scenario` and `eval` are valid for `--mode` (a warning is printed otherwise, matching `run_eval_v2.py`'s own restriction).
+
+### 4-v2-batch.4 How it works
+
+1. Discovers scenario IDs by scanning `scenic_dir` for files matching `scenario_(\d+)\.scenic` (e.g. `scenario_011.scenic` → `11`).
+2. Derives `bench_id = osp.basename(scenic_dir)`.
+3. If neither `--scenario_ids` nor `--scenario_range` is given, runs **all** discovered IDs in sorted order. Overrides are intersected with discovered IDs; missing IDs are warned and skipped.
+4. For each ID, runs:
+
+   ```bash
+   python scripts/run_eval_v2.py <forwarded args> --scenario_id <id> --bench_id <bench_id>
+   ```
+
+5. Prints a per-scenario success/failure summary at the end.
+6. With `--average`, computes the bench-level log directory the same way `run_eval_v2.py` does (`log/adv_train/<mode>/<test_policy>/<agent_cfg>_epoch<test_epoch>/<scenario_cfg>/<bench_id>`) and runs `average_eval_results.py` on it (see [Section 4c](#4c-average-evaluation-metrics-average_eval_resultspy)).
+
+### 4-v2-batch.5 Important notes
+
+- The `--scenario_cfg` YAML's own `scenic_dir` + `bench_id` should still resolve to the same directory you pass here — `run_eval_v2.py` uses the YAML for other scenario settings (e.g. `route_dir`, `sample_num`, `opt_step`), while the batch script only uses `scenic_dir`/`bench_id` for discovery and the `--bench_id` override.
+- `--average` only matches `OPT_scenario_*_ROUTE-0_results.pkl` — pass **`--route_id 0`** when averaging if your YAML lists multiple routes.
+- Use `ppo` (with a matching `pretrain_dir` checkpoint) instead of the default `sac` when running with `adv_scenic.yaml` under the PPO policy.
+- Subprocess isolation: a CARLA crash in one scenario does not kill the batch interpreter; the next scenario still runs (unless `--no-continue_on_error`).
+- Re-running the batch is safe for partial completion; already-finished routes are skipped inside `run_eval_v2.py`.
+
+### 4-v2-batch.6 Where outputs go
+
+Same tree as [Section 4-v2.3](#4-v22-scenario-yaml-example-eval_scenic_v2yaml), one `scenario_<id>/` folder per subprocess:
+
+```text
+log/adv_train/<mode>/<test_policy>/<agent_cfg>_epoch<N>/eval_scenic_v2/<bench_id>/
+  scenario_1/.../eval_results/OPT_scenario_001_ROUTE-0_results.pkl
+  scenario_2/.../eval_results/OPT_scenario_002_ROUTE-0_results.pkl
+  ...
+  average_eval_results.json          # if --average was passed
+```
 
 ---
 
