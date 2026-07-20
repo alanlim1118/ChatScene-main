@@ -95,7 +95,7 @@ class ScenicScenario():
             route = route[:index]
         else:
             route = interpolate_trajectory(self.world, self.config.trajectory)
-            
+
         CarlaDataProvider.set_ego_vehicle_route(convert_transform_to_location(route))
         CarlaDataProvider.set_scenario_config(self.config)
 

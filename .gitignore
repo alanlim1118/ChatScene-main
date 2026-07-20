@@ -5,3 +5,12 @@
 .ipynb_checkpoints/
 
 __pycache__/
+
+# Ignore video files
+*.mp4
+
+# Python virtual environments
+scenic_v2-venv/
+
+# Editor config
+.cursor/

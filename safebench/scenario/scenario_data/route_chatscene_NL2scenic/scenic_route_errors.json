@@ -1,0 +1,36 @@
+{
+  "errors": [
+    {
+      "error": "ModuleNotFoundError('Missing runtime dependency for Scenic route generation. This script requires the same env as running Safebench Scenic (notably `torch`, `scenic`, `carla`).')",
+      "scenic_file": "safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_overlap_nl2scenic/CARLA_Leaderboard/scenario_022.scenic"
+    },
+    {
+      "error": "ModuleNotFoundError('Missing runtime dependency for Scenic route generation. This script requires the same env as running Safebench Scenic (notably `torch`, `scenic`, `carla`).')",
+      "scenic_file": "safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_overlap_nl2scenic/NHTSA_Crash/scenario_002.scenic"
+    },
+    {
+      "error": "ModuleNotFoundError('Missing runtime dependency for Scenic route generation. This script requires the same env as running Safebench Scenic (notably `torch`, `scenic`, `carla`).')",
+      "scenic_file": "safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_overlap_nl2scenic/NHTSA_Crash/scenario_003.scenic"
+    },
+    {
+      "error": "ModuleNotFoundError('Missing runtime dependency for Scenic route generation. This script requires the same env as running Safebench Scenic (notably `torch`, `scenic`, `carla`).')",
+      "scenic_file": "safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_overlap_nl2scenic/NHTSA_Crash/scenario_006.scenic"
+    },
+    {
+      "error": "ModuleNotFoundError('Missing runtime dependency for Scenic route generation. This script requires the same env as running Safebench Scenic (notably `torch`, `scenic`, `carla`).')",
+      "scenic_file": "safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_overlap_nl2scenic/NHTSA_PreCrash/scenario_008.scenic"
+    },
+    {
+      "error": "ModuleNotFoundError('Missing runtime dependency for Scenic route generation. This script requires the same env as running Safebench Scenic (notably `torch`, `scenic`, `carla`).')",
+      "scenic_file": "safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_overlap_nl2scenic/UN_R157/scenario_003.scenic"
+    },
+    {
+      "error": "ModuleNotFoundError('Missing runtime dependency for Scenic route generation. This script requires the same env as running Safebench Scenic (notably `torch`, `scenic`, `carla`).')",
+      "scenic_file": "safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_overlap_nl2scenic/UN_R157/scenario_011.scenic"
+    },
+    {
+      "error": "ModuleNotFoundError('Missing runtime dependency for Scenic route generation. This script requires the same env as running Safebench Scenic (notably `torch`, `scenic`, `carla`).')",
+      "scenic_file": "safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_overlap_nl2scenic/UN_R171/scenario_023.scenic"
+    }
+  ]
+}

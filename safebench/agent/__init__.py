@@ -19,14 +19,14 @@ from safebench.agent.behavior import CarlaBehaviorAgent
 from safebench.agent.safe_rl.rl_agent import RLAgent
 
 # for perception scenario
-from safebench.agent.object_detection.yolov5 import YoloAgent
-from safebench.agent.object_detection.faster_rcnn import FasterRCNNAgent
+#from safebench.agent.object_detection.yolov5 import YoloAgent
+#from safebench.agent.object_detection.faster_rcnn import FasterRCNNAgent
 
 AGENT_POLICY_LIST = {
     'dummy': DummyAgent,
     'basic': CarlaBasicAgent,
     'behavior': CarlaBehaviorAgent,
-    'yolo': YoloAgent,
+    #'yolo': YoloAgent,
     'sac': SAC,
     'ddpg': DDPG,
     'ppo': PPO,
@@ -36,5 +36,5 @@ AGENT_POLICY_LIST = {
     'safe_ddpg': RLAgent,
     'td3': TD3,
     'rl': RLAgent,
-    'faster_rcnn': FasterRCNNAgent,
+    #'faster_rcnn': FasterRCNNAgent,
 }

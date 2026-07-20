@@ -1,0 +1,8 @@
+{
+  "errors": [
+    {
+      "error": "RuntimeError('Failed to create a runnable Scenic simulation after 10 attempts for safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_overlap_c2s/NHTSA_Crash/scenario_008.scenic. Last error: TypeError(\"\\'float\\' object cannot be interpreted as an integer\")')",
+      "scenic_file": "safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_overlap_c2s/NHTSA_Crash/scenario_008.scenic"
+    }
+  ]
+}

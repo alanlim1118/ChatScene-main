@@ -36,6 +36,7 @@ class ScenarioConfig(object):
     initial_transform = None
     initial_pose = None
     trajectory = None
+    route_format = None
     texture_dir = None
 
 

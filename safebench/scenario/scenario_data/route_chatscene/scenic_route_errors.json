@@ -1,20 +1,8 @@
 {
   "errors": [
     {
-      "error": "ValueError('Missing `param carla_map` in Scenic file: safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_R1/UN_R152/UN_R152_1.scenic')",
-      "scenic_file": "safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_R1/UN_R152/UN_R152_1.scenic"
-    },
-    {
-      "error": "ValueError('Missing `param carla_map` in Scenic file: safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_R1/UN_R152/UN_R152_2.scenic')",
-      "scenic_file": "safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_R1/UN_R152/UN_R152_2.scenic"
-    },
-    {
-      "error": "ValueError('Missing `param carla_map` in Scenic file: safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_R1/UN_R152/UN_R152_3.scenic')",
-      "scenic_file": "safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_R1/UN_R152/UN_R152_3.scenic"
-    },
-    {
-      "error": "ValueError('Missing `param carla_map` in Scenic file: safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_R1/UN_R152/UN_R152_4.scenic')",
-      "scenic_file": "safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_R1/UN_R152/UN_R152_4.scenic"
+      "error": "RuntimeError('Failed to create a runnable Scenic simulation after 5 attempts for safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_overlap_nl2scenic/NHTSA_PreCrash/scenario_008.scenic. Last error: NameError(\"name \\'advTrajectory\\' is not defined\")')",
+      "scenic_file": "safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_overlap_nl2scenic/NHTSA_PreCrash/scenario_008.scenic"
     }
   ]
 }

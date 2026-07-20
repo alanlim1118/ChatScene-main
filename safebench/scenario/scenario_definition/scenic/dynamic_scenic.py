@@ -46,7 +46,11 @@ class DynamicScenic(BasicScenario):
         """
         try:
             next(self.world.scenic.update_behavior)
-        except:
+        except StopIteration:
+            self.terminate = True
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
             self.terminate = True
         
     def check_scenic_terminate(self):

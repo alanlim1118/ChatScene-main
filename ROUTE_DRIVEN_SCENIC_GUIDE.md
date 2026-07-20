@@ -2,9 +2,11 @@
 
 This guide summarizes how to:
 
-- Generate a route pickle with `scripts/generate_scenic_route_pickle.py`
+- Generate a route pickle with `scripts/generate_scenic_route_pickle.py` (Scenic **3.x**)
+- Generate a route pickle for Scenic **2.x** files with `scripts/generate_scenic_route_pickle_v2.py` — see [Section 2-v2](#2-v2-scenic-2x-route-pickle-generation-generate_scenic_route_pickle_v2py)
 - Migrate Scenic `Range(...)` params to `OPT_*` naming with `scripts/migrate_opt_range_params.py`
 - Run SafeBench Scenic with `scripts/run_eval.py` (train_scenario → eval), or batch over a whole bench with `scripts/run_eval_batch.py`
+- Run SafeBench Scenic **2.x** with `scripts/run_eval_v2.py` + `eval_scenic_v2.yaml` — see [Section 4-v2](#4-v2-running-safebench--scenic-2x-run_eval_v2py)
 - Run JSON-free Scenic eval with `scripts/run_eval_scenic.py` or batch over a whole bench with `scripts/run_eval_scenic_batch.py`
 - Average evaluation metrics across runs with `scripts/average_eval_results.py`
 - Organize directories / configs for **bench layout** Scenic files (e.g. `ChatScene/scenario_001.scenic`)
@@ -58,6 +60,8 @@ Example:
 ---
 
 ## 2) Route pickle generation (`generate_scenic_route_pickle.py`)
+
+> **Scenic 2.x files:** use [Section 2-v2](#2-v2-scenic-2x-route-pickle-generation-generate_scenic_route_pickle_v2py) instead.
 
 ### 2.1 What it generates
 
@@ -144,6 +148,119 @@ Enable with:
 
 ---
 
+## 2-v2) Scenic 2.x route pickle generation (`generate_scenic_route_pickle_v2.py`)
+
+Use this variant when your `.scenic` files target **Scenic 2.x** (e.g. ChatScene `chatscene_overlap_nl2scenic_route-driven`, no Scenic 3 `new` syntax). It mirrors `generate_scenic_route_pickle.py` but runs inside `scenic2-venv` via [safebench/util/scenic_utils_v2.py](safebench/util/scenic_utils_v2.py).
+
+### 2-v2.1 When to use v1 vs v2
+
+| | **v1** (`generate_scenic_route_pickle.py`) | **v2** (`generate_scenic_route_pickle_v2.py`) |
+|---|---|---|
+| Scenic version | Scenic **3.x** ([scenic_utils.py](safebench/util/scenic_utils.py)) | Scenic **2.x** ([scenic_utils_v2.py](safebench/util/scenic_utils_v2.py)) |
+| Typical venv | default / Scenic 3 env | `scenic2-venv` (see [env.scenic2.sh](env.scenic2.sh)) |
+| Scenic files | Scenic 3 syntax (`new Car`, etc.) | Scenic 2 syntax (e.g. overlap nl2scenic route-driven set) |
+| Eval entry point | [run_eval.py](scripts/run_eval.py) + [eval_scenic.yaml](safebench/scenario/config/eval_scenic.yaml) | [run_eval_v2.py](scripts/run_eval_v2.py) + [eval_scenic_v2.yaml](safebench/scenario/config/eval_scenic_v2.yaml) |
+| Runner | [ScenicRunner](safebench/scenic_runner.py) | [ScenicRunnerV2](safebench/scenic_runner_v2.py) |
+
+CLI flags (`--scenic-file`, `--scenic-dir`, `--out-pickle`, `--bench-id`, `--no-resume`, video recording, etc.) are the same as v1.
+
+### 2-v2.2 Pickle contents: coordinate formats (important)
+
+Both v1 and v2 generators now write the **same pickle schema**. Ego motion is captured via `_carla_to_scenic_xyz()` → `(x, -y, z)` during recording, and all route geometry is stored in **Scenic coordinates**:
+
+- `spawnPt`: `{x, y, z}` in Scenic coords; `yaw` in **CARLA degrees**
+- `trajectory`: 3 coarse points (start / mid / end) in **Scenic coords**
+- `waypoints`: dense polyline in **Scenic coords**
+- `lanePts`: `[]` (empty)
+- No `route_format` field
+
+At eval time, [`ScenicDataLoader`](safebench/scenario/scenario_data_loader.py) converts Scenic → CARLA with `carla.Location(x, -y, z)` for both pipelines.
+
+**Legacy v2 pickles** (generated before this unification) may still contain:
+
+```json
+"route_format": {
+  "spawn_position": "scenic",
+  "spawn_yaw": "scenic_radians",
+  "trajectory": "carla",
+  "waypoints": "scenic"
+}
+```
+
+The loader still honors `route_format.trajectory == "carla"` for those entries. To upgrade without re-running CARLA:
+
+```bash
+python scripts/migrate_v2_route_pickle_to_scenic.py safebench/scenario/scenario_data/route_debug/scenic_route.pickle --dry-run
+python scripts/migrate_v2_route_pickle_to_scenic.py safebench/scenario/scenario_data/route_debug/scenic_route.pickle
+```
+
+### 2-v2.3 Loader behavior (`ScenicDataLoader`)
+
+At eval time, [safebench/scenario/scenario_data_loader.py](safebench/scenario/scenario_data_loader.py) converts pickle points to `carla.Location`:
+
+| `route_format.trajectory` | Conversion |
+|---|---|
+| absent or `"scenic"` | `carla.Location(x, -y, z)` — Scenic → CARLA (default for v1 and current v2) |
+| `"carla"` | `carla.Location(x, y, z)` — legacy v2 only; migrate or regenerate |
+
+**Backward compatibility:** pickles without `route_format` default to `"scenic"`. Legacy v2 pickles with `"trajectory": "carla"` continue to work until migrated.
+
+**Common bug:** Y-flipping a trajectory that is already in CARLA coords (or failing to flip Scenic coords) places the SAC route far from the ego spawn. Symptom: ego stationary, `route_completion: 0.0`, scenarios stop on timeout. Fix: ensure stored `trajectory` is in Scenic coords (regenerate with current v2 generator, or run `migrate_v2_route_pickle_to_scenic.py`).
+
+### 2-v2.4 Example commands
+
+Activate Scenic 2 env first:
+
+```bash
+source env.scenic2.sh   # or: source scenic_v2-venv/bin/activate + CARLA PYTHONPATH
+```
+
+Single file:
+
+```bash
+python scripts/generate_scenic_route_pickle_v2.py \
+  --scenic-file safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_overlap_nl2scenic_route-driven/NHTSA_PreCrash/scenario_022.scenic \
+  --out-pickle safebench/scenario/scenario_data/route_v2/scenic_route.pickle \
+  --bench-id NHTSA_PreCrash \
+  --max-scene-attempts 200 \
+  --warmup-ticks 20 \
+  --record-video
+```
+
+Batch (bench directory):
+
+```bash
+python scripts/generate_scenic_route_pickle_v2.py \
+  --scenic-dir safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_overlap_nl2scenic_route-driven/NHTSA_PreCrash \
+  --glob '*.scenic' \
+  --out-pickle safebench/scenario/scenario_data/route_debug/scenic_route.pickle \
+  --bench-id NHTSA_PreCrash \
+  --max-scene-attempts 200 \
+  --warmup-ticks 20
+```
+
+**Do not** assume legacy v2 pickles (with `route_format.trajectory == "carla"`) match the current unified schema — migrate or regenerate if eval shows a route/spawn mismatch.
+
+### 2-v2.5 Pipeline comparison
+
+```text
+Scenic 3 pipeline (Sections 2 + 4):
+  generate_scenic_route_pickle.py  →  trajectory in Scenic coords
+       ↓
+  run_eval.py + ScenicRunner + eval_scenic.yaml
+       ↓
+  ScenicDataLoader: Y-flip trajectory  →  CARLA route for SAC
+
+Scenic 2.x pipeline (Sections 2-v2 + 4-v2):
+  generate_scenic_route_pickle_v2.py  →  trajectory in Scenic coords (same schema as v1)
+       ↓
+  run_eval_v2.py + ScenicRunnerV2 + eval_scenic_v2.yaml
+       ↓
+  ScenicDataLoader: Y-flip trajectory  →  CARLA route for SAC
+```
+
+---
+
 ## 3) Making Scenic code route-driven (agent controls ego)
 
 ### 3.1 Ego is controlled by SafeBench agent
@@ -217,6 +334,8 @@ After migration, every `Range` param in actor placement and behavior should be r
 ---
 
 ## 4) Running SafeBench (`run_eval.py`)
+
+> **Scenic 2.x pipeline:** use [Section 4-v2](#4-v2-running-safebench--scenic-2x-run_eval_v2py) with `scenic2-venv` instead.
 
 ### 4.1 Scenario YAML (example: `eval_scenic_wenting.yaml`)
 
@@ -439,6 +558,102 @@ safebench/scenario/scenario_data/.../<bench_id>/scenario_<id>.json
 - Re-running the batch is safe for partial completion; already-finished routes are skipped inside `run_eval.py`.
 - Discovery follows the bench layout (`scenic_dir/<bench_id>/*.scenic`). Set `bench_id` in the scenario YAML before running.
 - This script wraps `run_eval.py` (JSON-based workflow). For JSON-free eval over a bench, use [Section 4b-batch](#4b-batch-batch-json-free-eval-run_eval_scenic_batchpy) instead.
+
+---
+
+## 4-v2) Running SafeBench — Scenic 2.x (`run_eval_v2.py`)
+
+[scripts/run_eval_v2.py](scripts/run_eval_v2.py) is the Scenic **2.x** counterpart of [scripts/run_eval.py](scripts/run_eval.py).
+
+### 4-v2.1 Differences from `run_eval.py`
+
+| | **`run_eval.py`** | **`run_eval_v2.py`** |
+|---|---|---|
+| Default scenario YAML | [eval_scenic.yaml](safebench/scenario/config/eval_scenic.yaml) | [eval_scenic_v2.yaml](safebench/scenario/config/eval_scenic_v2.yaml) |
+| Scenic runner | [ScenicRunner](safebench/scenic_runner.py) | [ScenicRunnerV2](safebench/scenic_runner_v2.py) |
+| Scenic utils | [scenic_utils.py](safebench/util/scenic_utils.py) (Scenic 3) | [scenic_utils_v2.py](safebench/util/scenic_utils_v2.py) (Scenic 2) |
+| Parse helper | [scenario_utils.scenic_parse](safebench/scenario/tools/scenario_utils.py) | [scenario_utils_v2.scenic_parse](safebench/scenario/tools/scenario_utils_v2.py) |
+| Modes | `train_agent`, `train_scenario`, `eval` | `train_scenario`, `eval` only |
+| Python env | Scenic 3 | `scenic2-venv` ([env.scenic2.sh](env.scenic2.sh)) |
+| Route pickle | v1 ([generate_scenic_route_pickle.py](scripts/generate_scenic_route_pickle.py)) | v2 ([generate_scenic_route_pickle_v2.py](scripts/generate_scenic_route_pickle_v2.py)) recommended |
+
+Both scripts set `num_scenario = 1` for scenic policy and pass `--route_id` as a one-element list.
+
+### 4-v2.2 Scenario YAML example (`eval_scenic_v2.yaml`)
+
+Same keys as `eval_scenic.yaml`; point `route_dir` at a pickle produced by v2 (or any unified-format pickle):
+
+```yaml
+policy_type: 'scenic'
+scenario_category: 'scenic'
+
+route_dir: 'safebench/scenario/scenario_data/route_debug'
+scenic_dir: 'safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_overlap_nl2scenic_route-driven'
+bench_id: 'NHTSA_PreCrash'
+
+sample_num: 50
+opt_step: 10
+select_num: 2
+
+method: 'scenic'
+route_id: [0]
+
+ego_action_dim: 2
+ego_state_dim: 4
+ego_action_limit: 1.0
+```
+
+See [Section 2-v2.2](#2-v2.2-pickle-contents-coordinate-formats-important) for the unified pickle schema shared by v1 and v2.
+
+### 4-v2.3 Example eval commands
+
+```bash
+source env.scenic2.sh
+
+# Step 1: train_scenario (OPT selection on surrogate SAC)
+python scripts/run_eval_v2.py \
+  --mode train_scenario \
+  --scenario_cfg eval_scenic_v2.yaml \
+  --scenario_id 22 \
+  --route_id 0 \
+  --device cuda \
+  --test_policy sac
+
+# Step 2: eval (after scenario_<id>.json exists under scenic_dir/bench_id/)
+python scripts/run_eval_v2.py \
+  --mode eval \
+  --scenario_cfg eval_scenic_v2.yaml \
+  --scenario_id 22 \
+  --route_id 0 \
+  --device cuda \
+  --test_policy sac \
+  --save_video
+```
+
+Log layout matches v1, with `eval_scenic_v2` in the path instead of `eval_scenic`:
+
+```text
+log/adv_train/<mode>/sac/adv_scenic_epochNone/eval_scenic_v2/<bench_id>/scenario_<id>/...
+```
+
+### 4-v2.4 End-to-end Scenic 2.x pipeline
+
+```text
+1. generate_scenic_route_pickle_v2.py  →  scenic_route.pickle (unified Scenic-coord schema)
+2. migrate_opt_range_params.py         →  OPT_* JSON (if needed)
+3. run_eval_v2.py --mode train_scenario →  scenario_<id>.json (OPT bounds + select_id)
+4. run_eval_v2.py --mode eval           →  eval_results/*.pkl, optional videos
+```
+
+### 4-v2.5 Troubleshooting: ego not moving
+
+If the ego sits still until timeout (`route_completion: 0.0`, near-zero `avg_acceleration`):
+
+1. Confirm eval uses **`run_eval_v2.py`** with the correct `route_dir` and `bench_id`.
+2. Sanity-check stored coords: `trajectory[0].y` should match `waypoints[0].y` (both Scenic). If `trajectory[0].y ≈ -waypoints[0].y`, the entry is a **legacy** v2 pickle — run `migrate_v2_route_pickle_to_scenic.py` or regenerate with `--no-resume`.
+3. After migration/regeneration, CARLA spawn Y should equal `-trajectory[0].y` (Scenic → CARLA flip). A ~2×|y| meter error usually means double Y-flip.
+
+v1 pickles (Scenic coords, no `route_format`) continue to work with the default `"scenic"` conversion path — see [Section 2-v2.3](#2-v2.3-loader-behavior-scenicdataloader).
 
 ---
 

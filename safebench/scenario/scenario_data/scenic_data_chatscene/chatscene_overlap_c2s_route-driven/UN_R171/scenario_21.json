@@ -1,0 +1,188 @@
+{
+    "OPT_scenario_021_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_ADV_SPEED": {
+                "low": 5.0,
+                "high": 10.0
+            },
+            "OPT_LANE_SWAP_FREQUENCY": {
+                "low": 20.0,
+                "high": 50.0
+            },
+            "OPT_STEER": {
+                "low": -1.0,
+                "high": 1.0
+            },
+            "OPT_WAIT_LEFT": {
+                "low": 5.0,
+                "high": 20.0
+            },
+            "OPT_GEO_BLOCKER_Y_DISTANCE": {
+                "low": 0.0,
+                "high": 40.0
+            },
+            "OPT_GEO_X_DISTANCE": {
+                "low": -8.0,
+                "high": 0.0
+            },
+            "OPT_GEO_Y_DISTANCE": {
+                "low": 10.0,
+                "high": 30.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_ADV_SPEED": {
+                "low": 7.2,
+                "high": 8.63
+            },
+            "OPT_LANE_SWAP_FREQUENCY": {
+                "low": 30.97,
+                "high": 42.16
+            },
+            "OPT_STEER": {
+                "low": -0.03,
+                "high": 0.67
+            },
+            "OPT_WAIT_LEFT": {
+                "low": 7.65,
+                "high": 16.17
+            },
+            "OPT_GEO_BLOCKER_Y_DISTANCE": {
+                "low": 7.5,
+                "high": 8.32
+            },
+            "OPT_GEO_X_DISTANCE": {
+                "low": -3.97,
+                "high": -3.12
+            },
+            "OPT_GEO_Y_DISTANCE": {
+                "low": 12.24,
+                "high": 20.8
+            }
+        },
+        "opt_time_2": {
+            "OPT_ADV_SPEED": {
+                "low": 7.29,
+                "high": 8.3
+            },
+            "OPT_LANE_SWAP_FREQUENCY": {
+                "low": 30.96,
+                "high": 39.36
+            },
+            "OPT_STEER": {
+                "low": 0.04,
+                "high": 0.52
+            },
+            "OPT_WAIT_LEFT": {
+                "low": 10.07,
+                "high": 15.9
+            },
+            "OPT_GEO_BLOCKER_Y_DISTANCE": {
+                "low": 7.63,
+                "high": 8.19
+            },
+            "OPT_GEO_X_DISTANCE": {
+                "low": -3.9,
+                "high": -3.29
+            },
+            "OPT_GEO_Y_DISTANCE": {
+                "low": 12.62,
+                "high": 19.04
+            }
+        },
+        "opt_time_3": {
+            "OPT_ADV_SPEED": {
+                "low": 7.31,
+                "high": 8.16
+            },
+            "OPT_LANE_SWAP_FREQUENCY": {
+                "low": 31.57,
+                "high": 38.77
+            },
+            "OPT_STEER": {
+                "low": 0.08,
+                "high": 0.49
+            },
+            "OPT_WAIT_LEFT": {
+                "low": 10.19,
+                "high": 15.15
+            },
+            "OPT_GEO_BLOCKER_Y_DISTANCE": {
+                "low": 7.71,
+                "high": 8.15
+            },
+            "OPT_GEO_X_DISTANCE": {
+                "low": -3.88,
+                "high": -3.37
+            },
+            "OPT_GEO_Y_DISTANCE": {
+                "low": 13.2,
+                "high": 18.71
+            }
+        },
+        "opt_time_4": {
+            "OPT_ADV_SPEED": {
+                "low": 7.3,
+                "high": 8.06
+            },
+            "OPT_LANE_SWAP_FREQUENCY": {
+                "low": 32.16,
+                "high": 38.38
+            },
+            "OPT_STEER": {
+                "low": 0.1,
+                "high": 0.46
+            },
+            "OPT_WAIT_LEFT": {
+                "low": 10.56,
+                "high": 14.98
+            },
+            "OPT_GEO_BLOCKER_Y_DISTANCE": {
+                "low": 7.74,
+                "high": 8.14
+            },
+            "OPT_GEO_X_DISTANCE": {
+                "low": -3.84,
+                "high": -3.38
+            },
+            "OPT_GEO_Y_DISTANCE": {
+                "low": 13.69,
+                "high": 18.61
+            }
+        },
+        "opt_time_5": {
+            "OPT_ADV_SPEED": {
+                "low": 7.32,
+                "high": 8.01
+            },
+            "OPT_LANE_SWAP_FREQUENCY": {
+                "low": 32.14,
+                "high": 37.85
+            },
+            "OPT_STEER": {
+                "low": 0.11,
+                "high": 0.45
+            },
+            "OPT_WAIT_LEFT": {
+                "low": 10.85,
+                "high": 14.94
+            },
+            "OPT_GEO_BLOCKER_Y_DISTANCE": {
+                "low": 7.76,
+                "high": 8.13
+            },
+            "OPT_GEO_X_DISTANCE": {
+                "low": -3.83,
+                "high": -3.42
+            },
+            "OPT_GEO_Y_DISTANCE": {
+                "low": 13.88,
+                "high": 18.42
+            }
+        },
+        "select_id": [
+            3,
+            34
+        ]
+    }
+}

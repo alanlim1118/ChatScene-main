@@ -1,8 +1,8 @@
 policy_type: 'scenic'
 scenario_category: 'scenic'
 
-route_dir: 'safebench/scenario/scenario_data/route_chatscene'
-scenic_dir: 'safebench/scenario/scenario_data/scenic_data_chatscene/scenic_route-driven'
+route_dir: 'safebench/scenario/scenario_data/route_c2s'
+scenic_dir: 'safebench/scenario/scenario_data/scenic_data_wenting/scenic_route-driven_C2S_sac'
 bench_id: 'UN_R157'
 scenic_mode2d: true
 sample_num: 50

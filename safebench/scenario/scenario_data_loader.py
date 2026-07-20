@@ -169,31 +169,44 @@ class ScenicDataLoader:
         new_config = deepcopy(self.config)
         new_config.scene = self.scene[idx]
         new_config.data_id = idx
+        route_format = getattr(new_config, 'route_format', None) or {}
+        traj_format = route_format.get('trajectory', 'scenic')
+        waypoint_format = route_format.get('waypoints', 'scenic')
         if len(new_config.trajectory) != 0:
-            new_config.trajectory = self.scenicToCarlaLocation(new_config.trajectory)
+            new_config.trajectory = self.toCarlaLocations(new_config.trajectory, traj_format)
         elif 'egoTrajectoryPts' in new_config.scene.params:
-            new_config.trajectory = self.scenicToCarlaLocation(new_config.scene.params['egoTrajectoryPts'])
+            new_config.trajectory = self.toCarlaLocations(new_config.scene.params['egoTrajectoryPts'], 'scenic')
         elif 'waypoints' in new_config.scene.params:
-            new_config.trajectory = self.scenicToCarlaLocation(new_config.scene.params['waypoints'])
+            new_config.trajectory = self.toCarlaLocations(new_config.scene.params['waypoints'], waypoint_format)
         else:
             ego_traj = new_config.scene.params.get('egoTrajectory')
             if ego_traj is not None and hasattr(ego_traj, 'points'):
-                new_config.trajectory = self.scenicToCarlaLocation(ego_traj.points)
+                new_config.trajectory = self.toCarlaLocations(ego_traj.points, 'scenic')
             else:
                 new_config.trajectory = []
         selected_scenario.append(new_config)
         assert len(selected_scenario) <= self.num_scenario, f"number of scenarios is larger than {self.num_scenario}"
         return selected_scenario, len(selected_scenario)
 
-    def scenicToCarlaLocation(self, points):
+    def toCarlaLocations(self, points, coord_format='scenic'):
+        """Convert route points to CARLA locations using the pickle route_format."""
         waypoints = []
         for point in points:
+            if isinstance(point, carla.Location):
+                waypoints.append(point)
+                continue
             if len(point) == 3:
-                location = carla.Location(point[0], -point[1], point[2])
+                x, y, z = float(point[0]), float(point[1]), float(point[2])
             else:
-                location = carla.Location(point[0], -point[1], 0)
-            waypoints.append(location)
+                x, y, z = float(point[0]), float(point[1]), 0.0
+            if coord_format == 'carla':
+                waypoints.append(carla.Location(x, y, z))
+            else:
+                waypoints.append(carla.Location(x, -y, z))
         return waypoints
+
+    def scenicToCarlaLocation(self, points):
+        return self.toCarlaLocations(points, 'scenic')
     
     def __len__(self):
         return len(self.scenario_idx)
