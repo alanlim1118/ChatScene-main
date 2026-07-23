@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle crosses a lane of moving traffic to exit the highway at an off-ramp.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels along the highway and maneuvers across a lane of moving traffic to reach the off-ramp exit."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward along the highway lane adjacent to the ego vehicle."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is positioned on a multi-lane highway with an off-ramp to the right, while an adversarial car occupies the adjacent lane of moving traffic between the ego and the off-ramp exit.",
+  "requirements_and_restrictions": "The ego vehicle must cross a lane of moving traffic to reach the off-ramp, with initial distances to the off-ramp and surrounding traffic strictly defined; the scenario terminates once the ego vehicle successfully exits onto the off-ramp.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the camera-host vehicle on the highway; one adversarial car is in the adjacent lane. 2. Enumeration: one adversarial car. 3. Chronology: initial ego approaches off-ramp with traffic beside; midpoint ego signals and begins lane change across moving traffic; ending ego reaches off-ramp. 4. Evidence: adversarial car maintains constant forward velocity in adjacent lane while ego's lateral position shifts right toward ramp."
+}

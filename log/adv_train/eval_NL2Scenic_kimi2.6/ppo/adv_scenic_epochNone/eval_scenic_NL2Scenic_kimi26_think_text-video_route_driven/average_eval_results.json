@@ -1,0 +1,27 @@
+{
+  "num_pickle_files": 6,
+  "source_files": [
+    "text-video/scenario_18/scenario_18_rl_scenic_seed_0/eval_results/OPT_MD_Intersection_Deadlock_Resolution6_ROUTE-0_results.pkl",
+    "text-video/scenario_28/scenario_28_rl_scenic_seed_0/eval_results/OPT_MD_Unprotected_Left_Turn9_ROUTE-0_results.pkl",
+    "text-video/scenario_37/scenario_37_rl_scenic_seed_0/eval_results/OPT_lc_disc_ROUTE-0_results.pkl",
+    "text-video/scenario_39/scenario_39_rl_scenic_seed_0/eval_results/OPT_moving_deceleration_navigationnotpossible_ROUTE-0_results.pkl",
+    "text-video/scenario_6/scenario_6_rl_scenic_seed_0/eval_results/OPT_CPFA_50_50kph_ROUTE-0_results.pkl",
+    "text-video/scenario_8/scenario_8_rl_scenic_seed_0/eval_results/OPT_CPTA_ROUTE-0_results.pkl"
+  ],
+  "average_metrics": {
+    "avg_acceleration": 0.24987,
+    "avg_lane_invasion_freq": 0.108333,
+    "avg_red_light_freq": 0.25,
+    "avg_stop_sign_freq": 0.166667,
+    "avg_time_spent": 0.111111,
+    "avg_yaw_velocity": 0.300936,
+    "collision_rate": 0.166667,
+    "comfort_os": 0.780287,
+    "final_score": 0.83906,
+    "out_of_road_length": 0.045121,
+    "route_completion": 0.848877,
+    "route_following_stability": 0.865145,
+    "safety_os": 0.83811,
+    "task_os": 0.867637
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle travels straight while an adversarial car changes lanes from the left to the right of the ego vehicle.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward within its lane."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car steers from the left lane into the right lane, moving away from the ego vehicle's position."
+    }
+  ],
+  "spatial_relation": "On a multi-lane straight road, the ego vehicle occupies the right lane while the adversarial car starts in the left lane beside the ego and moves into the right lane ahead of or behind the ego.",
+  "requirements_and_restrictions": "",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The blue car is ego from first-person context; the pink car is the adversarial. 2. Enumeration: one adversarial car. 3. Chronology: initially both vehicles side by side in adjacent lanes; midpoint adversarial steers rightward across lanes; ending adversarial settles in right lane. 4. Evidence: the curved arrow shows lateral movement from left to right lane while ego's straight arrow confirms constant forward trajectory."
+}

@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle changes lanes from the right lane to the left lane while an adversarial vehicle travels straight ahead in the left lane.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car changes lanes from the right lane to the left lane, merging into traffic ahead."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward in the left lane, maintaining its lane position."
+    }
+  ],
+  "spatial_relation": "On a multi-lane straight road, the ego vehicle starts in the right lane behind and to the right of the adversarial vehicle in the left lane, then merges leftward into the same lane as the adversarial vehicle.",
+  "requirements_and_restrictions": "The ego vehicle must spawn in the right lane at a defined distance behind the adversarial vehicle in the left lane; the scenario terminates once the ego vehicle completes its lane change and stabilizes in the left lane.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the purple car with curved arrow indicating lane change; the blue car is adversarial. 2. Enumeration: one adversarial car. 3. Chronology: initial ego in right lane, adversarial in left lane ahead; midpoint ego initiates leftward lane change; ending ego completes merge into left lane. 4. Evidence: curved arrow shows ego's lateral movement toward left lane; straight arrow shows adversarial's constant forward path."
+}

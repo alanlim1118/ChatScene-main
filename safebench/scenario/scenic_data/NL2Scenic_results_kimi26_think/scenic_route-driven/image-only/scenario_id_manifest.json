@@ -1,0 +1,17 @@
+{
+  "bench_id": "image-only",
+  "id_to_file": {
+    "10": "LowSpeedMerge.scenic",
+    "14": "diverging_lead_leaving_TA_after_node_l.scenic",
+    "15": "exit_turning_reversing_right.scenic",
+    "18": "lc_r_2.scenic",
+    "25": "r11_town05_ins_sl.scenic",
+    "26": "r16_town05_ins_sl.scenic",
+    "28": "r21_town07_ins_sr.scenic",
+    "30": "r31_town05_ins_oppo.scenic",
+    "38": "right_turn_with_oncoming_obj_turning_right.scenic",
+    "41": "u-turn_with_obj_from_left_crossing_after_node.scenic",
+    "8": "DetectAndRespondToSchoolBus.scenic"
+  },
+  "version": 1
+}

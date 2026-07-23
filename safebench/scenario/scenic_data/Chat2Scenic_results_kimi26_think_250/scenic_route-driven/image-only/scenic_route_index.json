@@ -1,0 +1,134 @@
+{
+  "image-only:10:0": {
+    "pickle_key": "scenario_id_10_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/LowSpeedMerge.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:11:0": {
+    "pickle_key": "scenario_id_11_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/Vehicle Taking Evasive Action Without Prior Vehicle Maneuver.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:12:0": {
+    "pickle_key": "scenario_id_12_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/VehicleMakingAManeuver_VehicleTravelingInOppositeDirection.scenic",
+    "town": "Town07",
+    "weather": "ClearNoon"
+  },
+  "image-only:14:0": {
+    "pickle_key": "scenario_id_14_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/approach_lat_entering_traffic_area_from_right_forward.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:15:0": {
+    "pickle_key": "scenario_id_15_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/approach_oncoming.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:17:0": {
+    "pickle_key": "scenario_id_17_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/diverging_lead_leaving_TA_after_node_l.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:18:0": {
+    "pickle_key": "scenario_id_18_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/exit_turning_reversing_right.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:1:0": {
+    "pickle_key": "scenario_id_1_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/AnimalCrashWithoutPriorVehicleManeuver.scenic",
+    "town": "Town07",
+    "weather": "ClearSunset"
+  },
+  "image-only:21:0": {
+    "pickle_key": "scenario_id_21_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/lc_r_2.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:22:0": {
+    "pickle_key": "scenario_id_22_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/left_turn_approaching_lead.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:23:0": {
+    "pickle_key": "scenario_id_23_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/left_turn_with_obj_from_left_entering_before_node.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:28:0": {
+    "pickle_key": "scenario_id_28_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/pass_straight_with_oncoming_obj_turning_left.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:29:0": {
+    "pickle_key": "scenario_id_29_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/r11_town05_ins_sl.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:2:0": {
+    "pickle_key": "scenario_id_2_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/C-ICAP_Construction area ahead.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:30:0": {
+    "pickle_key": "scenario_id_30_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/r16_town05_ins_sl.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:31:0": {
+    "pickle_key": "scenario_id_31_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/r1_town05_ins_c.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:32:0": {
+    "pickle_key": "scenario_id_32_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/r21_town07_ins_sr.scenic",
+    "town": "Town07",
+    "weather": "ClearNoon"
+  },
+  "image-only:34:0": {
+    "pickle_key": "scenario_id_34_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/r31_town05_ins_oppo.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:38:0": {
+    "pickle_key": "scenario_id_38_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/r46_town06_hw_c.scenic",
+    "town": "Town04",
+    "weather": "ClearNoon"
+  },
+  "image-only:3:0": {
+    "pickle_key": "scenario_id_3_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/C-ICAP_Daytime - motorcycle cutting-in.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:40:0": {
+    "pickle_key": "scenario_id_40_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/right_turn_standstill.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:4:0": {
+    "pickle_key": "scenario_id_4_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Chat2Scenic_results_kimi26_think_250/scenic/image-only/C-ICAP_Daytime - turning right and encountering an illegally parked vehicle.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  }
+}

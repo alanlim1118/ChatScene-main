@@ -1,0 +1,22 @@
+{
+  "scenario": "The ego vehicle travels straight through an urban T-junction at night while a following vehicle stays behind and another vehicle turns left from the right arm onto the main road.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward through the T-junction along the main road."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car follows directly behind the ego vehicle in the same lane through the T-junction."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car emerges from the right arm of the T-junction and executes a left turn onto the main road."
+    }
+  ],
+  "spatial_relation": "On an urban T-junction under dark conditions, the ego vehicle is on the main road approaching and proceeding through the junction, a following adversarial car is positioned directly behind the ego in the same lane, and a second adversarial car is located on the right arm preparing to and then executing a left turn onto the main road.",
+  "requirements_and_restrictions": "Initial distances to the T-junction are defined for the ego and the following vehicle, and the scenario terminates once the ego vehicle has traveled through the junction and passed the merging area.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the forward vehicle on the main road; two adversarial cars are identified—one following behind and one on the right arm. 2. Chronology: Initially, ego approaches junction with follower behind and right-arm car waiting; midpoint, right-arm car begins left turn as ego enters junction; ending, ego proceeds straight while both adversarials complete their maneuvers. 3. Evidence: Headlight patterns show ego maintains straight trajectory, following car's lights stay aligned behind ego, and right-arm car's headlights arc from right to left across the junction."
+}

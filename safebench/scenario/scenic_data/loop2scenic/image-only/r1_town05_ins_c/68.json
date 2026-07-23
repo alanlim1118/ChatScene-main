@@ -1,0 +1,23 @@
+{
+  "scenario": "The ego vehicle approaches a T-intersection where an adversarial vehicle is stopped at the stop line.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along its lane toward the T-intersection."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car remains stationary at the stop line at the T-intersection."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a straight road approaching a T-intersection from the south, while the adversarial vehicle is stopped at the stop line on the cross street facing the intersection from the east.",
+  "requirements_and_restrictions": "The ego vehicle must maintain a safe approach to the T-intersection and yield appropriately to the stationary adversarial vehicle; the scenario terminates once the ego vehicle reaches or navigates the intersection.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Positioned near the T-intersection on the right side of the ego vehicle's approach."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the centered car from top-down view; the other car at the stop line is the adversarial. 2. Enumeration: one adversarial Car. 3. Chronology: initially ego approaches from south, adversarial stationary at stop line; midpoint ego nears intersection; ending ego reaches intersection area. 4. Evidence: adversarial car's position is fixed at the stop line markings; ego's position shifts northward along the road."
+}

@@ -1,0 +1,13 @@
+{
+  "scenario": "The ego vehicle performs multiple lane changes from the right lane to the left lane on a multi-lane road.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car moves continuously from the right lane across multiple lanes to the left lane."
+  },
+  "adversarials": [],
+  "spatial_relation": "The ego vehicle is positioned on a straight multi-lane road with at least three lanes, starting in the rightmost lane and traversing leftward across lane markings toward the leftmost lane.",
+  "requirements_and_restrictions": "The scenario requires the ego vehicle to complete multiple lane changes from right to left; termination occurs once the ego vehicle reaches and stabilizes in the left lane.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The blue car is the ego from the labeled perspective; no other dynamic entities exist. 2. Enumeration: zero adversarials. 3. Chronology: initial ego starts in right lane; midpoint ego crosses lane markings diagonally; ending ego settles in left lane. 4. Evidence: The blue arrow trajectory curves left across dashed white lane markings with no other vehicles present."
+}

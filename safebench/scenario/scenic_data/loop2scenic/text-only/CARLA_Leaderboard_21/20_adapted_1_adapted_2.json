@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle encounters an obstacle in the road and must perform an emergency brake or avoidance maneuver.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels forward and performs an emergency brake or avoidance maneuver upon encountering an obstacle in the road."
+  },
+  "adversarials": [
+    {
+      "object": "Pedestrian",
+      "behavior": "The pedestrian is positioned in the road ahead of the ego vehicle, acting as an obstacle that triggers the ego's emergency response."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a straight road approaching a pedestrian positioned directly in its path ahead.",
+  "requirements_and_restrictions": "The ego vehicle must detect the obstacle in its path and perform an emergency brake or avoidance maneuver; the scenario terminates after the ego completes its reaction to the obstacle.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the car from first-person perspective; the pedestrian is the adversarial obstacle. 2. Enumeration: one Pedestrian adversarial. 3. Chronology: initial ego approaches obstacle; midpoint ego detects obstacle and initiates brake/avoidance; ending ego completes maneuver. 4. Evidence: pedestrian remains stationary in lane while ego's speed decreases or trajectory changes."
+}

@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego car travels straight forward within its lane while an oncoming adversarial car exits the ego's traffic area by veering into the adjacent lane.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward within its lane."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car approaches from the oncoming direction and veers into the adjacent lane to exit the ego's traffic area."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a straight road in its own lane, while an oncoming adversarial car is initially positioned in the opposing lane ahead before moving into an adjacent lane.",
+  "requirements_and_restrictions": "",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the car from first-person perspective; one adversarial car approaches from opposite direction. 2. Enumeration: one adversarial car. 3. Chronology: initial adversarial car approaches in oncoming lane; midpoint it veers right into adjacent lane; ending it exits ego's traffic area. 4. Evidence: adversarial's lateral position shifts from center of oncoming lane toward the right edge, clearing the ego's path."
+}

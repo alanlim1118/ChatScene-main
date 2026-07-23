@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle turns left across the path of an oncoming adversarial vehicle at an intersection, resulting in a frontal collision.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels forward along its lane and initiates a left turn at the intersection, crossing into the path of oncoming traffic."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward at constant speed through the intersection on the opposing roadway."
+    }
+  ],
+  "spatial_relation": "The ego vehicle and the adversarial vehicle are on perpendicular intersecting roads at a four-way intersection, with the ego positioned to turn left and the adversarial approaching from the opposite direction on the cross street.",
+  "requirements_and_restrictions": "The scenario involves a collision event where the ego vehicle turns across the path of the oncoming adversarial vehicle; the scenario terminates upon collision between the frontal structures of both vehicles.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the white vehicle from third-person view; the red vehicle is the adversarial. 2. Enumeration: one adversarial Car. 3. Chronology: initially both vehicles approach the intersection from perpendicular roads; midpoint ego begins left turn while adversarial continues straight; ending collision occurs at intersection center. 4. Evidence: ego's trajectory curves left across lanes while adversarial maintains straight path; final frames show frontal contact between both vehicles at intersection."
+}

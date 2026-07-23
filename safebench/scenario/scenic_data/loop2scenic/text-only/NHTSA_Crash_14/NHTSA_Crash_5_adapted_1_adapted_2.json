@@ -1,0 +1,18 @@
+{
+  "scenario": "Vehicle A travels straight on a multi-lane road when Vehicle B turns left from the curb lane across A's path, resulting in a collision.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along its lane and collides with the turning vehicle."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car turns left from the curb lane across the ego vehicle's path onto a side street."
+    }
+  ],
+  "spatial_relation": "On a multi-lane road, the ego vehicle travels in one lane while the adversarial vehicle is positioned in the adjacent curb lane to the right, both heading in the same direction.",
+  "requirements_and_restrictions": "Initial positions are defined with both vehicles traveling in the same direction on separate lanes; the scenario terminates upon collision between the ego and the adversarial vehicle.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Vehicle A is ego from first-person perspective; Vehicle B is adversarial. 2. Enumeration: one adversarial car. 3. Chronology: initially both vehicles travel same direction in adjacent lanes; midpoint adversarial initiates left turn across ego path; ending collision occurs on driver's side of adversarial. 4. Evidence: adversarial's trajectory deviates left across lane markings while ego maintains straight path; impact visible on adversarial's driver's side."
+}

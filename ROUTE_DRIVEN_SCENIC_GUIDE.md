@@ -372,8 +372,8 @@ python scripts/run_eval.py \
   --scenario_cfg eval_scenic_wenting.yaml \
   --scenario_id 1 \
   --route_id 0 \
-  --port 2002 \
-  --tm_port 8002 \
+  --port 2005 \
+  --tm_port 8005 \
   --device cpu
 ```
 
@@ -391,8 +391,8 @@ python scripts/run_eval.py \
   --scenario_cfg eval_scenic_wenting.yaml \
   --scenario_id 1 \
   --route_id 0 \
-  --port 2002 \
-  --tm_port 8002 \
+  --port 2005 \
+  --tm_port 8005 \
   --device cpu \
   --save_video
 ```
@@ -443,8 +443,8 @@ python scripts/run_eval_batch.py \
   --mode train_scenario \
   --test_policy ppo \
   --route_id 0 \
-  --port 2002 \
-  --tm_port 8002 \
+  --port 2005 \
+  --tm_port 8005 \
   --device cpu
 ```
 
@@ -456,8 +456,8 @@ python scripts/run_eval_batch.py \
   --mode eval \
   --test_policy ppo \
   --route_id 0 \
-  --port 2002 \
-  --tm_port 8002 \
+  --port 2005 \
+  --tm_port 8005 \
   --device cpu \
   --average
 ```
@@ -697,8 +697,8 @@ python scripts/run_eval_v2_batch.py \
   --scenario_cfg eval_scenic_v2.yaml \
   --test_policy sac \
   --route_id 0 \
-  --port 2002 \
-  --tm_port 8002 \
+  --port 2005 \
+  --tm_port 8005 \
   --device cpu
 ```
 
@@ -711,8 +711,8 @@ python scripts/run_eval_v2_batch.py \
   --scenario_cfg eval_scenic_v2.yaml \
   --test_policy sac \
   --route_id 0 \
-  --port 2002 \
-  --tm_port 8002 \
+  --port 2005 \
+  --tm_port 8005 \
   --device cpu \
   --average
 ```
@@ -801,8 +801,8 @@ python scripts/run_eval_scenic.py \
   --scenario_id 1 \
   --route_id 0 \
   --num-scenes 1 \
-  --port 2002 \
-  --tm_port 8002 \
+  --port 2005 \
+  --tm_port 8005 \
   --device cpu \
   --save_video
 ```
@@ -864,8 +864,8 @@ python scripts/run_eval_scenic_batch.py \
   --scenario_cfg eval_scenic_wenting.yaml \
   --route_id 0 \
   --num-scenes 3 \
-  --port 2002 \
-  --tm_port 8002 \
+  --port 2005 \
+  --tm_port 8005 \
   --device cpu \
   --save_video \
   --average

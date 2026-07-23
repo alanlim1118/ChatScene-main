@@ -1,0 +1,35 @@
+{
+  "scenario": "The ego vehicle travels through a busy commercial street and stops behind a minivan that suddenly brakes and opens its door.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along the road, decelerates, and comes to a complete stop behind a minivan."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The white car turns left across the ego's path from the opposite direction."
+    },
+    {
+      "object": "Car",
+      "behavior": "The dark-colored car travels straight ahead in the opposite lane, passing the ego vehicle."
+    },
+    {
+      "object": "Car",
+      "behavior": "The minivan travels forward in the same lane as the ego, suddenly brakes to a stop, and then opens its rear passenger door."
+    },
+    {
+      "object": "Bicycle",
+      "behavior": "The bicycle travels in the same direction as the ego on the right side of the road."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a straight multi-lane commercial street with buildings on both sides. A white car approaches from the opposite direction on the left, a dark car travels in the opposite lane, a minivan is directly ahead in the ego's lane, and a bicycle is on the right side of the road.",
+  "requirements_and_restrictions": "The ego vehicle must maintain a safe following distance from the minivan ahead, and the scenario terminates when the ego comes to a complete stop behind the minivan with its door open.",
+  "road_side_structures": [
+    {
+      "object": "Bench",
+      "position": "Positioned on the right-hand sidewalk near the buildings."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the dashboard camera vehicle. Four adversarials: white turning car, dark opposite car, minivan ahead, and bicycle on right. 2. Chronology: Initially all vehicles approach; midpoint white car turns left, dark car passes, minivan brakes; ending ego stops behind minivan with open door. 3. Evidence: minivan's brake lights activate and it stops, then rear door visibly opens; white car's trajectory arcs left across ego's path; bicycle maintains position on right roadside."
+}

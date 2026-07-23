@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle encounters a dog crossing the road ahead in its lane on a straight two-lane road.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along its lane and reacts to the dog crossing ahead."
+  },
+  "adversarials": [
+    {
+      "object": "Dog",
+      "behavior": "The dog is actively crossing the road from the right side toward the left side in front of the ego vehicle."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is positioned in the right lane of a straight two-lane road, approaching a dog that is crossing the road ahead in the same lane.",
+  "requirements_and_restrictions": "The ego vehicle must maintain a safe distance from the dog and react appropriately to avoid collision; the scenario terminates once the ego vehicle has safely passed the crossing area.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the car shown from a top-down perspective; the dog is the only other dynamic entity and is adversarial. 2. Enumeration: one adversarial (Dog). 3. Chronology: initially the car approaches the dog from behind; midpoint the dog is mid-crossing in the lane; ending the car must slow or stop to avoid the dog. 4. Evidence: the dog's lateral position spans across the lane markings, indicating active crossing movement."
+}

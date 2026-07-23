@@ -1,0 +1,23 @@
+{
+  "scenario": "The ego vehicle rear-ends a fallen motorcycle on a wet elevated highway after the motorcyclist loses control.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels forward on the wet highway and performs emergency braking before colliding with the fallen motorcycle."
+  },
+  "adversarials": [
+    {
+      "object": "Motorcycle",
+      "behavior": "The motorcycle loses control and falls onto the road surface directly ahead of the ego vehicle."
+    }
+  ],
+  "spatial_relation": "On a multi-lane elevated highway or bridge, the ego vehicle follows behind a motorcycle traveling in the same lane, with guardrails visible on both sides of the roadway.",
+  "requirements_and_restrictions": "The scenario occurs under wet weather conditions; the ego vehicle must perform emergency braking upon the motorcycle losing control, with the scenario terminating after the rear-end collision with the fallen motorcycle.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Positioned ahead on the right side of the elevated highway, visible in the distance beyond the motorcycle."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the camera-host car from the first-person dashboard view; the motorcycle is the sole adversarial. 2. Chronology: Initially, the motorcycle travels ahead in the same lane. At midpoint, the motorcyclist loses control and the motorcycle falls onto the road. In ending, the ego brakes but collides with the fallen motorcycle. 3. Evidence: The motorcycle's upright position changes to horizontal across frames; the ego's hood remains centered with decreasing distance to the fallen motorcycle until impact."
+}

@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle approaches a 4-way intersection at night and collides with an adversarial vehicle crossing from the left.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward through the intersection without yielding."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight from the left cross street through the intersection, entering the ego's path."
+    }
+  ],
+  "spatial_relation": "On a 4-way intersection at night, the ego vehicle approaches from the bottom road heading north, while the adversarial vehicle approaches from the left road heading east, entering the intersection simultaneously.",
+  "requirements_and_restrictions": "The scenario terminates upon collision between the ego and adversarial vehicles.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the bottom car with headlights facing north; adversarial is the left car with headlights facing east. 2. Chronology: Initially both approach intersection. Midpoint both enter intersection. Ending collision occurs center of intersection. 3. Evidence: Both vehicles' headlights converge at intersection center; final frames show overlap indicating collision."
+}

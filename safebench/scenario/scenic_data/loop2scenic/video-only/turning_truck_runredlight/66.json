@@ -1,0 +1,35 @@
+{
+  "scenario": "The ego vehicle proceeds straight through an intersection while a truck makes a left turn across its path and a motorcycle crosses ahead.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward through the intersection and decelerates to avoid collision with the turning truck."
+  },
+  "adversarials": [
+    {
+      "object": "Truck",
+      "behavior": "The truck turns left across the ego vehicle's path from the opposite direction."
+    },
+    {
+      "object": "Motorcycle",
+      "behavior": "The motorcycle crosses the intersection from right to left in front of the ego vehicle."
+    },
+    {
+      "object": "Truck",
+      "behavior": "The orange truck remains stationary on the right side of the intersection."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a straight road approaching a signalized intersection, with a green and blue truck turning left from the opposite direction, a motorcycle crossing from the right, and an orange truck stationary on the right side of the intersection.",
+  "requirements_and_restrictions": "The ego vehicle must navigate through the intersection while yielding to the left-turning truck and crossing motorcycle; the scenario terminates once the ego vehicle safely clears the intersection.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Positioned on the right side of the road near the intersection."
+    },
+    {
+      "object": "Traffic Light",
+      "position": "Visible overhead at the intersection ahead of the ego vehicle."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the dashboard-camera car. Adversarials: green-blue truck turning left, motorcycle crossing, orange truck stationary. 2. Chronology: initially ego approaches intersection with truck and motorcycle visible; midpoint truck turns across path and motorcycle crosses; ending ego decelerates to avoid collision. 3. Evidence: truck's position shifts from facing ego to perpendicular across lane; motorcycle moves from right curb to left side of frame."
+}

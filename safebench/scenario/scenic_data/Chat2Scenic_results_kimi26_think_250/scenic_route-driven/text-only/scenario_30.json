@@ -1,0 +1,44 @@
+{
+    "OPT_follow_overlapping_l_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_ADV_SPEED": {
+                "low": 7.0,
+                "high": 10.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_ADV_SPEED": {
+                "low": 7.24,
+                "high": 8.55
+            }
+        },
+        "opt_time_2": {
+            "OPT_ADV_SPEED": {
+                "low": 7.37,
+                "high": 8.3
+            }
+        },
+        "opt_time_3": {
+            "OPT_ADV_SPEED": {
+                "low": 7.33,
+                "high": 8.19
+            }
+        },
+        "opt_time_4": {
+            "OPT_ADV_SPEED": {
+                "low": 7.42,
+                "high": 8.25
+            }
+        },
+        "opt_time_5": {
+            "OPT_ADV_SPEED": {
+                "low": 7.42,
+                "high": 8.19
+            }
+        },
+        "select_id": [
+            2,
+            32
+        ]
+    }
+}

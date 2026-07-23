@@ -1,0 +1,44 @@
+{
+    "OPT_right_turn_approaching_lead_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_ADV_SPEED": {
+                "low": 1.0,
+                "high": 3.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_ADV_SPEED": {
+                "low": 1.42,
+                "high": 2.54
+            }
+        },
+        "opt_time_2": {
+            "OPT_ADV_SPEED": {
+                "low": 1.5,
+                "high": 2.43
+            }
+        },
+        "opt_time_3": {
+            "OPT_ADV_SPEED": {
+                "low": 1.59,
+                "high": 2.41
+            }
+        },
+        "opt_time_4": {
+            "OPT_ADV_SPEED": {
+                "low": 1.61,
+                "high": 2.36
+            }
+        },
+        "opt_time_5": {
+            "OPT_ADV_SPEED": {
+                "low": 1.64,
+                "high": 2.34
+            }
+        },
+        "select_id": [
+            38,
+            39
+        ]
+    }
+}

@@ -1,0 +1,68 @@
+{
+    "OPT_C-ICAP_Encountering a stationary target on foggy days_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_BIKE_AHEAD_DIST": {
+                "low": 20.0,
+                "high": 40.0
+            },
+            "OPT_BIKE_RIGHT_OFFSET": {
+                "low": 1.0,
+                "high": 2.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_BIKE_AHEAD_DIST": {
+                "low": 31.75,
+                "high": 36.39
+            },
+            "OPT_BIKE_RIGHT_OFFSET": {
+                "low": 1.34,
+                "high": 1.85
+            }
+        },
+        "opt_time_2": {
+            "OPT_BIKE_AHEAD_DIST": {
+                "low": 32.42,
+                "high": 35.63
+            },
+            "OPT_BIKE_RIGHT_OFFSET": {
+                "low": 1.49,
+                "high": 1.83
+            }
+        },
+        "opt_time_3": {
+            "OPT_BIKE_AHEAD_DIST": {
+                "low": 32.8,
+                "high": 35.58
+            },
+            "OPT_BIKE_RIGHT_OFFSET": {
+                "low": 1.53,
+                "high": 1.83
+            }
+        },
+        "opt_time_4": {
+            "OPT_BIKE_AHEAD_DIST": {
+                "low": 32.91,
+                "high": 35.38
+            },
+            "OPT_BIKE_RIGHT_OFFSET": {
+                "low": 1.56,
+                "high": 1.83
+            }
+        },
+        "opt_time_5": {
+            "OPT_BIKE_AHEAD_DIST": {
+                "low": 32.99,
+                "high": 35.29
+            },
+            "OPT_BIKE_RIGHT_OFFSET": {
+                "low": 1.57,
+                "high": 1.82
+            }
+        },
+        "select_id": [
+            0,
+            15
+        ]
+    }
+}

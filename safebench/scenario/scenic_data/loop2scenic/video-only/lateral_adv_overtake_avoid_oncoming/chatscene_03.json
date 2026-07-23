@@ -1,0 +1,31 @@
+{
+  "scenario": "The ego vehicle travels on a wet two-lane road while a white car overtakes from the left and a dark SUV follows behind, with oncoming traffic visible ahead.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along its lane on a wet road."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The white car overtakes the ego vehicle from the left lane, moves ahead, and then returns to the ego lane in front of the ego vehicle."
+    },
+    {
+      "object": "Car",
+      "behavior": "The dark SUV follows behind the overtaking white car and continues traveling in the same direction."
+    },
+    {
+      "object": "Car",
+      "behavior": "The silver car travels straight ahead in the opposite direction toward the ego vehicle."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a two-lane rural road with one lane in each direction, with a white car initially to the left and slightly behind, a dark SUV further behind, and a silver oncoming car ahead in the opposite lane.",
+  "requirements_and_restrictions": "The scenario occurs on a wet road surface requiring appropriate speed and distance management; the scenario terminates once the ego vehicle has passed the overtaking maneuver and continues along the road.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Positioned on the right side of the road, visible ahead of the ego vehicle."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the camera-host vehicle from first-person dashcam view. Three adversarials: white overtaking car, dark SUV, and silver oncoming car. 2. Chronology: Initially, ego follows a silver car ahead with white car in left lane. Midpoint, white car overtakes ego and cuts in. Ending, white car moves ahead, dark SUV appears behind it. 3. Evidence: White car's lateral position shifts from left of ego to directly ahead; silver oncoming car's headlights grow larger approaching from opposite direction."
+}

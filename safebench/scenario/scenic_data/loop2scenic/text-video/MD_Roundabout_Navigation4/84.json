@@ -1,0 +1,30 @@
+{
+  "scenario": "The ego vehicle enters a roundabout at night and stops behind a front vehicle that yields to three other vehicles entering from the upper-right.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car enters the roundabout to turn right, follows a front vehicle, and stops behind it to avoid collision."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels ahead of the ego vehicle, enters the roundabout, and suddenly stops to yield to other vehicles."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car enters the roundabout from the upper-right lanes and proceeds through the junction."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car enters the roundabout from the upper-right lanes and proceeds through the junction."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car enters the roundabout from the upper-right lanes and proceeds through the junction."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a multi-lane roundabout junction at night, positioned behind a front vehicle, while three other vehicles approach and enter from the upper-right lanes of the roundabout.",
+  "requirements_and_restrictions": "The scenario occurs under dark weather conditions; the ego vehicle must stop behind the front vehicle when it suddenly yields in the roundabout.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the camera-host vehicle from first-person perspective; front vehicle and three upper-right vehicles are adversarials. 2. Enumeration: four adversarials total. 3. Chronology: initially ego follows front vehicle into roundabout; midpoint front vehicle stops yielding to three upper-right vehicles; ending ego stops behind front vehicle. 4. Evidence: front vehicle's brake lights illuminate and it decelerates to stop; three sets of headlights appear from upper-right and move into roundabout; ego's perspective shows closing distance then halt."
+}

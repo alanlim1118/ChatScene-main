@@ -1,0 +1,22 @@
+{
+  "scenario": "The ego vehicle initiates a left lane change but aborts it and returns to its original lane while two adversarial vehicles travel straight in the left lane.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car curves left toward the adjacent lane but then steers back into the center of its original lane, completing an aborted lane change maneuver."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward in the left lane ahead of the ego vehicle's intended path."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward in the left lane behind the lead adversarial car."
+    }
+  ],
+  "spatial_relation": "On a multi-lane straight road, the ego vehicle starts in the right lane, while two adversarial cars are positioned in the left lane with one ahead and one behind relative to the ego's longitudinal position.",
+  "requirements_and_restrictions": "Initial distances between the ego and both adversarial vehicles are strictly defined to create the lead-following pair in the left lane, and the scenario terminates once the ego completes its aborted lane change and returns to its original lane.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The blue car is ego from third-person top-down view; two pink cars are adversarials. 2. Enumeration: two adversarial cars, both in left lane. 3. Chronology: initial ego in right lane with two cars in left lane; midpoint ego curves left toward left lane; ending ego steers back to center of original lane. 4. Evidence: ego's trajectory shows leftward curve then return; both pink cars maintain straight forward paths without deviation."
+}

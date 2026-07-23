@@ -1,0 +1,35 @@
+{
+  "scenario": "The ego vehicle attempts to overtake a slower lead vehicle on a two-lane rural highway when the lead vehicle simultaneously initiates its own overtaking maneuver, resulting in a near-miss side-swipe collision.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels forward and attempts to overtake the slower lead vehicle by moving into the opposing lane."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels forward and unexpectedly initiates an overtaking maneuver to pass slower traffic ahead, moving into the opposing lane at the same time as the ego vehicle."
+    },
+    {
+      "object": "Truck",
+      "behavior": "The truck travels forward ahead of the other vehicles in the same lane, serving as the slower traffic that the lead car attempts to overtake."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car travels forward ahead of the lead vehicle in the same lane, serving as additional slower traffic in the roadway."
+    },
+    {
+      "object": "Motorcycle",
+      "behavior": "The motorcycle travels forward in the opposing lane toward the ego and lead vehicle during their simultaneous overtaking maneuvers."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a two-lane rural highway with an uphill curve, positioned behind a lead car that is behind slower traffic including a truck and a white car; a motorcycle approaches in the opposing lane.",
+  "requirements_and_restrictions": "Initial distances are defined between the ego vehicle and the lead vehicle ahead, and the scenario terminates after the near-miss or side-swipe collision event occurs.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Positioned along the left side of the highway on the concrete barrier."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the dashboard-camera vehicle; adversarials are the black lead car, red truck, white car, and oncoming motorcycle. 2. Enumeration: four adversarials identified. 3. Chronology: initially ego follows black car which follows truck/white car; midpoint black car and ego both swerve left into opposing lane simultaneously; ending near-miss occurs as black car cuts across ego. 4. Evidence: black car's leftward drift and ego's matching trajectory create overlap; motorcycle's approach in opposing lane confirms two-way traffic layout."
+}

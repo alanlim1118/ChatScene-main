@@ -1,0 +1,27 @@
+{
+  "scenario": "The ego vehicle follows a car through an intersection while a bus turns right from the right side.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car follows the lead car straight through the intersection, maintaining a safe following distance."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight ahead through the intersection and gradually decelerates as it approaches the traffic lights."
+    },
+    {
+      "object": "NPCCar",
+      "behavior": "The bus turns right from the right-side road, crossing in front of the ego vehicle's path before exiting the intersection area."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a multi-lane road approaching a signalized intersection, following a lead car in the same lane, while a bus enters from a right-side road and turns right across the intersection.",
+  "requirements_and_restrictions": "The traffic light is green for the ego vehicle's direction; the scenario terminates once the ego vehicle clears the intersection.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Positioned on the right side of the road near the intersection."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the dashboard camera vehicle; lead car and turning bus are adversarials. 2. Enumeration: two adversarials (one Car, one NPCCar/bus). 3. Chronology: initially ego follows lead car approaching intersection; midpoint bus appears from right and turns right; ending ego continues through intersection as bus exits frame and lead car slows. 4. Evidence: bus visible in frame 3 entering from right, then turns and exits; lead car's brake lights illuminate in later frames indicating deceleration."
+}

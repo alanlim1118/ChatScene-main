@@ -1,0 +1,36 @@
+{
+  "scenario": "The ego vehicle drives through an wide urban intersection and is struck by a passenger car that abruptly changes lanes into its path.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward through the intersection and performs emergency braking to avoid a collision."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car abruptly changes lanes from the left into the ego vehicle's path to navigate through a hazard, resulting in a side-swipe collision with the ego vehicle."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is traveling straight through a wide urban intersection on a multi-lane road, while the adversarial car is positioned to the left of the ego vehicle before cutting into the ego's lane.",
+  "requirements_and_restrictions": "The scenario involves an emergency braking event triggered by the adversarial vehicle's sudden lane change; the scenario terminates after the side-swipe collision occurs.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Positioned on the left side of the road near the intersection approach."
+    },
+    {
+      "object": "Bench",
+      "position": "Located on the right sidewalk near the buildings."
+    }
+  ],
+  "temporary_modifications": [
+    {
+      "object": "Construction Cone",
+      "position": "Placed in the left lane near the intersection, creating a hazard that the adversarial vehicle attempts to avoid."
+    },
+    {
+      "object": "Street Barrier",
+      "position": "Positioned along the left side of the road near the intersection, narrowing the available space."
+    }
+  ],
+  "reasoning_chain": "1. Actors: The ego is the camera-host vehicle from the first-person dashboard view; the black SUV is the sole adversarial. 2. Chronology: Initially, ego approaches green light at intersection with black SUV to the left. Midpoint, SUV swerves right into ego's lane to avoid cones. Ending, side-swipe collision occurs on ego's right side. 3. Evidence: SUV's lateral position shifts from left lane into ego lane; visible contact damage to ego's right front; construction cones and barriers visible in left lane explain the cut-in maneuver."
+}

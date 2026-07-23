@@ -1,0 +1,30 @@
+{
+  "scenario": "The ego vehicle navigates a multi-lane roundabout while yielding to circulating traffic and merging with other vehicles.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car approaches the roundabout, yields to traffic already in the circle, enters the roundabout, and exits onto a connecting road."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels ahead of the ego vehicle in the same lane and enters the roundabout before the ego."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car circulates inside the roundabout and crosses in front of the ego vehicle's entry path."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car circulates inside the roundabout and travels along the inner lane of the roundabout."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car exits the roundabout onto a connecting road ahead of the ego vehicle."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a multi-lane approach road leading into a large circular roundabout with multiple entry and exit points, with other vehicles positioned ahead, inside, and around the roundabout.",
+  "requirements_and_restrictions": "The ego vehicle must yield to circulating traffic in the roundabout before entering, and the scenario terminates once the ego vehicle successfully exits the roundabout onto the connecting road.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the green vehicle; four orange vehicles are adversarials. 2. Enumeration: four adversarial cars identified. 3. Chronology: Initially, ego approaches roundabout behind one car; midpoint, ego yields to circulating cars in roundabout; ending, ego enters, navigates, and exits roundabout. 4. Evidence: ego's position shifts from approach to inside to exit of roundabout; other cars maintain circulation or exit paths independently."
+}

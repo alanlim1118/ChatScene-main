@@ -1,0 +1,8 @@
+{
+  "errors": [
+    {
+      "error": "RuntimeError('trying to create rpc server for traffic manager; but the system failed to create because of bind error.')",
+      "scenic_file": "safebench/scenario/scenario_data/scenic_data_wenting/Self_Gemini_3flash_R1_original/UN_R157/scenario_005.scenic"
+    }
+  ]
+}

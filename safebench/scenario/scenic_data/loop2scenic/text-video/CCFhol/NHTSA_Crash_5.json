@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle travels straight in its lane and collides head-on with an adversarial vehicle that intentionally crosses into the ego lane while traveling in the opposite direction.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along its defined lane and maintains its course until colliding with the oncoming vehicle."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels in the opposite direction, intentionally moves into the ego vehicle's lane to attempt an overtake, and collides head-on with the ego vehicle."
+    }
+  ],
+  "spatial_relation": "Both vehicles are on a straight two-lane road with the ego vehicle in one lane and the adversarial vehicle initially in the opposite lane before crossing into the ego lane.",
+  "requirements_and_restrictions": "The scenario involves a head-on collision where the adversarial vehicle must cross into the ego lane from the opposite direction; the scenario terminates upon collision between the two vehicles.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego vehicle is the white car centered in the frame; the adversarial is the red car entering from the left. 2. Chronology: Initially, the ego travels straight. At midpoint, the red adversarial appears from the left and crosses into the ego lane. At ending, both vehicles collide head-on. 3. Evidence: The red car's position shifts from the left opposite lane into the ego's lane, and both vehicles' front structures meet at the collision point."
+}

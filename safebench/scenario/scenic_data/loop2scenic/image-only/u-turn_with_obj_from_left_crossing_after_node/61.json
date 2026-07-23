@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle executes a left turn at a 4-way intersection while an adversarial vehicle approaches from the opposite direction.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car turns left at the intersection and yields to oncoming traffic."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward through the intersection from the opposite direction."
+    }
+  ],
+  "spatial_relation": "The ego vehicle starts on the southbound approach of a 4-way intersection, positioned to turn left, while the adversarial vehicle approaches on the east-west cross street from the right side of the ego's path.",
+  "requirements_and_restrictions": "The ego vehicle must yield to the adversarial vehicle traveling straight through the intersection; the scenario terminates once the ego completes its left turn or a collision occurs.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the centered car from first-person perspective; one adversarial car exists. 2. Enumeration: one adversarial car. 3. Chronology: initial both approach intersection; midpoint ego initiates left turn while adversarial proceeds straight; ending ego completes turn or yields. 4. Evidence: arrow indicates left turn path; pink dot shows adversarial position on cross street."
+}

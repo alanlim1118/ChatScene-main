@@ -1,0 +1,30 @@
+{
+  "scenario": "The ego vehicle navigates a multi-lane roundabout with multiple adversarial vehicles entering and circulating through the intersection.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car approaches the roundabout, enters the circulating lane, navigates around the central island, and exits onto a connecting road."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car enters the roundabout from a different approach leg and circulates around the central island before exiting."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car enters the roundabout from another approach leg and merges into the circulating traffic flow."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car approaches the roundabout from a connecting road and enters the circulating lane."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car is positioned within the roundabout circulating alongside other traffic."
+    }
+  ],
+  "spatial_relation": "The ego vehicle and multiple adversarial vehicles are positioned on a multi-leg roundabout intersection with a central circular island, where each vehicle approaches from different connecting roads and shares the circulating roadway around the island.",
+  "requirements_and_restrictions": "Initial distances to the roundabout entry are defined for all vehicles, and the scenario terminates once the ego vehicle successfully exits the roundabout onto its target connecting road.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The green vehicle is ego; all orange vehicles are adversarials. 2. Enumeration: Four adversarial cars identified. 3. Chronology: Initially ego approaches roundabout behind an orange car; midpoint ego enters and circulates with multiple orange cars; ending ego exits while others continue circulating or exit. 4. Evidence: Green vehicle's path traces full roundabout circulation; orange vehicles appear from different legs and merge into flow."
+}

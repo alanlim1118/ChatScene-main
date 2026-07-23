@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle performs a U-turn at an intersection while a pedestrian crosses the street.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car executes a U-turn at the intersection from the bottom lane."
+  },
+  "adversarials": [
+    {
+      "object": "Pedestrian",
+      "behavior": "The pedestrian crosses the street from left to right in front of the ego vehicle."
+    }
+  ],
+  "spatial_relation": "The ego vehicle starts at the bottom lane approaching a 4-way intersection, while the pedestrian approaches from the left side of the intersection, moving horizontally across the ego's path.",
+  "requirements_and_restrictions": "The ego vehicle must complete the U-turn while avoiding collision with the crossing pedestrian; the scenario terminates once the ego has completed the U-turn or a collision occurs.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The blue car from first-person perspective is ego; the purple circle is adversarial pedestrian. 2. Enumeration: one Pedestrian adversarial. 3. Chronology: initial ego approaches intersection from bottom, pedestrian approaches from left; midpoint ego begins U-turn while pedestrian crosses; ending ego completes U-turn or interacts with pedestrian. 4. Evidence: ego's curved arrow shows U-turn trajectory; pedestrian's horizontal arrow shows left-to-right crossing path."
+}

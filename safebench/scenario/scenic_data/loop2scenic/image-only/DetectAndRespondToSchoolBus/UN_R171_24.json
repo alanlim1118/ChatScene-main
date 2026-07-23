@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle approaches a bus that is stopped at a bus stop on a two-lane road, with the bus later merging into the ego lane ahead.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along its lane and adjusts its behavior as the bus ahead merges into the same lane."
+  },
+  "adversarials": [
+    {
+      "object": "NPCCar",
+      "behavior": "The bus remains stationary at the roadside with its turn signal activated, indicating an intention to merge, then pulls out into the ego lane ahead of the ego vehicle."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a straight two-lane road with a yellow centerline and white dashed lane markings, approaching a bus that is initially stopped on the right side of the same lane or adjacent shoulder area ahead of the ego.",
+  "requirements_and_restrictions": "The ego vehicle must maintain a safe following distance as the bus merges from its stopped position into the travel lane; the scenario terminates once the ego has passed the bus or adjusted to its new position in the lane.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the green car from third-person view; the white bus is the adversarial. 2. Enumeration: one adversarial (bus). 3. Chronology: Initially, bus is stopped roadside with turn signal; midpoint, bus begins to pull out; ending, bus is fully in lane ahead of ego. 4. Evidence: Bus position shifts from right roadside to center of lane; red turn signals arrows indicate merging intent."
+}

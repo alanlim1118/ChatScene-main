@@ -1,0 +1,31 @@
+{
+  "scenario": "The ego vehicle navigates a small radius curved road with guard pipes on the outer side where a stationary vehicle, pedestrian, and bicycle are positioned just outside the guard pipes on the lane center extension.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels forward along a small radius curved road with guard pipes on the outer side."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car remains stationary just outside the guard pipes on the extension of the lane center."
+    },
+    {
+      "object": "Pedestrian",
+      "behavior": "The pedestrian remains stationary just outside the guard pipes on the extension of the lane center."
+    },
+    {
+      "object": "Bicycle",
+      "behavior": "The bicycle remains stationary just outside the guard pipes on the extension of the lane center."
+    }
+  ],
+  "spatial_relation": "The ego vehicle travels on a small radius curved road with guard pipes constructed on the outer side, where a stationary vehicle, a stationary pedestrian, and a stationary bicycle are all positioned just outside the guard pipes on the extension of the lane center.",
+  "requirements_and_restrictions": "The stationary vehicle, pedestrian, and bicycle targets are positioned just outside the guard pipes on the extension of the lane center; the scenario involves a small radius curved road configuration.",
+  "road_side_structures": [
+    {
+      "object": "Chainbarrier",
+      "position": "Constructed on the outer side of the small radius curved road, forming guard pipes along the curve."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the subject vehicle traveling the curved road; three adversarials are the stationary vehicle, pedestrian, and bicycle. 2. Enumeration: adversarials length is 3. 3. Chronology: initially ego approaches curve with guard pipes and three stationary targets ahead; midpoint ego navigates the curve; ending ego continues past the stationary targets. 4. Evidence: all three adversarials remain fixed in position relative to the guard pipes and lane center extension across all phases."
+}

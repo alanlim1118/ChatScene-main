@@ -1,0 +1,27 @@
+{
+  "scenario": "The ego vehicle yields to two adversarial vehicles on a main road before merging from a connecting road.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car approaches the intersection, stops to yield to traffic on the main road, and then merges onto the main road after the adversarial vehicles pass."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight along the main road through the intersection."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car travels straight along the main road through the intersection behind the first adversarial car."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a narrow, curved connecting road approaching a T-intersection with a multi-lane main road, where two adversarial cars are traveling in the same direction on the main road's rightmost lane.",
+  "requirements_and_restrictions": "The ego vehicle must yield to the two adversarial vehicles already on the main road before merging; the scenario terminates once the ego safely completes its merge onto the main road.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Positioned near the intersection on the right side of the connecting road relative to the ego vehicle."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the car on the connecting road; two other cars on the main road are adversarials. 2. Enumeration: two adversarial cars, array length 2. 3. Chronology: initially ego approaches intersection while two cars are on main road; midpoint ego stops to yield as first car passes, then second car; ending ego merges onto main road. 4. Evidence: ego's position remains fixed at intersection while adversarials move leftward across frames; ego then accelerates onto main road."
+}

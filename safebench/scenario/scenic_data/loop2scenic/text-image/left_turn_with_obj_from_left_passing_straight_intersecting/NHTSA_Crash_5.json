@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle attempts a left turn at an intersection while an adversarial vehicle passes straight through from the left, creating an intersecting conflict.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car approaches the intersection and initiates a left turn maneuver."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight through the intersection from the left, crossing directly in front of the ego vehicle's intended path."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is positioned on the southbound approach of a four-way intersection, while the adversarial vehicle approaches from the westbound direction on the cross street, with both paths intersecting at the center of the intersection.",
+  "requirements_and_restrictions": "Initial distances to the intersection are defined for both vehicles to ensure simultaneous arrival at the conflict point; the scenario terminates after the intersection conflict is resolved.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The blue car is ego from labeled perspective; the pink car is the single adversarial. 2. Enumeration: one adversarial car. 3. Chronology: initially both approach intersection; midpoint ego turns left while adversarial proceeds straight; ending their paths intersect at conflict point. 4. Evidence: ego's curved arrow shows left turn trajectory; adversarial's straight arrow shows constant forward vector through intersection."
+}

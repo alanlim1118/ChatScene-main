@@ -1,0 +1,22 @@
+{
+  "scenario": "The ego vehicle merges from a highway on-ramp into the main highway traffic while two other vehicles travel ahead in the main lanes.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car accelerates along the on-ramp and merges into the rightmost lane of the main highway."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight ahead in the rightmost lane of the main highway, maintaining a consistent speed."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car travels straight ahead in the middle lane of the main highway, parallel to the other adversarial car."
+    }
+  ],
+  "spatial_relation": "The ego vehicle starts on a curved on-ramp that merges into a multi-lane highway from the right, while two adversarial cars are positioned ahead in the main highway lanes; the on-ramp joins the highway at an acute angle.",
+  "requirements_and_restrictions": "The ego vehicle must merge from the on-ramp into the main highway traffic without collision; initial spacing is defined between the ego and the two adversarial vehicles ahead in the main lanes; the scenario terminates once the ego successfully completes the merge.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The green car is ego (distinctive color, on-ramp position); two orange cars are adversarials in main lanes. 2. Chronology: Initially ego is behind on on-ramp, adversarials ahead on highway. Midpoint ego accelerates along ramp toward merge point. Ending ego completes merge into right lane behind first adversarial. 3. Evidence: ego's path curves from ramp to align with highway; lateral position shifts from separate road to right lane; adversarials maintain straight trajectories in main lanes throughout."
+}

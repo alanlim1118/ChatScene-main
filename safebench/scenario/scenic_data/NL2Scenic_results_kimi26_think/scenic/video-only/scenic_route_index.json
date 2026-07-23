@@ -1,0 +1,68 @@
+{
+  "video-only:1:0": {
+    "pickle_key": "scenario_id_1_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/NL2Scenic_results_kimi26_think/scenic/video-only/BLO_3.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "video-only:20:0": {
+    "pickle_key": "scenario_id_20_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/NL2Scenic_results_kimi26_think/scenic/video-only/ULT_5.scenic",
+    "town": "Town05",
+    "weather": "ClearNight"
+  },
+  "video-only:22:0": {
+    "pickle_key": "scenario_id_22_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/NL2Scenic_results_kimi26_think/scenic/video-only/in_lane_approaching_long_moving.scenic",
+    "town": "Town03",
+    "weather": null
+  },
+  "video-only:26:0": {
+    "pickle_key": "scenario_id_26_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/NL2Scenic_results_kimi26_think/scenic/video-only/lateral_double_cut_in_highway.scenic",
+    "town": "Town04",
+    "weather": null
+  },
+  "video-only:27:0": {
+    "pickle_key": "scenario_id_27_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/NL2Scenic_results_kimi26_think/scenic/video-only/lateral_ego_overtake_truck_invade.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "video-only:29:0": {
+    "pickle_key": "scenario_id_29_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/NL2Scenic_results_kimi26_think/scenic/video-only/lateral_navigate_parked_motorcycle.scenic",
+    "town": "Town03",
+    "weather": null
+  },
+  "video-only:31:0": {
+    "pickle_key": "scenario_id_31_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/NL2Scenic_results_kimi26_think/scenic/video-only/lateral_two_adv_cut_in_both_side_highway.scenic",
+    "town": "Town04",
+    "weather": null
+  },
+  "video-only:34:0": {
+    "pickle_key": "scenario_id_34_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/NL2Scenic_results_kimi26_think/scenic/video-only/moving_front_suddenbrake_yellow.scenic",
+    "town": "Town03",
+    "weather": null
+  },
+  "video-only:36:0": {
+    "pickle_key": "scenario_id_36_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/NL2Scenic_results_kimi26_think/scenic/video-only/oncoming_adv_snowy.scenic",
+    "town": "Town04",
+    "weather": null
+  },
+  "video-only:4:0": {
+    "pickle_key": "scenario_id_4_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/NL2Scenic_results_kimi26_think/scenic/video-only/IDR_5.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "video-only:5:0": {
+    "pickle_key": "scenario_id_5_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/NL2Scenic_results_kimi26_think/scenic/video-only/InterDrive_r13_town05_ins_sl.scenic",
+    "town": "Town05",
+    "weather": null
+  }
+}

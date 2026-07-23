@@ -1,0 +1,44 @@
+{
+    "OPT_pass_obj_in_intersection_parallel_right_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_ADV_SPEED": {
+                "low": 2.0,
+                "high": 4.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_ADV_SPEED": {
+                "low": 2.0,
+                "high": 4.0
+            }
+        },
+        "opt_time_2": {
+            "OPT_ADV_SPEED": {
+                "low": 2.0,
+                "high": 4.0
+            }
+        },
+        "opt_time_3": {
+            "OPT_ADV_SPEED": {
+                "low": 2.0,
+                "high": 4.0
+            }
+        },
+        "opt_time_4": {
+            "OPT_ADV_SPEED": {
+                "low": 2.0,
+                "high": 4.0
+            }
+        },
+        "opt_time_5": {
+            "OPT_ADV_SPEED": {
+                "low": 2.0,
+                "high": 4.0
+            }
+        },
+        "select_id": [
+            28,
+            37
+        ]
+    }
+}

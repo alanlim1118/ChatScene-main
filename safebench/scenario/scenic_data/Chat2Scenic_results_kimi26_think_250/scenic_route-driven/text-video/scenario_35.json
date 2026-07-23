@@ -1,0 +1,140 @@
+{
+    "OPT_lateral_ego_lc_sudden_stop_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_LEAD_DIST": {
+                "low": 10.0,
+                "high": 20.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 5.0,
+                "high": 8.0
+            },
+            "OPT_ADV_DECEL_TIME": {
+                "low": 2.0,
+                "high": 4.0
+            },
+            "OPT_MOTO_SPEED": {
+                "low": 5.0,
+                "high": 9.0
+            },
+            "OPT_ADV3_SPEED": {
+                "low": 6.0,
+                "high": 9.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_LEAD_DIST": {
+                "low": 10.45,
+                "high": 17.68
+            },
+            "OPT_ADV_SPEED": {
+                "low": 5.78,
+                "high": 7.44
+            },
+            "OPT_ADV_DECEL_TIME": {
+                "low": 2.72,
+                "high": 3.83
+            },
+            "OPT_MOTO_SPEED": {
+                "low": 5.58,
+                "high": 7.45
+            },
+            "OPT_ADV3_SPEED": {
+                "low": 6.66,
+                "high": 8.36
+            }
+        },
+        "opt_time_2": {
+            "OPT_LEAD_DIST": {
+                "low": 10.84,
+                "high": 16.61
+            },
+            "OPT_ADV_SPEED": {
+                "low": 5.98,
+                "high": 7.27
+            },
+            "OPT_ADV_DECEL_TIME": {
+                "low": 2.84,
+                "high": 3.75
+            },
+            "OPT_MOTO_SPEED": {
+                "low": 5.95,
+                "high": 7.45
+            },
+            "OPT_ADV3_SPEED": {
+                "low": 6.75,
+                "high": 8.08
+            }
+        },
+        "opt_time_3": {
+            "OPT_LEAD_DIST": {
+                "low": 10.85,
+                "high": 15.99
+            },
+            "OPT_ADV_SPEED": {
+                "low": 6.03,
+                "high": 7.1
+            },
+            "OPT_ADV_DECEL_TIME": {
+                "low": 2.92,
+                "high": 3.72
+            },
+            "OPT_MOTO_SPEED": {
+                "low": 5.96,
+                "high": 7.29
+            },
+            "OPT_ADV3_SPEED": {
+                "low": 6.78,
+                "high": 7.93
+            }
+        },
+        "opt_time_4": {
+            "OPT_LEAD_DIST": {
+                "low": 11.33,
+                "high": 15.88
+            },
+            "OPT_ADV_SPEED": {
+                "low": 6.08,
+                "high": 7.04
+            },
+            "OPT_ADV_DECEL_TIME": {
+                "low": 2.97,
+                "high": 3.68
+            },
+            "OPT_MOTO_SPEED": {
+                "low": 6.05,
+                "high": 7.24
+            },
+            "OPT_ADV3_SPEED": {
+                "low": 6.82,
+                "high": 7.86
+            }
+        },
+        "opt_time_5": {
+            "OPT_LEAD_DIST": {
+                "low": 11.51,
+                "high": 15.81
+            },
+            "OPT_ADV_SPEED": {
+                "low": 6.1,
+                "high": 7.01
+            },
+            "OPT_ADV_DECEL_TIME": {
+                "low": 3.0,
+                "high": 3.67
+            },
+            "OPT_MOTO_SPEED": {
+                "low": 6.08,
+                "high": 7.21
+            },
+            "OPT_ADV3_SPEED": {
+                "low": 6.85,
+                "high": 7.83
+            }
+        },
+        "select_id": [
+            10,
+            34
+        ]
+    }
+}

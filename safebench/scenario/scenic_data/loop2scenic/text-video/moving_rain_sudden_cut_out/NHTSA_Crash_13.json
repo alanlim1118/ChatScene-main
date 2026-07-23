@@ -1,0 +1,27 @@
+{
+  "scenario": "The ego vehicle driving on a wet highway collides with a lead vehicle that abruptly brakes and swerves right to avoid a stationary vehicle ahead.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels forward on a wet highway, then emergency brakes and swerves right to avoid a collision, ultimately colliding with the lead vehicle."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels ahead of the ego vehicle, then abruptly slows down and changes lanes to the right to avoid a stationary vehicle ahead."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car remains stationary in the same lane ahead, causing the lead vehicle to swerve and the ego vehicle to collide."
+    }
+  ],
+  "spatial_relation": "On a multi-lane divided highway with wet road conditions, the ego vehicle follows a lead vehicle in the same lane, while a stationary vehicle is positioned ahead in that lane.",
+  "requirements_and_restrictions": "The scenario occurs under rainy, wet-road conditions; the ego vehicle must react to the lead vehicle's sudden braking and lane change to avoid the stationary vehicle ahead.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Positioned on the right side of the highway beyond the guardrail."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the camera-host vehicle from first-person perspective; two non-ego cars are adversarials. 2. Enumeration: adversarials length is 2. 3. Chronology: initially ego follows lead car on wet highway; midpoint lead car brakes hard and swerves right to avoid stationary car; ending ego collides with lead car during evasive maneuver. 4. Evidence: lead car's brake lights illuminate and it shifts right; stationary car remains fixed ahead; ego's rightward veer and impact visible in final frames."
+}

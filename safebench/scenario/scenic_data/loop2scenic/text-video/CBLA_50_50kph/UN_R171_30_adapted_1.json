@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle travels forward and collides with a bicyclist cycling in the same direction ahead when no braking or evasive steering is applied after an FCW.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward at constant speed and collides with the bicyclist ahead without braking or steering to avoid."
+  },
+  "adversarials": [
+    {
+      "object": "Bicycle",
+      "behavior": "The bicyclist travels straight forward in the same direction as the ego vehicle, maintaining a position directly ahead in the lane."
+    }
+  ],
+  "spatial_relation": "The ego vehicle and bicyclist are both positioned on a straight road, with the bicyclist traveling in the same lane directly in front of the ego vehicle.",
+  "requirements_and_restrictions": "The scenario involves a forward collision warning (FCW) event where no braking or evasive steering action is applied, resulting in collision with the bicyclist ahead; initial distance and speed parameters are set for the ego vehicle to approach the cyclist at 50 km/h.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the car from first-person perspective; the bicyclist ahead is the adversarial. 2. Enumeration: one Bicycle adversarial. 3. Chronology: initially ego approaches cyclist from behind at distance; midpoint ego closes gap while cyclist continues forward; ending ego collides with cyclist. 4. Evidence: on-screen data shows ego speed at 50 km/h with decreasing distance to cyclist, and cyclist remains directly ahead in same lane until impact."
+}

@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle drives straight on a highway while an oncoming adversarial vehicle drifts across the centerline into the ego's lane, creating a head-on collision threat.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along its lane on the highway."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car drifts from the opposing lane across the centerline into the ego vehicle's lane of travel."
+    }
+  ],
+  "spatial_relation": "On a straight two-lane highway divided by a solid yellow centerline, the ego vehicle travels in one lane while the adversarial vehicle approaches from the opposite direction in the opposing lane, then encroaches across the centerline into the ego's lane.",
+  "requirements_and_restrictions": "The scenario requires the ego vehicle to detect and react to the encroaching oncoming vehicle to avoid a head-on collision; the scenario terminates once a collision occurs or the ego successfully avoids the adversarial vehicle.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the green car viewed from above; the white car is the adversarial. 2. Enumeration: one adversarial car. 3. Chronology: initially both vehicles approach on opposite lanes; midpoint adversarial drifts across centerline; ending potential collision if ego does not react. 4. Evidence: image shows adversarial car angled across yellow centerline into ego's lane."
+}

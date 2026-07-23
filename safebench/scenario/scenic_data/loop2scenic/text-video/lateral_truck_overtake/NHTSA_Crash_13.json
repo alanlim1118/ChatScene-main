@@ -1,0 +1,22 @@
+{
+  "scenario": "The ego vehicle is driving on a two-lane mountain road when a large red cargo truck overtakes it and cuts into its lane, causing a side-impact collision.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along its lane and decelerates after being struck by the overtaking truck."
+  },
+  "adversarials": [
+    {
+      "object": "Truck",
+      "behavior": "The truck overtakes the ego vehicle from behind in the opposing lane and abruptly cuts into the ego lane, colliding with the ego vehicle's side."
+    },
+    {
+      "object": "Motorcycle",
+      "behavior": "The motorcycle travels in the opposite direction toward the ego vehicle and the overtaking truck."
+    }
+  ],
+  "spatial_relation": "On a two-lane mountain road with trees lining both sides, the ego vehicle travels in its lane while a red cargo truck approaches from behind in the opposing lane, and a motorcycle approaches from the opposite direction.",
+  "requirements_and_restrictions": "The scenario involves a side-impact collision initiated by the truck's lane change; the scenario terminates after the collision occurs and the vehicles separate.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the camera-host car; the red cargo truck and oncoming motorcycle are adversarials. 2. Enumeration: Two adversarials (Truck, Motorcycle). 3. Chronology: Initially, ego drives straight with truck behind; midpoint truck overtakes in opposing lane and cuts left into ego lane; ending collision occurs, truck moves ahead, ego decelerates. 4. Evidence: Truck visible approaching from behind left, then occupies left side of frame contacting ego, then moves ahead; motorcycle visible approaching in distance."
+}

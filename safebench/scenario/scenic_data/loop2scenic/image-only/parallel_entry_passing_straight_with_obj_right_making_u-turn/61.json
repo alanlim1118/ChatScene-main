@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle executes a left turn at a 4-way intersection while an adversarial vehicle proceeds straight through the intersection from the opposite direction.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car turns left at the intersection and yields to oncoming traffic."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward through the intersection from the opposite direction."
+    }
+  ],
+  "spatial_relation": "On a 4-way intersection with two-lane roads in each direction, the ego vehicle starts in the southbound left-turn lane while the adversarial vehicle starts in the northbound through lane directly opposite the ego.",
+  "requirements_and_restrictions": "The ego vehicle must yield to the adversarial vehicle traveling straight through the intersection; the scenario terminates once the ego completes its left turn or a collision occurs.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the blue car in the left-turn lane; the pink car is the adversarial vehicle approaching from the opposite direction. 2. Chronology: Initially both vehicles approach the intersection. At midpoint, the ego initiates a left turn while the adversarial continues straight. In ending, the ego completes the turn after yielding. 3. Evidence: The blue car's curved arrow indicates left-turn trajectory; the pink car's straight arrow shows unimpeded forward motion through the intersection."
+}

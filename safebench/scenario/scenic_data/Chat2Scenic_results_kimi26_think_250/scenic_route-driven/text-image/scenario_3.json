@@ -1,0 +1,68 @@
+{
+    "OPT_C-ICAP_Daytime - curve - motorcycle and passenger car (on the right side of motorcycle)_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_MOTO_AHEAD": {
+                "low": 40.0,
+                "high": 60.0
+            },
+            "OPT_CAR_LATERAL": {
+                "low": 1.5,
+                "high": 2.5
+            }
+        },
+        "opt_time_1": {
+            "OPT_MOTO_AHEAD": {
+                "low": 45.04,
+                "high": 55.98
+            },
+            "OPT_CAR_LATERAL": {
+                "low": 1.85,
+                "high": 2.38
+            }
+        },
+        "opt_time_2": {
+            "OPT_MOTO_AHEAD": {
+                "low": 45.7,
+                "high": 55.43
+            },
+            "OPT_CAR_LATERAL": {
+                "low": 1.93,
+                "high": 2.35
+            }
+        },
+        "opt_time_3": {
+            "OPT_MOTO_AHEAD": {
+                "low": 46.64,
+                "high": 55.28
+            },
+            "OPT_CAR_LATERAL": {
+                "low": 1.93,
+                "high": 2.32
+            }
+        },
+        "opt_time_4": {
+            "OPT_MOTO_AHEAD": {
+                "low": 46.57,
+                "high": 54.46
+            },
+            "OPT_CAR_LATERAL": {
+                "low": 1.95,
+                "high": 2.3
+            }
+        },
+        "opt_time_5": {
+            "OPT_MOTO_AHEAD": {
+                "low": 46.64,
+                "high": 53.95
+            },
+            "OPT_CAR_LATERAL": {
+                "low": 1.96,
+                "high": 2.28
+            }
+        },
+        "select_id": [
+            8,
+            40
+        ]
+    }
+}

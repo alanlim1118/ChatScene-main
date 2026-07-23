@@ -1,0 +1,22 @@
+{
+  "scenario": "The ego vehicle changes lanes to avoid a slower lead vehicle and then returns to its original lane while another vehicle approaches from behind in the target lane.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car changes from the left lane to the right lane to overtake a slower vehicle, then returns to the left lane ahead of the original vehicle."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward in the left lane at a slower speed, remaining ahead of the ego vehicle."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward in the right lane, approaching from behind the ego vehicle during the lane change maneuver."
+    }
+  ],
+  "spatial_relation": "The scenario occurs on a straight multi-lane highway with two lanes in the same direction; the ego starts in the left lane behind a slower lead car, with a faster approaching car in the right lane behind the ego.",
+  "requirements_and_restrictions": "The ego vehicle must complete the lane change and return maneuver without colliding with either adversarial vehicle; the scenario terminates once the ego has returned to the left lane ahead of the original lead vehicle.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the blue car with curved trajectory arrows; two pink cars are adversarials. 2. Enumeration: Two adversarial cars present. 3. Chronology: Initially ego follows slower left-lane car and faster right-lane car approaches from behind; midpoint ego changes to right lane; ending ego returns to left lane ahead of original lead. 4. Evidence: Curved arrows show ego's lane change path; straight arrows show adversarials' constant forward motion."
+}

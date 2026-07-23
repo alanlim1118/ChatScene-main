@@ -1,0 +1,68 @@
+{
+    "OPT_PC_9_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_EGO_SPEED": {
+                "low": 7.0,
+                "high": 10.0
+            },
+            "OPT_ADV2_SPEED": {
+                "low": 7.0,
+                "high": 10.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_EGO_SPEED": {
+                "low": 7.62,
+                "high": 9.28
+            },
+            "OPT_ADV2_SPEED": {
+                "low": 8.15,
+                "high": 9.33
+            }
+        },
+        "opt_time_2": {
+            "OPT_EGO_SPEED": {
+                "low": 7.87,
+                "high": 9.17
+            },
+            "OPT_ADV2_SPEED": {
+                "low": 8.18,
+                "high": 9.13
+            }
+        },
+        "opt_time_3": {
+            "OPT_EGO_SPEED": {
+                "low": 7.97,
+                "high": 9.12
+            },
+            "OPT_ADV2_SPEED": {
+                "low": 8.23,
+                "high": 9.05
+            }
+        },
+        "opt_time_4": {
+            "OPT_EGO_SPEED": {
+                "low": 8.03,
+                "high": 9.08
+            },
+            "OPT_ADV2_SPEED": {
+                "low": 8.29,
+                "high": 9.03
+            }
+        },
+        "opt_time_5": {
+            "OPT_EGO_SPEED": {
+                "low": 8.06,
+                "high": 9.05
+            },
+            "OPT_ADV2_SPEED": {
+                "low": 8.31,
+                "high": 9.0
+            }
+        },
+        "select_id": [
+            28,
+            39
+        ]
+    }
+}

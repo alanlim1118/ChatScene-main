@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle turns left at a junction and collides with a pedestrian crossing its path.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels forward along a straight road and initiates a left turn at the intersection without applying braking action."
+  },
+  "adversarials": [
+    {
+      "object": "Pedestrian",
+      "behavior": "The pedestrian walks across the junction from the left side of the ego vehicle's path toward the right side, entering the intersection before the ego completes its turn."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a straight two-lane road approaching a four-way intersection, while the pedestrian is positioned within the intersection area crossing from the left to the right relative to the ego's initial direction of travel.",
+  "requirements_and_restrictions": "The scenario involves a collision where no braking action is applied by the ego vehicle, and the pedestrian is crossing the junction before or during the ego's turn.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the white car from top-down view; the pedestrian is the only other dynamic entity. 2. Chronology: Initially, ego approaches intersection straight; pedestrian appears at left side of intersection. Midpoint, ego enters intersection turning left while pedestrian crosses into intersection. Ending, ego's front strikes pedestrian during turn. 3. Evidence: Ego's heading changes from 0 to ~-90 degrees through frames; pedestrian's position shifts laterally across intersection; final frames show overlap indicating collision."
+}

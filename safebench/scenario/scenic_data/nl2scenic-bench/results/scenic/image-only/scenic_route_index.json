@@ -1,0 +1,32 @@
+{
+  "image-only:11:0": {
+    "pickle_key": "scenario_id_11_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/image-only/FollowingVehicleMakingAManeuverAndApproachingLeadVehicle.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "image-only:19:0": {
+    "pickle_key": "scenario_id_19_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/image-only/diverging_lead_leaving_TA_after_node_l.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "image-only:25:0": {
+    "pickle_key": "scenario_id_25_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/image-only/left_turn_with_obj_from_left_entering_before_node.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "image-only:26:0": {
+    "pickle_key": "scenario_id_26_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/image-only/neighbor_entering_r.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "image-only:34:0": {
+    "pickle_key": "scenario_id_34_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/image-only/r21_town07_ins_sr.scenic",
+    "town": "Town05",
+    "weather": null
+  }
+}

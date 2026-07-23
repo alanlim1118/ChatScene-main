@@ -1,0 +1,46 @@
+{
+  "scenario": "The ego vehicle navigates through a 4-way intersection while multiple adversarial vehicles are positioned on the cross street and approach from perpendicular directions.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward through the intersection along the horizontal road."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car remains stationary in the upper lane of the vertical road, positioned at the intersection stop line."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car remains stationary in the lower lane of the vertical road, positioned at the intersection stop line."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car remains stationary in the left portion of the upper horizontal lane, positioned before the intersection."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car remains stationary in the middle portion of the upper horizontal lane, positioned before the intersection."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car remains stationary in the right portion of the upper horizontal lane, positioned before the intersection."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car remains stationary in the left portion of the lower horizontal lane, positioned before the intersection."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car remains stationary in the middle portion of the lower horizontal lane, positioned before the intersection."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car remains stationary in the right portion of the lower horizontal lane, positioned before the intersection."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is centered on a horizontal two-lane road approaching a 4-way intersection, with three stationary adversarial cars aligned in each of the two horizontal lanes before the intersection, and one stationary adversarial car in each of the two vertical lanes at their respective stop lines.",
+  "requirements_and_restrictions": "The ego vehicle spawns 24 meters from the intersection center in the lower horizontal lane, with 2-meter lateral offset from the lane center; the three lower horizontal adversarials are spaced 1 meter apart, and the upper horizontal adversarials are 21 meters from the intersection center with 1-meter spacing; the scenario terminates once the ego vehicle clears the intersection.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the white car in the lower horizontal lane; all other eight dark cars are adversarials. 2. Enumeration: eight adversarials total—six horizontal (three upper, three lower) and two vertical (one upper, one lower). 3. Chronology: initially all vehicles are stationary; the ego proceeds straight through the intersection while all adversarials remain fixed. 4. Evidence: no motion vectors are indicated; all dark cars are positioned at stop lines or in queued formations with consistent spacing, indicating stationary status."
+}

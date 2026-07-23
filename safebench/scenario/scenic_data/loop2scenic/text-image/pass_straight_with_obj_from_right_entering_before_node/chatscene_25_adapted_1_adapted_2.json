@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego car travels straight through an intersection while an adversarial object enters from the right side before the intersection.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward through the intersection."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car enters the intersection from the right side, turning left into the ego's path."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is positioned on a straight road approaching a 4-way intersection, while the adversarial vehicle approaches from the right-side road intending to turn left across the ego's path.",
+  "requirements_and_restrictions": "Initial distances to the intersection are defined for both vehicles, and the scenario terminates once the ego vehicle has cleared the intersection or a collision occurs.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the centered car from first-person perspective; the adversarial is the vehicle approaching from the right. 2. Chronology: initial both approach intersection; midpoint adversarial enters from right while ego continues straight; ending paths intersect at node. 3. Evidence: ego maintains constant forward vector; adversarial's curved trajectory from right lane visibly encroaches into ego's path at intersection center."
+}

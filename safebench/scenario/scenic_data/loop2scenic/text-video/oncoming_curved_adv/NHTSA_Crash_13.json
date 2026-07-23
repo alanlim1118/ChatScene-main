@@ -1,0 +1,23 @@
+{
+  "scenario": "The ego vehicle travels along a curved rural road and collides head-on with a white microvan that drifts into the oncoming lane while rounding a blind corner.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels forward along a curved rural road and attempts to avoid a collision when an oncoming vehicle enters its lane."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The white microvan rounds a blind corner and drifts entirely into the oncoming lane, causing a head-on collision with the ego vehicle."
+    }
+  ],
+  "spatial_relation": "The ego vehicle travels on a curved two-lane rural road with trees and buildings on both sides, while the adversarial white microvan approaches from the opposite direction around a blind corner and crosses into the ego's lane.",
+  "requirements_and_restrictions": "The scenario involves a blind corner on a curved rural road with limited visibility; the collision occurs when the adversarial vehicle enters the oncoming lane.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Visible on the left side of the road near the curve in the distance."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is identified from the first-person dashboard camera perspective; the white microvan is the sole adversarial. 2. Chronology: Initially, the ego approaches a blind corner. At midpoint, the white microvan appears rounding the corner. In ending, the microvan drifts into the ego's lane causing collision. 3. Evidence: The microvan's position shifts from its own lane into the ego's lane across frames; the ego's forward path is completely blocked."
+}

@@ -175,6 +175,16 @@ class SafebenchCarlaSimulation(CarlaSimulation):
         except SimulationCreationError:
             self._safebench_teardown()
             raise
+        except Exception:
+            # Any other failure during setup()/_start()/updateObjects() (e.g. a
+            # scenario bug unrelated to Scenic's own rejection-sampling) still
+            # left veneer.currentSimulation set, since only the two exception
+            # types above triggered teardown. Every subsequent retry attempt
+            # in the same process then failed `assert currentSimulation is
+            # None` in veneer.beginSimulation() before doing anything real -
+            # so callers need this reset regardless of exception type.
+            self._safebench_teardown()
+            raise
 
     def _safebench_teardown(self):
         try:
@@ -400,7 +410,18 @@ class ScenicSimulator:
             return
 
         for scenario in tuple(veneer.runningScenarios):
-            scenario._stop('simulation terminated')
+            try:
+                scenario._stop('simulation terminated')
+            except (RejectSimulationException, RejectionException, GuardViolation):
+                # Scenario._stop(reason, quiet=False) re-checks temporal
+                # `require`s and raises if one was left unsatisfied - which
+                # can happen even on an otherwise-normal termination (e.g. a
+                # dynamic requirement was briefly violated right as the
+                # scenario ended for an unrelated reason). We're already
+                # tearing this simulation down; a rejection here has nowhere
+                # to reject into, so don't let it abort cleanup of the
+                # remaining running scenarios or the rest of endSimulation().
+                pass
         for scenario in tuple(veneer.runningScenarios):
             scenario._stop('exception', quiet=True)
 

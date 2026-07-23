@@ -1,0 +1,31 @@
+{
+  "scenario": "The ego vehicle navigates a roundabout and encounters a taxi cutting across its path from the right.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car enters and travels through a roundabout, then reacts to avoid collision with a taxi that cuts across its path."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The red car travels ahead of the ego vehicle through the roundabout and continues straight on the exit road."
+    },
+    {
+      "object": "Car",
+      "behavior": "The yellow taxi enters the roundabout from the right side and cuts across the ego vehicle's path, causing a near-collision."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a multi-lane roundabout with a red car ahead in the same lane, while a yellow taxi approaches from a right-side entrance and crosses into the ego's path.",
+  "requirements_and_restrictions": "The ego vehicle must navigate the roundabout while maintaining safe distance from the red car ahead, and react to the unexpected taxi cutting from the right; scenario terminates after the near-collision event is resolved.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Visible on the right side of the roundabout entrance."
+    },
+    {
+      "object": "Garden Lamp",
+      "position": "Positioned on the central island of the roundabout."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the dashboard-camera vehicle; red car and yellow taxi are adversarials. 2. Enumeration: two adversarials (red car, yellow taxi). 3. Chronology: initial ego enters roundabout behind red car; midpoint taxi appears from right; ending taxi cuts across ego's path causing near-collision. 4. Evidence: taxi's position shifts from right entrance to directly in front of ego; red car maintains forward trajectory ahead."
+}

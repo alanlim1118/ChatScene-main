@@ -1,0 +1,31 @@
+{
+  "scenario": "The ego vehicle travels on a straight residential road and overtakes a car that is turning right into a driveway, then continues past pedestrians on the sidewalk.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along the road, overtakes a slowing car on the right, and continues past pedestrians on the sidewalk."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car slows down and turns right into a driveway on the right side of the road."
+    },
+    {
+      "object": "Pedestrian",
+      "behavior": "The pedestrian walks along the right sidewalk in the same direction as traffic."
+    },
+    {
+      "object": "Pedestrian",
+      "behavior": "The pedestrian walks along the right sidewalk in the same direction as traffic."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a straight two-lane residential road with houses on both sides. An adversarial car is ahead in the same lane. Two pedestrians are on the right sidewalk. The adversarial car turns right into a driveway, and the ego passes it.",
+  "requirements_and_restrictions": "The ego vehicle must maintain a safe distance while overtaking the turning car, and the scenario terminates once the ego has passed the turning vehicle and the pedestrians.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Positioned on the left side of the road near the start of the video."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the dashboard camera vehicle. Adversarials: one car ahead, two pedestrians on sidewalk. 2. Chronology: Initially, ego follows car ahead. Midpoint, car slows and turns right into driveway. Ending, ego passes turning car and pedestrians. 3. Evidence: Car's right turn signal activates, lateral position shifts right toward driveway, and it exits the roadway. Pedestrians remain on sidewalk throughout."
+}

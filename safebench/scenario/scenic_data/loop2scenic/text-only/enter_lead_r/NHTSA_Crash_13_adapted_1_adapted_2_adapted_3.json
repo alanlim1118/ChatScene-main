@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego car travels straight in the middle lane while a lead object enters from the right and moves across the lane.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward within the middle lane."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car enters the ego lane from the right and moves across the lane ahead of the ego vehicle."
+    }
+  ],
+  "spatial_relation": "On a multi-lane straight road, the ego car is positioned in the middle lane while an adversarial car approaches from the right side and crosses into the ego's lane path.",
+  "requirements_and_restrictions": "The ego vehicle must spawn a set distance behind the adversarial entry point, and the scenario terminates once the ego has passed the point where the adversarial vehicle crossed.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the centered car from first-person perspective; one adversarial car enters from right. 2. Enumeration: one adversarial car. 3. Chronology: initially ego approaches straight, adversarial is on right; midpoint adversarial enters lane and crosses ahead; ending ego continues past crossing point. 4. Evidence: adversarial's lateral position shifts from right side into and across ego lane while ego maintains constant forward vector."
+}

@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle travels straight on a multi-lane urban road and approaches a slower-moving lead vehicle from behind.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward at high speed and closes the distance to a slower lead vehicle ahead."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward at a lower constant speed in the same lane ahead of the ego vehicle."
+    }
+  ],
+  "spatial_relation": "On a straight multi-lane urban road, the ego vehicle is positioned behind a lead vehicle traveling in the same lane, with both vehicles moving in the same direction.",
+  "requirements_and_restrictions": "The ego vehicle must be traveling on a non-junction roadway with a posted speed limit of 55 mph or more, and the scenario involves closing in on a lead vehicle moving at a lower constant speed.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the camera-host vehicle from first-person perspective; one lead car is adversarial. 2. Enumeration: one adversarial (lead vehicle). 3. Chronology: initial ego at distance behind lead vehicle; midpoint ego closes gap while lead maintains slower speed; ending ego approaches closely behind lead vehicle. 4. Evidence: lead vehicle's relative position shifts from distant to near in frame; ego's forward motion is continuous without deviation."
+}

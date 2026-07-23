@@ -1,0 +1,8 @@
+{
+  "bench_id": "video-only",
+  "id_to_file": {
+    "21": "ULT_1.scenic",
+    "29": "lateral_cut_in_rural.scenic"
+  },
+  "version": 1
+}

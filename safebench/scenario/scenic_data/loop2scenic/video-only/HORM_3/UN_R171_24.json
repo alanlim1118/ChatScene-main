@@ -1,0 +1,27 @@
+{
+  "scenario": "The ego vehicle merges onto a multi-lane highway from an on-ramp while two other vehicles travel in the adjacent highway lanes.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car accelerates along the on-ramp and merges into the highway traffic flow."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward in the rightmost highway lane, maintaining a consistent speed as the ego vehicle merges ahead of it."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward in the middle highway lane, parallel to the other highway vehicle."
+    }
+  ],
+  "spatial_relation": "The ego vehicle starts on a curved on-ramp that joins a multi-lane highway from the right, with two adversarial cars already traveling on the main highway lanes; residential buildings line the left side of the highway and dense forest borders the right side.",
+  "requirements_and_restrictions": "The ego vehicle must spawn on the on-ramp and successfully merge into highway traffic without collision; the scenario terminates once the ego has fully merged and traveled a certain distance along the highway.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Positioned alongside the on-ramp near the merge point with the highway."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the vehicle on the on-ramp; two highway vehicles are adversarials. 2. Enumeration: adversarials length is 2. 3. Chronology: initially ego is on ramp, two cars on highway; midpoint ego accelerates and approaches merge; ending ego merges into right highway lane ahead of trailing adversarial. 4. Evidence: ego's path curves from ramp onto highway; lateral position shifts from right shoulder to lane; distance to trailing car increases after merge."
+}

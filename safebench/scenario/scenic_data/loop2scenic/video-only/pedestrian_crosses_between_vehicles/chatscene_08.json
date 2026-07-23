@@ -1,0 +1,27 @@
+{
+  "scenario": "The ego vehicle drives on a narrow residential road at night and encounters a pedestrian suddenly running across the road from behind a parked car, followed by a white SUV pulling out from the left side.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along the narrow road and reacts to unexpected obstacles."
+  },
+  "adversarials": [
+    {
+      "object": "Pedestrian",
+      "behavior": "The pedestrian suddenly runs across the road from the left side in front of the ego vehicle."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car pulls out from the left side of the road and enters the ego vehicle's path."
+    }
+  ],
+  "spatial_relation": "The ego vehicle travels on a narrow two-way residential road with buildings on both sides, a parked car on the left side, and an approaching vehicle with headlights visible in the distance.",
+  "requirements_and_restrictions": "The scenario occurs at night with limited visibility; the ego must detect and react to the pedestrian and the pulling-out vehicle in sequence.",
+  "road_side_structures": [
+    {
+      "object": "Bench",
+      "position": "Positioned on the right-hand sidewalk near the buildings."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the dashcam vehicle; pedestrian and white SUV are adversarials. 2. Chronology: initially ego approaches parked car and distant headlights; midpoint pedestrian runs from left behind parked car; ending white SUV pulls out from left. 3. Evidence: pedestrian's lateral movement crosses ego path; SUV's position shifts from parked to entering roadway."
+}

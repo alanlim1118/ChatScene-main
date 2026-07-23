@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle waits at an intersection while an adversarial vehicle drives straight across from left to right.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car remains stationary at the intersection."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car drives straight across the intersection from left to right."
+    }
+  ],
+  "spatial_relation": "At a four-way intersection, the ego vehicle is positioned in the center of the intersection facing north, while the adversarial vehicle approaches from the left (west) and travels eastward across the intersection.",
+  "requirements_and_restrictions": "The ego vehicle must remain stationary at the intersection while the adversarial vehicle crosses; the scenario terminates once the adversarial vehicle has cleared the intersection.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The blue car is ego (labeled and centered); the pink car is adversarial. 2. Enumeration: one adversarial car. 3. Chronology: Initially ego is stationary at intersection; adversarial approaches from left. Midpoint adversarial enters and crosses intersection. Ending adversarial exits to the right. 4. Evidence: Ego's position unchanged across phases; adversarial's position shifts left to right through intersection."
+}

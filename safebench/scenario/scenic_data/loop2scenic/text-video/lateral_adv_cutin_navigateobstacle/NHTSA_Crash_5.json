@@ -1,0 +1,31 @@
+{
+  "scenario": "The ego vehicle is driving straight on a multi-lane city road when a black sedan cuts sharply into its lane from the right, causing a side-impact collision.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward in its lane and is struck on its right side by an encroaching vehicle."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The black sedan cuts sharply from the right lane into the ego vehicle's lane to drive around a stationary vehicle blocking its path."
+    },
+    {
+      "object": "Car",
+      "behavior": "The stationary vehicle remains stopped in the right lane, blocking the path of the black sedan."
+    },
+    {
+      "object": "Car",
+      "behavior": "The silver car travels straight forward in the left lane, passing the scene of the collision."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is in the center lane of a multi-lane city road, with a black sedan initially positioned in the right lane to its right, a stationary vehicle stopped ahead in the right lane, and a silver car in the left lane.",
+  "requirements_and_restrictions": "The scenario involves a sudden side-impact collision initiated by the black sedan's lane change; the scenario terminates after the collision occurs and vehicles begin to separate.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Positioned on the right side of the road, visible above the black sedan after it cuts into the ego lane."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the camera-host vehicle from the first-person dashboard perspective. Three adversarials exist: the black sedan, the stationary vehicle, and the silver car in the left lane. 2. Chronology: Initially, ego proceeds straight with a truck ahead and the black sedan to the right. At midpoint, the black sedan swerves left into the ego lane to avoid the stationary vehicle. At ending, side-impact collision occurs between ego and black sedan. 3. Evidence: The black sedan's lateral position shifts from right lane to ego lane; the stationary vehicle remains fixed ahead in the right lane; the silver car maintains constant position in left lane throughout."
+}

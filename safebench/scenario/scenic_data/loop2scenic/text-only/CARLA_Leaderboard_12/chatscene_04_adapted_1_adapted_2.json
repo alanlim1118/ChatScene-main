@@ -1,0 +1,23 @@
+{
+  "scenario": "The ego vehicle encounters a lane-blocking obstacle and performs a lane change into adjacent same-direction traffic to avoid it.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels forward, detects the lane-blocking obstacle ahead, signals and executes a lane change into the adjacent lane, then continues forward in the new lane."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward in the adjacent lane, maintaining a consistent speed and position parallel to the ego vehicle's original lane."
+    }
+  ],
+  "spatial_relation": "The ego vehicle starts in its original lane on a multi-lane straight road, with a lane-blocking obstacle positioned ahead in the same lane, and an adversarial car traveling in the adjacent lane to the left or right of the ego's initial position.",
+  "requirements_and_restrictions": "The ego vehicle must detect the obstacle at a sufficient distance to safely execute the lane change; the scenario terminates once the ego has successfully merged into the adjacent lane and passed the obstacle. The lane change must be performed without collision with the adversarial vehicle in the target lane.",
+  "road_side_structures": [],
+  "temporary_modifications": [
+    {
+      "object": "Street Barrier",
+      "position": "Placed directly in the center of the ego vehicle's original travel lane, blocking forward progress."
+    }
+  ],
+  "reasoning_chain": "1. Actors: Ego is the camera-host vehicle from first-person perspective; one adversarial car is in the adjacent lane. 2. Enumeration: one adversarial Car. 3. Chronology: initial ego approaches obstacle in-lane with adversarial car in parallel lane; midpoint ego signals and initiates lane change while adversarial car maintains position; ending ego completes merge and passes obstacle. 4. Evidence: ego's lateral position shifts toward adjacent lane; obstacle remains fixed in original lane; adversarial car maintains consistent longitudinal position relative to road markings."
+}

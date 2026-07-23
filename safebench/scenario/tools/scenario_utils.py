@@ -24,6 +24,7 @@ import xml.etree.ElementTree as ET
 
 from safebench.scenario.tools.route_parser import RouteParser, TRIGGER_THRESHOLD, TRIGGER_ANGLE_THRESHOLD
 from safebench.scenario.scenario_manager.scenario_config import ScenarioConfig
+from safebench.util import scenario_id_manifest
 
 
 def calculate_distance_transforms(transform_1, transform_2):
@@ -152,7 +153,7 @@ def scenic_parse(config, logger):
         if (not new_files) and config.get('bench_id') is not None:
             bench_dir = osp.join(scenic_dir, str(config['bench_id']))
             if osp.isdir(bench_dir):
-                bench_files = sorted([path for path in os.listdir(bench_dir) if path.split('.')[1] == 'scenic'])
+                bench_files = sorted([path for path in os.listdir(bench_dir) if path.endswith('.scenic')])
                 # If scenario_id is specified, only load the matching Scenic file (e.g. scenario_002.scenic).
                 if config.get('scenario_id') is not None:
                     expected = f"scenario_{int(j):03d}.scenic"
@@ -160,7 +161,15 @@ def scenic_parse(config, logger):
                         bench_files = [expected]
                     else:
                         # Fallback: accept any file with matching numeric suffix.
-                        bench_files = [p for p in bench_files if p.startswith("scenario_") and p.split(".")[0].endswith(f"{int(j):03d}")]
+                        matched = [p for p in bench_files if p.startswith("scenario_") and p.split(".")[0].endswith(f"{int(j):03d}")]
+                        if not matched:
+                            # Fallback: bench dirs with non-scenario_NNN.scenic
+                            # filenames resolve scenario_id via a manifest
+                            # (see scripts/build_scenario_id_manifest.py).
+                            manifest_file = scenario_id_manifest.file_for_id(bench_dir, int(j))
+                            if manifest_file is not None and manifest_file in bench_files:
+                                matched = [manifest_file]
+                        bench_files = matched
                 scenic_rel_listdir.extend(bench_files)
                 scenic_abs_listdir.extend(osp.join(bench_dir, path) for path in bench_files)
                 scenario_ids.extend([j] * len(bench_files))

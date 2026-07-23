@@ -1,0 +1,23 @@
+{
+  "scenario": "The ego vehicle changes lanes to avoid a stationary obstacle in its path while another vehicle travels in the adjacent lane.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car changes lanes to the left to avoid an obstacle and continues traveling forward."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward in the right lane, maintaining its position parallel to the ego vehicle's original path."
+    }
+  ],
+  "spatial_relation": "The ego vehicle starts in the right lane of a two-lane straight road, with a stationary obstacle directly ahead in the same lane, and an adversarial car traveling in the left lane adjacent to the ego.",
+  "requirements_and_restrictions": "The ego vehicle must initiate a lane change before reaching the stationary obstacle, and the scenario terminates once the ego has successfully merged into the left lane and passed the obstacle.",
+  "road_side_structures": [],
+  "temporary_modifications": [
+    {
+      "object": "Street Barrier",
+      "position": "Positioned directly in the center of the ego vehicle's right lane, blocking forward progress."
+    }
+  ],
+  "reasoning_chain": "1. Actors: The ego is the lower car in the right lane from a top-down perspective; the other car is adversarial. 2. Enumeration: one adversarial car. 3. Chronology: initially ego approaches obstacle in right lane with adversarial car in left lane; midpoint ego initiates left lane change; ending ego completes merge into left lane. 4. Evidence: dashed arrow shows ego's leftward trajectory toward left lane; solid obstacle blocks right lane; adversarial car maintains straight path in left lane."
+}

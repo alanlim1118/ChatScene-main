@@ -1,0 +1,116 @@
+{
+    "OPT_LowSpeedMerge_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_AHEAD_DIST": {
+                "low": 10.0,
+                "high": 30.0
+            },
+            "OPT_BEHIND_DIST": {
+                "low": 10.0,
+                "high": 30.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 7.0,
+                "high": 10.0
+            },
+            "OPT_TERM_DIST": {
+                "low": 70.0,
+                "high": 100.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_AHEAD_DIST": {
+                "low": 14.05,
+                "high": 26.79
+            },
+            "OPT_BEHIND_DIST": {
+                "low": 11.88,
+                "high": 25.42
+            },
+            "OPT_ADV_SPEED": {
+                "low": 7.92,
+                "high": 9.74
+            },
+            "OPT_TERM_DIST": {
+                "low": 73.05,
+                "high": 92.05
+            }
+        },
+        "opt_time_2": {
+            "OPT_AHEAD_DIST": {
+                "low": 15.1,
+                "high": 25.64
+            },
+            "OPT_BEHIND_DIST": {
+                "low": 12.93,
+                "high": 23.72
+            },
+            "OPT_ADV_SPEED": {
+                "low": 8.14,
+                "high": 9.65
+            },
+            "OPT_TERM_DIST": {
+                "low": 74.62,
+                "high": 91.36
+            }
+        },
+        "opt_time_3": {
+            "OPT_AHEAD_DIST": {
+                "low": 15.19,
+                "high": 24.58
+            },
+            "OPT_BEHIND_DIST": {
+                "low": 13.71,
+                "high": 23.17
+            },
+            "OPT_ADV_SPEED": {
+                "low": 8.24,
+                "high": 9.58
+            },
+            "OPT_TERM_DIST": {
+                "low": 76.82,
+                "high": 91.16
+            }
+        },
+        "opt_time_4": {
+            "OPT_AHEAD_DIST": {
+                "low": 15.63,
+                "high": 24.17
+            },
+            "OPT_BEHIND_DIST": {
+                "low": 14.44,
+                "high": 22.75
+            },
+            "OPT_ADV_SPEED": {
+                "low": 8.32,
+                "high": 9.55
+            },
+            "OPT_TERM_DIST": {
+                "low": 77.9,
+                "high": 90.85
+            }
+        },
+        "opt_time_5": {
+            "OPT_AHEAD_DIST": {
+                "low": 16.18,
+                "high": 24.11
+            },
+            "OPT_BEHIND_DIST": {
+                "low": 14.69,
+                "high": 22.49
+            },
+            "OPT_ADV_SPEED": {
+                "low": 8.36,
+                "high": 9.5
+            },
+            "OPT_TERM_DIST": {
+                "low": 78.53,
+                "high": 90.61
+            }
+        },
+        "select_id": [
+            32,
+            42
+        ]
+    }
+}

@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego car travels straight in the middle lane while an adversarial car cuts across from the left lane to the right.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward within the middle lane."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car turns from the left lane across the middle lane toward the right lane, cutting ahead of the ego vehicle."
+    }
+  ],
+  "spatial_relation": "On a multi-lane straight road, the ego car is positioned in the middle lane while the adversarial car starts in the left lane and moves across the ego's path toward the right lane.",
+  "requirements_and_restrictions": "",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the centered car in middle lane; one adversarial car is identified. 2. Enumeration: one adversarial car. 3. Chronology: initially ego in middle lane, adversarial in left lane; midpoint adversarial turns right across middle lane; ending adversarial reaches right lane ahead of ego. 4. Evidence: adversarial's lateral position shifts from left to right across frames, crossing ego's path."
+}

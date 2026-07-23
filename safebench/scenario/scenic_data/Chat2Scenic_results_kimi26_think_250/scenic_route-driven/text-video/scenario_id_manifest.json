@@ -1,0 +1,27 @@
+{
+  "bench_id": "text-video",
+  "id_to_file": {
+    "1": "CBLA_50_50kph.scenic",
+    "2": "CCFhol.scenic",
+    "3": "CCFtap_10kph_30kph.scenic",
+    "30": "in_lane_cut_in_rear_end.scenic",
+    "32": "lateral_adv_cutin_navigateobstacle.scenic",
+    "34": "lateral_cut_in_twowheeler_highway.scenic",
+    "35": "lateral_ego_lc_sudden_stop.scenic",
+    "36": "lateral_front_brake_drift_obstacle.scenic",
+    "37": "lateral_left_turn_cut_in_intersection.scenic",
+    "39": "lateral_truck_overtake.scenic",
+    "4": "CCRm_50kph.scenic",
+    "40": "moving_adv_drifts_into_ego.scenic",
+    "42": "moving_egonavigatefailed.scenic",
+    "44": "oncoming_adv_overtake.scenic",
+    "46": "pedestrian_cyclist_merges_into_ego.scenic",
+    "47": "turning_adv_right.scenic",
+    "48": "turning_lane_change_2.scenic",
+    "5": "CMCscp_20kph_20kph_FS.scenic",
+    "6": "CPFA_50_50kph.scenic",
+    "8": "CPTA.scenic",
+    "9": "MD_BlockedLaneObstacle1.scenic"
+  },
+  "version": 1
+}

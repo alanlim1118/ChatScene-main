@@ -1,0 +1,26 @@
+{
+  "scenario": "The ego vehicle travels straight through a 4-way urban intersection while interacting with three adversarial vehicles turning and crossing from opposing and left arms.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward through the intersection and continues along its lane beyond the junction."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car approaches from the opposing arm and executes a right turn at the intersection."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car approaches from the left arm and performs a left turn at the intersection."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car approaches from the left arm and passes straight across the intersection."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a multi-lane road approaching a 4-way intersection from the bottom arm. An adversarial car is on the top opposing arm, while two adversarial cars are on the left arm, one turning left and one going straight.",
+  "requirements_and_restrictions": "The ego vehicle must maintain proper right-of-way while navigating the intersection with multiple conflicting vehicle paths; the scenario terminates once the ego has cleared the intersection.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the centered car in bottom arm; three adversarial cars are identified from opposing and left arms. 2. Enumeration: adversarials length is 3. 3. Chronology: initially all vehicles approach intersection; at midpoint, opposing car turns right, left-arm cars turn left and go straight, creating conflicts; ending ego clears intersection. 4. Evidence: opposing car's trajectory arcs rightward; left-arm cars separate with one arcing left and other maintaining straight vector; ego maintains constant forward path."
+}

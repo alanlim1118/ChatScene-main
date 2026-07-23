@@ -1,0 +1,23 @@
+{
+  "scenario": "The ego vehicle travels straight through a busy urban intersection and is struck on its right side by a white passenger car that cuts across multiple lanes.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward through the intersection and is struck on its right side by another vehicle."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The white passenger car cuts aggressively across two lanes of traffic from the right and collides with the ego vehicle's right side."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a multi-lane urban road approaching and entering a busy intersection, with the adversarial white car initially positioned in lanes to the right of the ego before cutting across into the ego's path.",
+  "requirements_and_restrictions": "The scenario involves heavy traffic conditions with multiple vehicles in adjacent lanes; the collision occurs as the ego enters the intersection area.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Visible overhead on the right side of the road near the intersection."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is identified from the first-person dashboard camera perspective; the white car is the sole adversarial. 2. Chronology: Initially, ego approaches intersection in straight lane with traffic ahead. At midpoint, white car appears from right lanes and cuts across. At ending, collision occurs on ego's right side. 3. Evidence: White car's lateral position shifts from right lanes into ego's lane; contact visible on ego's right side as white car enters intersection path."
+}

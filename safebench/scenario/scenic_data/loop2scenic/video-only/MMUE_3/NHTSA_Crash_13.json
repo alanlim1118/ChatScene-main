@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle travels on a dark straight road at night while an oncoming vehicle drifts into its lane, causing a head-on collision.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along its lane and maintains course without deviation."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car drifts leftward from its lane into the oncoming lane and collides head-on with the ego vehicle."
+    }
+  ],
+  "spatial_relation": "On a dark two-lane straight road at night, the ego vehicle and an adversarial car approach each other from opposite directions in separate lanes, with the adversarial car positioned ahead in the opposing lane.",
+  "requirements_and_restrictions": "The scenario occurs at night with limited visibility; the scenario terminates upon collision between the ego and the adversarial vehicle.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the car from whose perspective the dark road is viewed; the oncoming car is the adversarial. 2. Chronology: Initially both cars approach from opposite lanes. Midpoint, the adversarial drifts left across the center. Ending, head-on collision occurs. 3. Evidence: The adversarial's headlights shift from centered in its lane to overlapping the ego's lane before impact."
+}

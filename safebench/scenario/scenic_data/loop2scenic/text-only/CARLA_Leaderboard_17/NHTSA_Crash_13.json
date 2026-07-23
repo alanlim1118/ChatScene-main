@@ -1,0 +1,23 @@
+{
+  "scenario": "The ego-vehicle encounters an oncoming vehicle invading its lane on a curved road due to an obstacle, requiring braking or maneuvering to avoid collision.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels forward along a curved road and brakes or maneuvers to the side to avoid the oncoming vehicle encroaching into its lane."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels in the opposite direction on a curved road and invades the ego vehicle's lane to navigate around an obstacle."
+    }
+  ],
+  "spatial_relation": "On a curved road, the ego vehicle and the oncoming adversarial vehicle approach each other from opposite directions, with the adversarial vehicle positioned in the ego's lane due to an obstacle on its side of the road.",
+  "requirements_and_restrictions": "The ego vehicle must detect the lane-invading oncoming vehicle and perform an avoidance maneuver by braking or moving to the roadside; the scenario terminates once the ego safely passes the oncoming traffic.",
+  "road_side_structures": [],
+  "temporary_modifications": [
+    {
+      "object": "Street Barrier",
+      "position": "Placed on the adversarial vehicle's side of the curved road, forcing the oncoming vehicle into the ego's lane."
+    }
+  ],
+  "reasoning_chain": "1. Actors: Ego is the camera-host vehicle in first-person perspective; one oncoming car is adversarial. 2. Enumeration: one adversarial car. 3. Chronology: initial both vehicles approach on curved road; midpoint adversarial car shifts into ego lane due to obstacle; ending ego brakes or steers aside to pass. 4. Evidence: adversarial car's lateral position visibly crosses centerline into ego lane; ego's trajectory deviates toward road edge or decelerates."
+}

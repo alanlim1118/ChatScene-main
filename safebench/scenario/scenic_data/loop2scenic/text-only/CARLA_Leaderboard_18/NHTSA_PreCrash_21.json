@@ -1,0 +1,23 @@
+{
+  "scenario": "The ego vehicle follows a leading vehicle that suddenly decelerates due to an obstacle ahead, requiring the ego to perform an emergency brake or avoidance maneuver.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car follows the leading vehicle and performs an emergency brake or avoidance maneuver when the lead vehicle suddenly decelerates."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels ahead of the ego vehicle and suddenly decelerates due to an obstacle in its path."
+    }
+  ],
+  "spatial_relation": "On a straight road, the ego vehicle follows behind a leading vehicle in the same lane, with an obstacle positioned ahead in the lane.",
+  "requirements_and_restrictions": "Initial following distance between the ego and the leading vehicle is defined; the scenario terminates after the ego successfully brakes or avoids the obstacle and the leading vehicle.",
+  "road_side_structures": [],
+  "temporary_modifications": [
+    {
+      "object": "Street Barrier",
+      "position": "Placed directly in the path of the leading vehicle ahead in the same lane."
+    }
+  ],
+  "reasoning_chain": "1. Actors: Ego is the following car from first-person perspective; the leading vehicle is the adversarial. 2. Enumeration: one adversarial Car. 3. Chronology: initially ego follows lead vehicle at distance; midpoint lead vehicle suddenly decelerates; ending ego brakes or avoids. 4. Evidence: lead vehicle's decreasing speed shown by closing gap and brake lights; obstacle visible ahead in lane."
+}

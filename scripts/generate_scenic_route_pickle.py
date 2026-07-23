@@ -23,6 +23,8 @@ if TYPE_CHECKING:
     from safebench.util.scenic_utils import ScenicSimulator  # noqa: F401
     from safebench.agent.osc_ego_recorder import EgoVideoRecorder  # noqa: F401
 
+from safebench.util import scenario_id_manifest
+
 
 SCENARIO_RE = re.compile(r"scenario_(\d+)\.scenic$")
 CARLA_MAP_RE = re.compile(r"^\s*param\s+carla_map\s*=\s*'([^']+)'\s*$", re.MULTILINE)
@@ -41,6 +43,17 @@ def _parse_required_param(text: str, regex: re.Pattern, name: str, scenic_file: 
     if not m:
         raise ValueError(f"Missing `{name}` in Scenic file: {scenic_file}")
     return m.group(1)
+
+
+def _parse_optional_param(text: str, regex: re.Pattern) -> Optional[str]:
+    """Like _parse_required_param, but returns None instead of raising when
+    the param isn't a plain string literal (e.g. `param weather = Weather(...)`
+    or `param weather = Uniform(*OPTIONS)`). Callers should simply omit the
+    corresponding override key rather than passing None through to Scenic, so
+    the file's own (non-literal) definition is used unmodified.
+    """
+    m = regex.search(text)
+    return m.group(1) if m else None
 
 
 def _bench_id_from_path(scenic_file: str, scenic_dir: Optional[str]) -> str:
@@ -89,7 +102,7 @@ class RouteRecord:
     route_id: int
     scenic_file: str
     town: str
-    weather: str
+    weather: Optional[str]
     spawnPt: Dict[str, float]
     trajectory: List[Tuple[float, float, float]]
     waypoints: List[Tuple[float, float, float]]
@@ -153,7 +166,7 @@ def _run_scenic_and_record_ego(
 
     traj_xyz: List[Tuple[float, float, float]] = []
 
-    from scenic.core.dynamics.actions import _EndSimulationAction  # imported lazily
+    from scenic.core.dynamics.actions import _EndSimulationAction, _EndScenarioAction  # imported lazily
     from scenic.core.simulators import TerminationType, SimulationResult  # imported lazily
 
     dynamicScenario = sim.scene.dynamicScenario
@@ -209,7 +222,14 @@ def _run_scenic_and_record_ego(
                 if not getattr(agent, "behavior", None):
                     continue
                 actions = agent.behavior._step()
-                if isinstance(actions, _EndSimulationAction):
+                if isinstance(actions, (_EndSimulationAction, _EndScenarioAction)):
+                    # _EndScenarioAction fires on a bare `terminate` (as opposed
+                    # to `terminate simulation` -> _EndSimulationAction) inside a
+                    # behavior. For these single-top-level-scenario files there
+                    # is no parent scenario to fall back to, so treat it the
+                    # same as ending the simulation - otherwise it isn't a
+                    # list/tuple of per-agent actions and executeActions() below
+                    # crashes with "object is not iterable".
                     terminationReason = str(actions)
                     terminationType = TerminationType.terminatedByBehavior
                     break
@@ -325,6 +345,7 @@ def generate_one(
     bev_height: float,
     max_scene_attempts: int,
     warmup_ticks: int,
+    carla_timeout: float = 60.0,
     max_record_seconds: float = 0.0,
 ) -> RouteRecord:
     try:
@@ -339,12 +360,28 @@ def generate_one(
         scenic_text = f.read()
 
     town = _parse_required_param(scenic_text, CARLA_MAP_RE, "param carla_map", scenic_file)
-    weather = _parse_required_param(scenic_text, WEATHER_RE, "param weather", scenic_file)
+    # `weather` is optional: many Scenic files define it via a Weather(...)/
+    # WeatherConditions(...) constructor or Uniform(...) rather than a plain
+    # string literal. When it isn't a literal, we don't override it below -
+    # the file's own (non-literal) definition is used unmodified by Scenic.
+    weather = _parse_optional_param(scenic_text, WEATHER_RE)
 
     if scenario_id is None:
         scenario_id = _parse_scenario_num_from_filename(scenic_file)
     if scenario_id is None:
-        raise ValueError(f"Could not infer --scenario-id from filename: {scenic_file}")
+        # Fallback for bench dirs whose .scenic files aren't scenario_NNN.scenic:
+        # consult a pre-built scenario_id_manifest.json in the file's directory
+        # (see scripts/build_scenario_id_manifest.py). Read-only here - this does
+        # not assign new ids, only resolves ids someone already assigned.
+        scenario_id = scenario_id_manifest.id_for_file(
+            osp.dirname(scenic_file), osp.basename(scenic_file)
+        )
+    if scenario_id is None:
+        raise ValueError(
+            f"Could not infer --scenario-id from filename: {scenic_file}. "
+            "Pass --scenario-id explicitly, or build a manifest first with "
+            "scripts/build_scenario_id_manifest.py."
+        )
 
     if bench_id is None:
         bench_id = _bench_id_from_path(scenic_file, scenic_dir)
@@ -357,11 +394,14 @@ def generate_one(
         "use2DMap": bool(mode2d),
         "render": 0,
         "town": town,
-        "weather": weather,
+        "timeout": float(carla_timeout),
     }
+    if weather is not None:
+        params["weather"] = weather
 
     simulator = ScenicSimulator(scenic_file, params, mode2D=mode2d, fixed_delta_seconds=fixed_delta_seconds)
-    video_prefix = f"{bench_id}__scenario_{scenario_id:03d}__route_{route_id}"
+    original_name = osp.splitext(osp.basename(scenic_file))[0]
+    video_prefix = f"{bench_id}__{original_name}__scenario_{scenario_id:03d}__route_{route_id}"
 
     if warmup_ticks > 0:
         # Optional stabilization before spawning (navmesh/streaming can lag right after map load).
@@ -474,6 +514,13 @@ def main() -> None:
 
     parser.add_argument("--port", type=int, default=2002)
     parser.add_argument("--tm-port", type=int, default=8002)
+    parser.add_argument(
+        "--carla-timeout",
+        type=float,
+        default=60.0,
+        help="Seconds to wait for CARLA RPC calls (notably client.load_world), e.g. town switches. "
+        "Scenic's default (10s) is often too short for heavier towns.",
+    )
 
     parser.add_argument("--record-video", action="store_true", default=False)
     parser.add_argument(
@@ -545,10 +592,28 @@ def main() -> None:
         if not scenic_files:
             raise SystemExit(f"No Scenic files found under {args.scenic_dir} with glob {args.glob}")
 
+    # Bench dirs (one per distinct parent directory of a discovered .scenic
+    # file) whose scenario_id manifest we've already built/loaded this run -
+    # avoids rebuilding it once per file when a directory has many files.
+    built_manifest_dirs: Dict[str, Dict] = {}
+
     errors: List[Dict] = []
     for sf in scenic_files:
         try:
             inferred_scenario = _parse_scenario_num_from_filename(sf)
+            if inferred_scenario is None and args.scenario_id is None:
+                # Bench dir with non-scenario_NNN.scenic naming: resolve via
+                # its scenario_id manifest, so both --scenic-dir batches and
+                # --scenic-file single runs skip already-completed scenarios
+                # via --resume the same way generate_one() resolves ids.
+                bench_dir = osp.dirname(sf)
+                if scenic_root is not None:
+                    # Directory-batch mode may build/extend the manifest
+                    # (idempotent, preserves any existing assignments) so this
+                    # run - and later eval-time lookups - agree on ids.
+                    if bench_dir not in built_manifest_dirs:
+                        built_manifest_dirs[bench_dir] = scenario_id_manifest.load_or_build(bench_dir)
+                inferred_scenario = scenario_id_manifest.id_for_file(bench_dir, osp.basename(sf))
             scenario_id = args.scenario_id if args.scenario_id is not None else inferred_scenario
             bench_id = args.bench_id if args.bench_id is not None else _bench_id_from_path(sf, scenic_root)
             key = _make_pickle_key(args.key_mode, bench_id, scenario_id or -1, args.route_id)
@@ -577,6 +642,7 @@ def main() -> None:
                 bev_height=args.bev_height,
                 max_scene_attempts=args.max_scene_attempts,
                 warmup_ticks=args.warmup_ticks,
+                carla_timeout=args.carla_timeout,
                 max_record_seconds=args.max_record_seconds,
             )
             data[rec.key] = _record_to_pickle_entry(rec)

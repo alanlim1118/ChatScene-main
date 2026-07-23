@@ -1,0 +1,116 @@
+{
+    "OPT_lateral_navigate_parked_motorcycle_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_EGO_CAR_DIST": {
+                "low": 15.0,
+                "high": 25.0
+            },
+            "OPT_CAR_MOTO_DIST": {
+                "low": 5.0,
+                "high": 10.0
+            },
+            "OPT_CURB_OFFSET": {
+                "low": 2.0,
+                "high": 4.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 5.0,
+                "high": 9.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_EGO_CAR_DIST": {
+                "low": 15.0,
+                "high": 25.0
+            },
+            "OPT_CAR_MOTO_DIST": {
+                "low": 5.0,
+                "high": 10.0
+            },
+            "OPT_CURB_OFFSET": {
+                "low": 2.0,
+                "high": 4.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 5.0,
+                "high": 9.0
+            }
+        },
+        "opt_time_2": {
+            "OPT_EGO_CAR_DIST": {
+                "low": 15.0,
+                "high": 25.0
+            },
+            "OPT_CAR_MOTO_DIST": {
+                "low": 5.0,
+                "high": 10.0
+            },
+            "OPT_CURB_OFFSET": {
+                "low": 2.0,
+                "high": 4.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 5.0,
+                "high": 9.0
+            }
+        },
+        "opt_time_3": {
+            "OPT_EGO_CAR_DIST": {
+                "low": 15.0,
+                "high": 25.0
+            },
+            "OPT_CAR_MOTO_DIST": {
+                "low": 5.0,
+                "high": 10.0
+            },
+            "OPT_CURB_OFFSET": {
+                "low": 2.0,
+                "high": 4.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 5.0,
+                "high": 9.0
+            }
+        },
+        "opt_time_4": {
+            "OPT_EGO_CAR_DIST": {
+                "low": 15.0,
+                "high": 25.0
+            },
+            "OPT_CAR_MOTO_DIST": {
+                "low": 5.0,
+                "high": 10.0
+            },
+            "OPT_CURB_OFFSET": {
+                "low": 2.0,
+                "high": 4.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 5.0,
+                "high": 9.0
+            }
+        },
+        "opt_time_5": {
+            "OPT_EGO_CAR_DIST": {
+                "low": 15.0,
+                "high": 25.0
+            },
+            "OPT_CAR_MOTO_DIST": {
+                "low": 5.0,
+                "high": 10.0
+            },
+            "OPT_CURB_OFFSET": {
+                "low": 2.0,
+                "high": 4.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 5.0,
+                "high": 9.0
+            }
+        },
+        "select_id": [
+            24,
+            29
+        ]
+    }
+}

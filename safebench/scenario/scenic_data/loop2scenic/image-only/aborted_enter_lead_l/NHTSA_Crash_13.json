@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle travels straight on a multi-lane road while an adversarial vehicle ahead changes lanes from the right to the left lane.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along its lane."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car changes from the right lane to the left lane, crossing the ego vehicle's path."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is positioned in the left lane of a two-lane straight road, while the adversarial vehicle is initially positioned ahead in the right lane before moving into the ego's lane.",
+  "requirements_and_restrictions": "Initial longitudinal spacing is defined between the ego and the adversarial vehicle; the scenario terminates once the ego vehicle has passed the lane-changing adversarial or a collision occurs.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the blue car with straight arrow; the purple car with curved arrow is the adversarial. 2. Enumeration: one adversarial car. 3. Chronology: initial both cars in separate lanes with ego behind; midpoint adversarial initiates left lane change; ending adversarial completes merge into ego lane. 4. Evidence: curved arrow shows lateral movement from right to left lane; straight arrow shows ego maintains course."
+}

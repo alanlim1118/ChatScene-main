@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego car drives straight through an intersection while passing an adversarial object moving parallel in the adjacent right lane.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward through the intersection."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward parallel to the ego vehicle in the adjacent right lane through the intersection."
+    }
+  ],
+  "spatial_relation": "On a multi-lane road approaching and through an intersection, the ego vehicle occupies the left lane while an adversarial car occupies the adjacent right lane, both moving parallel.",
+  "requirements_and_restrictions": "Initial distances to the intersection are defined for both vehicles, and the scenario terminates once the ego vehicle has passed through the intersection.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the car from first-person perspective; one adversarial car in right lane. 2. Enumeration: one adversarial car. 3. Chronology: initial both approach intersection in parallel lanes; midpoint both enter intersection maintaining parallel paths; ending both exit intersection with ego passing adversarial on left. 4. Evidence: adversarial car remains consistently to the right of ego with matching forward trajectory, no lateral deviation observed."
+}

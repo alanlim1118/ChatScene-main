@@ -1,0 +1,21 @@
+{
+  "bench_id": "text-image",
+  "id_to_file": {
+    "11": "UN_WP29_PassableObjectOnIntendedPath.scenic",
+    "14": "aborted_enter_lead_r.scenic",
+    "18": "cut_through_r.scenic",
+    "19": "exit_parallel_reversing_left.scenic",
+    "2": "BackingUpIntoAnotherVehicle.scenic",
+    "21": "left_turn_with_obj_from_left_passing_straight_intersecting.scenic",
+    "24": "merging_cut_through_r_0.scenic",
+    "30": "pass_obj_left_moving_toward_turning_right.scenic",
+    "32": "pass_straight_with_obj_from_left_crossing_after_node.scenic",
+    "33": "pass_straight_with_obj_from_right_entering_before_node.scenic",
+    "34": "passed_r.scenic",
+    "35": "r12_town06_ins_sl.scenic",
+    "39": "r32_town05_ins_oppo.scenic",
+    "4": "C-ICAP_Daytime - turning left and encountering a target group in the same direction crossing.scenic",
+    "44": "right_turn_free.scenic"
+  },
+  "version": 1
+}

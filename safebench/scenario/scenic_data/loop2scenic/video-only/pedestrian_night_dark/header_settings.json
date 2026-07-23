@@ -1,0 +1,6 @@
+{
+  "carla_map": "Town10HD",
+  "map_file_path": "../../maps/Town10HD.xodr",
+  "blueprint": "vehicle.lincoln.mkz_2017",
+  "weather": "ClearSunset"
+}

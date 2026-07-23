@@ -1,0 +1,27 @@
+{
+  "scenario": "The ego vehicle exits a parking garage and turns right onto a city street while a pedestrian crosses the road ahead.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car exits the parking garage and turns right onto the city street."
+  },
+  "adversarials": [
+    {
+      "object": "Pedestrian",
+      "behavior": "The pedestrian crosses the city street from left to right in front of the parking garage exit."
+    }
+  ],
+  "spatial_relation": "The ego vehicle starts inside a parking garage exit lane facing the city street, a pedestrian is crossing the street directly in front of the garage exit, and parked cars line the left side of the street in a parking lot.",
+  "requirements_and_restrictions": "The ego vehicle must yield to the crossing pedestrian before completing the right turn onto the street; the scenario terminates once the ego has safely merged onto the city street.",
+  "road_side_structures": [
+    {
+      "object": "Bench",
+      "position": "Positioned on the sidewalk to the right of the ego vehicle near the green area."
+    },
+    {
+      "object": "Plantpot",
+      "position": "Located on the sidewalk near the building entrance to the right of the ego vehicle."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the blue car in the garage exit; the pedestrian is the only adversarial. 2. Enumeration: one Pedestrian in adversarials array. 3. Chronology: initial ego stationary in garage, pedestrian on left side of street; midpoint ego approaches exit, pedestrian mid-crossing; ending ego completes right turn after pedestrian clears. 4. Evidence: pedestrian's position shifts across street between frames; ego's orientation changes from facing street to turning right."
+}

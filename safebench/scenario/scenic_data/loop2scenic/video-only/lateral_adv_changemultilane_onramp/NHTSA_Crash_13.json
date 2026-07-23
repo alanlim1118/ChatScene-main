@@ -1,0 +1,23 @@
+{
+  "scenario": "The ego vehicle travels on a multi-lane road approaching an interchange, where an adversarial car cuts in from the right lane and then exits to the right ramp.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along its lane, then changes to the left lane to avoid the adversarial vehicle."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car changes from the right lane into the ego lane ahead, then exits to the right ramp."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a multi-lane straight road approaching an interchange with an overpass; an adversarial car starts in the right lane to the right of the ego, moves into the ego lane, and then takes the right exit ramp.",
+  "requirements_and_restrictions": "Initial distance between the ego and the interchange is defined; the scenario terminates once the ego has passed the interchange or the adversarial vehicle has fully exited.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Positioned on the right side of the road on a pole, displaying directional information above the interchange."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the dashboard-camera vehicle; the white car merging from right is the adversarial. 2. Chronology: initially both approach interchange; midpoint adversarial cuts left into ego lane; ending adversarial exits right while ego continues straight. 3. Evidence: adversarial's lateral position shifts from right lane to ego lane then to exit ramp; ego shifts left to avoid."
+}

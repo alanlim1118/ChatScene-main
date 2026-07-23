@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego car travels straight in the left lane while an adversarial car accelerates forward in the right lane, passing the ego vehicle on the right.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward within the left lane of the road."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car accelerates forward in the right lane and passes the ego vehicle on the right side."
+    }
+  ],
+  "spatial_relation": "On a straight two-lane road, the ego vehicle is positioned in the left lane while the adversarial vehicle is positioned in the right lane, initially behind or alongside the ego.",
+  "requirements_and_restrictions": "The scenario illustrates a passing maneuver; the adversarial vehicle must accelerate to overtake the ego vehicle on the right. The scenario terminates after the adversarial vehicle has completed passing the ego vehicle.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The blue car is ego from explicit label; the pink car is adversarial. 2. Enumeration: one adversarial car. 3. Chronology: initially both vehicles travel in parallel lanes; midpoint adversarial accelerates and draws alongside; ending adversarial passes ego on right. 4. Evidence: image shows blue ego in left lane with forward arrow, pink adversarial in right lane with longer arrow indicating acceleration and passing motion."
+}

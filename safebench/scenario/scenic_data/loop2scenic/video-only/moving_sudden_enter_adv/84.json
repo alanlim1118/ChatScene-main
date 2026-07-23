@@ -1,0 +1,27 @@
+{
+  "scenario": "The ego vehicle travels on a multi-lane road when a black car makes an illegal U-turn from the opposite direction, followed by a white car also making a U-turn from a side road.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along its lane and decelerates to avoid collisions with vehicles making U-turns."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The black car makes a U-turn from the opposite direction across double yellow lines, entering the ego's lane."
+    },
+    {
+      "object": "Car",
+      "behavior": "The white car makes a U-turn from a side road on the right, entering the road ahead of the ego vehicle."
+    }
+  ],
+  "spatial_relation": "The ego vehicle travels on a straight multi-lane urban road with double yellow lines, with a black car initially approaching from the opposite lane and a white car emerging from a side road on the right.",
+  "requirements_and_restrictions": "The ego vehicle must maintain safe following distance and react to unexpected U-turn maneuvers from both directions; scenario terminates once the ego has passed both U-turning vehicles.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Positioned along the right side of the road among the trees."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the dashboard-camera vehicle; black car and white car are adversarials. 2. Enumeration: two adversarials, both Cars. 3. Chronology: initially ego approaches black car in opposite lane; midpoint black car U-turns across double yellows, then white car U-turns from right side road; ending both cars complete turns and ego proceeds. 4. Evidence: black car's heading reverses from opposing to same direction; white car emerges from right roadside and turns into lane."
+}

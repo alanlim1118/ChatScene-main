@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego car executes a left turn at an intersection while an adversarial car approaches from the opposite direction and turns right.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car enters the intersection and executes a left turn."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car approaches from the opposite direction and executes a right turn at the intersection."
+    }
+  ],
+  "spatial_relation": "Both vehicles are on a straight road approaching a 4-way intersection from opposite directions, with the ego positioned in the lower portion facing upward and the adversarial positioned in the upper portion facing downward.",
+  "requirements_and_restrictions": "Initial distances to the intersection are defined for both vehicles to ensure simultaneous arrival at the intersection; the scenario terminates once both vehicles have completed their respective turns and cleared the intersection.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the blue car from lower perspective; the pink car is the adversarial. 2. Enumeration: one adversarial car. 3. Chronology: initial both approach intersection from opposite directions; midpoint both enter intersection and initiate turns; ending both complete turns and exit. 4. Evidence: ego's trajectory arcs leftward from bottom to left; adversarial's trajectory arcs rightward from top to left, with paths crossing at intersection center."
+}

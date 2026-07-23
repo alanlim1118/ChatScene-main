@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Average evaluation metrics from OPT_scenario_*_ROUTE-0_results.pkl files."""
+"""Average evaluation metrics from OPT_<name>_ROUTE-<id>_results.pkl files.
+
+<name> is normally `scenario_XXX` (legacy scenario_NNN.scenic bench layout),
+but may be any behavior name derived from an arbitrarily-named .scenic file
+(see safebench/util/scenario_id_manifest.py).
+"""
 
 import argparse
 import json
@@ -12,7 +17,7 @@ from typing import Dict, List, Tuple
 
 import joblib
 
-RESULTS_PATTERN = re.compile(r"^OPT_scenario_(\d+)_ROUTE-0_results\.pkl$")
+RESULTS_PATTERN = re.compile(r"^OPT_.+_ROUTE-\d+_results\.pkl$")
 DEFAULT_OUTPUT_NAME = "average_eval_results.json"
 METRIC_PRECISION = 6
 
@@ -63,7 +68,7 @@ def average_metrics(
 def main() -> int:
     parser = argparse.ArgumentParser(
         description=(
-            "Average evaluation metrics from OPT_scenario_XXX_ROUTE-0_results.pkl "
+            "Average evaluation metrics from OPT_<name>_ROUTE-<id>_results.pkl "
             "files found recursively under a directory."
         )
     )
@@ -91,7 +96,8 @@ def main() -> int:
     if not result_files:
         print(
             "Error: no matching pickle files found.\n"
-            "Expected filenames like: OPT_scenario_001_ROUTE-0_results.pkl",
+            "Expected filenames like: OPT_scenario_001_ROUTE-0_results.pkl "
+            "(or OPT_<behavior-name>_ROUTE-<id>_results.pkl for non-scenario_NNN benches)",
             file=sys.stderr,
         )
         return 1

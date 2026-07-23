@@ -1,0 +1,22 @@
+{
+  "scenario": "The ego vehicle approaches a pedestrian crossing the road while a stationary passenger car in the opposite lane illuminates the area with its driving beam.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along its lane toward the pedestrian crossing."
+  },
+  "adversarials": [
+    {
+      "object": "Pedestrian",
+      "behavior": "The pedestrian crosses the road in front of the ego vehicle at the designated crossing area."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car remains stationary in the opposite lane with its driving beam activated."
+    }
+  ],
+  "spatial_relation": "On a straight two-way two-lane road, the ego vehicle approaches a pedestrian crossing from one direction, while a stationary passenger car sits in the opposite lane with its headlights on, positioned 5 meters beyond the pedestrian crossing point.",
+  "requirements_and_restrictions": "The pedestrian and the stationary passenger car must maintain a longitudinal distance of 5 meters between them, and the scenario terminates once the ego vehicle has passed the pedestrian crossing area.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the green car from first-person perspective; adversarials are the pedestrian and blue stationary car. 2. Enumeration: two adversarials (Pedestrian, Car). 3. Chronology: initially ego approaches, pedestrian at crossing, opposite car stationary with beams on; midpoint ego nears crossing; ending ego passes pedestrian. 4. Evidence: pedestrian's lateral movement across road; stationary car's fixed position with visible headlight cone; 5m gap marked between pedestrian and opposite car."
+}

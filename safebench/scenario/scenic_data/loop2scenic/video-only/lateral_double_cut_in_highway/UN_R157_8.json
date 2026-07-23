@@ -1,0 +1,23 @@
+{
+  "scenario": "The ego vehicle travels on a multi-lane highway at night and encounters a stopped or severely slowed vehicle ahead, requiring an emergency braking maneuver.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward on the highway and performs emergency braking to avoid a collision with the vehicle ahead."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car ahead is stopped or moving at very low speed in the same lane as the ego vehicle."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a multi-lane highway at night, following another car in the same lane that is directly ahead.",
+  "requirements_and_restrictions": "The ego vehicle must maintain a safe following distance and react to the stopped or slow-moving vehicle ahead; the scenario terminates once the ego vehicle comes to a stop or safely passes the hazard.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Visible overhead on the highway above the lanes, displaying route information."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego vehicle is identified from the first-person dashboard camera perspective; the vehicle ahead with illuminated brake lights is the adversarial. 2. Chronological analysis: Initially, the ego travels at 104 KM/H on a clear highway. At midpoint, the ego rapidly approaches the adversarial vehicle with bright brake lights visible. In ending, the ego decelerates sharply to 0 KM/H, stopping behind the adversarial vehicle. 3. Evidence: Speedometer drops from 104 to 0 KM/H; brake lights of the adversarial vehicle intensify and grow larger in frame, indicating rapid closure and emergency braking."
+}

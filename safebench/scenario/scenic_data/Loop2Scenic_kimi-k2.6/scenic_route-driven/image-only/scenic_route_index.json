@@ -1,0 +1,290 @@
+{
+  "image-only:11:0": {
+    "pickle_key": "scenario_id_11_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/FollowingVehicleMakingAManeuverAndApproachingLeadVehicle.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:12:0": {
+    "pickle_key": "scenario_id_12_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/LowSpeedMerge.scenic",
+    "town": "Town04",
+    "weather": "ClearNoon"
+  },
+  "image-only:13:0": {
+    "pickle_key": "scenario_id_13_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/Vehicle Taking Evasive Action Without Prior Vehicle Maneuver.scenic",
+    "town": "Town04",
+    "weather": "ClearNoon"
+  },
+  "image-only:14:0": {
+    "pickle_key": "scenario_id_14_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/VehicleMakingAManeuver_VehicleTravelingInOppositeDirection.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:15:0": {
+    "pickle_key": "scenario_id_15_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/aborted_enter_lead_l.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:16:0": {
+    "pickle_key": "scenario_id_16_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/approach_lat_entering_traffic_area_from_right_forward.scenic",
+    "town": "Town07",
+    "weather": "ClearNoon"
+  },
+  "image-only:17:0": {
+    "pickle_key": "scenario_id_17_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/approach_oncoming.scenic",
+    "town": "Town07",
+    "weather": "ClearNoon"
+  },
+  "image-only:18:0": {
+    "pickle_key": "scenario_id_18_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/close_obj_side_in_intersection_left.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:19:0": {
+    "pickle_key": "scenario_id_19_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/diverging_lead_leaving_TA_after_node_l.scenic",
+    "town": "Town04",
+    "weather": "ClearNoon"
+  },
+  "image-only:20:0": {
+    "pickle_key": "scenario_id_20_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/exit_turning_reversing_right.scenic",
+    "town": "Town04",
+    "weather": "ClearNoon"
+  },
+  "image-only:21:0": {
+    "pickle_key": "scenario_id_21_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/intersection_lc_r.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:22:0": {
+    "pickle_key": "scenario_id_22_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/lc_from_oc_3.scenic",
+    "town": "Town04",
+    "weather": "ClearNoon"
+  },
+  "image-only:23:0": {
+    "pickle_key": "scenario_id_23_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/lc_r_2.scenic",
+    "town": "Town04",
+    "weather": "ClearNoon"
+  },
+  "image-only:24:0": {
+    "pickle_key": "scenario_id_24_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/left_turn_approaching_lead.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:25:0": {
+    "pickle_key": "scenario_id_25_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/left_turn_with_obj_from_left_entering_before_node.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:26:0": {
+    "pickle_key": "scenario_id_26_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/neighbor_entering_r.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:27:0": {
+    "pickle_key": "scenario_id_27_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/parallel_entry_passing_straight_with_obj_right_making_u-turn.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:28:0": {
+    "pickle_key": "scenario_id_28_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/parallel_entry_turning_right_with_obj_right_turning_left.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:29:0": {
+    "pickle_key": "scenario_id_29_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/pass_straight_with_obj_from_left_turning_left.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:2:0": {
+    "pickle_key": "scenario_id_2_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/C-ICAP_Construction area ahead.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:30:0": {
+    "pickle_key": "scenario_id_30_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/pass_straight_with_oncoming_obj_turning_left.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:31:0": {
+    "pickle_key": "scenario_id_31_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/r11_town05_ins_sl.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:32:0": {
+    "pickle_key": "scenario_id_32_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/r16_town05_ins_sl.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:33:0": {
+    "pickle_key": "scenario_id_33_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/r1_town05_ins_c.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:34:0": {
+    "pickle_key": "scenario_id_34_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/r21_town07_ins_sr.scenic",
+    "town": "Town07",
+    "weather": "SoftRainNoon"
+  },
+  "image-only:35:0": {
+    "pickle_key": "scenario_id_35_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/r26_town05_ins_chaos.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:36:0": {
+    "pickle_key": "scenario_id_36_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/r31_town05_ins_oppo.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:37:0": {
+    "pickle_key": "scenario_id_37_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/r36_town05_ins_crosschange.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  },
+  "image-only:38:0": {
+    "pickle_key": "scenario_id_38_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/r40_town06_hw_c.scenic",
+    "town": "Town04",
+    "weather": "ClearNoon"
+  },
+  "image-only:39:0": {
+    "pickle_key": "scenario_id_39_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/r45_town06_hw_merge.scenic",
+    "town": "Town04",
+    "weather": "ClearNoon"
+  },
+  "image-only:3:0": {
+    "pickle_key": "scenario_id_3_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/C-ICAP_Daytime - motorcycle cutting-in.scenic",
+    "town": "Town04",
+    "weather": "ClearNoon"
+  },
+  "image-only:40:0": {
+    "pickle_key": "scenario_id_40_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/r46_town06_hw_c.scenic",
+    "town": "Town04",
+    "weather": "ClearNoon"
+  },
+  "image-only:41:0": {
+    "pickle_key": "scenario_id_41_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/r6_town07_ins_c.scenic",
+    "town": "Town07",
+    "weather": "ClearNoon"
+  },
+  "image-only:42:0": {
+    "pickle_key": "scenario_id_42_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/right_turn_standstill.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:43:0": {
+    "pickle_key": "scenario_id_43_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/right_turn_with_obj_from_right_turning_right.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:44:0": {
+    "pickle_key": "scenario_id_44_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/right_turn_with_oncoming_obj_turning_right.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:45:0": {
+    "pickle_key": "scenario_id_45_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/sync_lcs_l_2.scenic",
+    "town": "Town04",
+    "weather": "ClearNoon"
+  },
+  "image-only:46:0": {
+    "pickle_key": "scenario_id_46_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/u-turn_following_lead.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:47:0": {
+    "pickle_key": "scenario_id_47_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/u-turn_with_obj_from_left_crossing_after_node.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:48:0": {
+    "pickle_key": "scenario_id_48_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/u-turn_with_obj_from_left_turning_right.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:49:0": {
+    "pickle_key": "scenario_id_49_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/u-turn_with_obj_from_right_entering_after_node.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:4:0": {
+    "pickle_key": "scenario_id_4_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/C-ICAP_Daytime - turning right and encountering an illegally parked vehicle.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:50:0": {
+    "pickle_key": "scenario_id_50_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/u-turn_with_oncoming_obj_passing_straight.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:5:0": {
+    "pickle_key": "scenario_id_5_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/C-ICAP_Vehicle Turning Around and Encountering\u200b  Vehicle Turning Right in Vertical Lane.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:6:0": {
+    "pickle_key": "scenario_id_6_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/CBFA_BicycleFromFarSide.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:7:0": {
+    "pickle_key": "scenario_id_7_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/CBNAO_BicycleNearSide.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:8:0": {
+    "pickle_key": "scenario_id_8_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/CCCscp_obstructed.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  },
+  "image-only:9:0": {
+    "pickle_key": "scenario_id_9_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic/image-only/CPNCO_RunningChildFromNearSide.scenic",
+    "town": "Town03",
+    "weather": "ClearNoon"
+  }
+}

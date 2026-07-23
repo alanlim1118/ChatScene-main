@@ -9,8 +9,13 @@ __pycache__/
 # Ignore video files
 *.mp4
 
+# Ignore archives (recordings, scenario dumps)
+*.zip
+
 # Python virtual environments
 scenic_v2-venv/
+chatscene-v2/
+chatscene-v3/
 
 # Editor config
 .cursor/

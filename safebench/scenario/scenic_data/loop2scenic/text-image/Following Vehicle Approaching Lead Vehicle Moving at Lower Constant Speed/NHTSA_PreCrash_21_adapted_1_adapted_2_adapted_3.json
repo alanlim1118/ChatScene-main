@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle approaches and closes in on a slower lead vehicle traveling straight on a multi-lane urban road.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward at a higher speed and gradually reduces its distance to the lead vehicle ahead."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward at a lower constant speed in the same lane ahead of the ego vehicle."
+    }
+  ],
+  "spatial_relation": "Both the ego and the lead vehicle are positioned on a straight multi-lane urban road, with the ego vehicle behind the lead vehicle in the same lane.",
+  "requirements_and_restrictions": "The ego vehicle must maintain a defined initial distance behind the lead vehicle, and the scenario terminates once the ego vehicle has closed to a specified following distance or has traveled a set distance.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the rear vehicle from the perspective; the lead vehicle is the adversarial. 2. Enumeration: one adversarial (lead car). 3. Chronology: initial ego is behind at distance; midpoint gap visibly shrinks; ending ego is much closer. 4. Evidence: lead vehicle's relative size increases and gap decreases across frames; both maintain straight trajectories with no lane changes."
+}

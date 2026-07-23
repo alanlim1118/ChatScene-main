@@ -1,0 +1,116 @@
+{
+    "OPT_lateral_navigate_parked_motorcycle_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_VAN_SPEED": {
+                "low": 2.0,
+                "high": 4.0
+            },
+            "OPT_VAN_AHEAD_DIST": {
+                "low": 8.0,
+                "high": 12.0
+            },
+            "OPT_MOTO_AHEAD_DIST": {
+                "low": 4.0,
+                "high": 6.0
+            },
+            "OPT_MOTO_TRIGGER_DIST": {
+                "low": 2.0,
+                "high": 4.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_VAN_SPEED": {
+                "low": 2.0,
+                "high": 4.0
+            },
+            "OPT_VAN_AHEAD_DIST": {
+                "low": 8.0,
+                "high": 12.0
+            },
+            "OPT_MOTO_AHEAD_DIST": {
+                "low": 4.0,
+                "high": 6.0
+            },
+            "OPT_MOTO_TRIGGER_DIST": {
+                "low": 2.0,
+                "high": 4.0
+            }
+        },
+        "opt_time_2": {
+            "OPT_VAN_SPEED": {
+                "low": 2.0,
+                "high": 4.0
+            },
+            "OPT_VAN_AHEAD_DIST": {
+                "low": 8.0,
+                "high": 12.0
+            },
+            "OPT_MOTO_AHEAD_DIST": {
+                "low": 4.0,
+                "high": 6.0
+            },
+            "OPT_MOTO_TRIGGER_DIST": {
+                "low": 2.0,
+                "high": 4.0
+            }
+        },
+        "opt_time_3": {
+            "OPT_VAN_SPEED": {
+                "low": 2.0,
+                "high": 4.0
+            },
+            "OPT_VAN_AHEAD_DIST": {
+                "low": 8.0,
+                "high": 12.0
+            },
+            "OPT_MOTO_AHEAD_DIST": {
+                "low": 4.0,
+                "high": 6.0
+            },
+            "OPT_MOTO_TRIGGER_DIST": {
+                "low": 2.0,
+                "high": 4.0
+            }
+        },
+        "opt_time_4": {
+            "OPT_VAN_SPEED": {
+                "low": 2.0,
+                "high": 4.0
+            },
+            "OPT_VAN_AHEAD_DIST": {
+                "low": 8.0,
+                "high": 12.0
+            },
+            "OPT_MOTO_AHEAD_DIST": {
+                "low": 4.0,
+                "high": 6.0
+            },
+            "OPT_MOTO_TRIGGER_DIST": {
+                "low": 2.0,
+                "high": 4.0
+            }
+        },
+        "opt_time_5": {
+            "OPT_VAN_SPEED": {
+                "low": 2.0,
+                "high": 4.0
+            },
+            "OPT_VAN_AHEAD_DIST": {
+                "low": 8.0,
+                "high": 12.0
+            },
+            "OPT_MOTO_AHEAD_DIST": {
+                "low": 4.0,
+                "high": 6.0
+            },
+            "OPT_MOTO_TRIGGER_DIST": {
+                "low": 2.0,
+                "high": 4.0
+            }
+        },
+        "select_id": [
+            41,
+            42
+        ]
+    }
+}

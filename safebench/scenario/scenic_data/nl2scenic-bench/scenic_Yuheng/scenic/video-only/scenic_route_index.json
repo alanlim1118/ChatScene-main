@@ -1,0 +1,14 @@
+{
+  "video-only:21:0": {
+    "pickle_key": "scenario_id_21_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/video-only/ULT_1.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "video-only:29:0": {
+    "pickle_key": "scenario_id_29_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/video-only/lateral_cut_in_rural.scenic",
+    "town": "Town05",
+    "weather": null
+  }
+}

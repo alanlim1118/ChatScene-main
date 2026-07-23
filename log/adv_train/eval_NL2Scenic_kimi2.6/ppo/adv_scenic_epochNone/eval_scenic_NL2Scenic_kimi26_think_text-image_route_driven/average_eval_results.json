@@ -1,0 +1,30 @@
+{
+  "num_pickle_files": 9,
+  "source_files": [
+    "text-image/scenario_11/scenario_11_rl_scenic_seed_0/eval_results/OPT_UN_WP29_PassableObjectOnIntendedPath_ROUTE-0_results.pkl",
+    "text-image/scenario_14/scenario_14_rl_scenic_seed_0/eval_results/OPT_aborted_enter_lead_r_ROUTE-0_results.pkl",
+    "text-image/scenario_19/scenario_19_rl_scenic_seed_0/eval_results/OPT_exit_parallel_reversing_left_ROUTE-0_results.pkl",
+    "text-image/scenario_2/scenario_2_rl_scenic_seed_0/eval_results/OPT_BackingUpIntoAnotherVehicle_ROUTE-0_results.pkl",
+    "text-image/scenario_24/scenario_24_rl_scenic_seed_0/eval_results/OPT_merging_cut_through_r_0_ROUTE-0_results.pkl",
+    "text-image/scenario_32/scenario_32_rl_scenic_seed_0/eval_results/OPT_pass_straight_with_obj_from_left_crossing_after_node_ROUTE-0_results.pkl",
+    "text-image/scenario_35/scenario_35_rl_scenic_seed_0/eval_results/OPT_r12_town06_ins_sl_ROUTE-0_results.pkl",
+    "text-image/scenario_4/scenario_4_rl_scenic_seed_0/eval_results/OPT_C-ICAP_Daytime - turning left and encountering a target group in the same direction crossing_ROUTE-0_results.pkl",
+    "text-image/scenario_44/scenario_44_rl_scenic_seed_0/eval_results/OPT_right_turn_free_ROUTE-0_results.pkl"
+  ],
+  "average_metrics": {
+    "avg_acceleration": 0.206657,
+    "avg_lane_invasion_freq": 0.086111,
+    "avg_red_light_freq": 0.388889,
+    "avg_stop_sign_freq": 0.0,
+    "avg_time_spent": 0.131759,
+    "avg_yaw_velocity": 0.07987,
+    "collision_rate": 0.444444,
+    "comfort_os": 0.875787,
+    "final_score": 0.704568,
+    "out_of_road_length": 0.0,
+    "route_completion": 0.623887,
+    "route_following_stability": 0.911413,
+    "safety_os": 0.673611,
+    "task_os": 0.80118
+  }
+}

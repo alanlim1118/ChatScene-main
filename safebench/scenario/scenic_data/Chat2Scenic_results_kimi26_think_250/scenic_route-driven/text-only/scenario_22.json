@@ -1,0 +1,68 @@
+{
+    "OPT_UN_R171_7_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_LEAD_DIST": {
+                "low": 10.0,
+                "high": 20.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 7.0,
+                "high": 10.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_LEAD_DIST": {
+                "low": 10.0,
+                "high": 20.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 7.0,
+                "high": 10.0
+            }
+        },
+        "opt_time_2": {
+            "OPT_LEAD_DIST": {
+                "low": 10.0,
+                "high": 20.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 7.0,
+                "high": 10.0
+            }
+        },
+        "opt_time_3": {
+            "OPT_LEAD_DIST": {
+                "low": 13.03,
+                "high": 13.25
+            },
+            "OPT_ADV_SPEED": {
+                "low": 8.24,
+                "high": 9.72
+            }
+        },
+        "opt_time_4": {
+            "OPT_LEAD_DIST": {
+                "low": 13.11,
+                "high": 13.24
+            },
+            "OPT_ADV_SPEED": {
+                "low": 8.6,
+                "high": 9.51
+            }
+        },
+        "opt_time_5": {
+            "OPT_LEAD_DIST": {
+                "low": 13.11,
+                "high": 13.22
+            },
+            "OPT_ADV_SPEED": {
+                "low": 8.66,
+                "high": 9.41
+            }
+        },
+        "select_id": [
+            47,
+            49
+        ]
+    }
+}

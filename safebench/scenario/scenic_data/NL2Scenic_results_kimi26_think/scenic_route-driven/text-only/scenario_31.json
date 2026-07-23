@@ -1,0 +1,68 @@
+{
+    "OPT_parallel_entry_turning_left_with_obj_left_passing_straight_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_ADV_SPEED": {
+                "low": 5.0,
+                "high": 10.0
+            },
+            "OPT_START_DIST": {
+                "low": 10.0,
+                "high": 25.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_ADV_SPEED": {
+                "low": 8.74,
+                "high": 9.21
+            },
+            "OPT_START_DIST": {
+                "low": 12.02,
+                "high": 12.76
+            }
+        },
+        "opt_time_2": {
+            "OPT_ADV_SPEED": {
+                "low": 8.82,
+                "high": 9.22
+            },
+            "OPT_START_DIST": {
+                "low": 12.13,
+                "high": 12.74
+            }
+        },
+        "opt_time_3": {
+            "OPT_ADV_SPEED": {
+                "low": 8.82,
+                "high": 9.22
+            },
+            "OPT_START_DIST": {
+                "low": 12.13,
+                "high": 12.74
+            }
+        },
+        "opt_time_4": {
+            "OPT_ADV_SPEED": {
+                "low": 8.82,
+                "high": 9.22
+            },
+            "OPT_START_DIST": {
+                "low": 12.13,
+                "high": 12.74
+            }
+        },
+        "opt_time_5": {
+            "OPT_ADV_SPEED": {
+                "low": 8.88,
+                "high": 9.2
+            },
+            "OPT_START_DIST": {
+                "low": 12.24,
+                "high": 12.75
+            }
+        },
+        "select_id": [
+            1,
+            48
+        ]
+    }
+}

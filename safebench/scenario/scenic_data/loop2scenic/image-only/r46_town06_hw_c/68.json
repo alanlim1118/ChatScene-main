@@ -1,0 +1,35 @@
+{
+  "scenario": "The ego vehicle approaches a T-intersection where an adversarial car is positioned at the stop line, and another adversarial car is traveling on the cross road.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along the road toward the T-intersection."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car remains stationary at the stop line on the cross road, waiting at the T-intersection."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car travels straight along the cross road perpendicular to the ego vehicle's direction."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a straight road approaching a T-intersection from the south, with a stationary adversarial car at the stop line on the cross road to the west, and another adversarial car traveling eastbound on the cross road.",
+  "requirements_and_restrictions": "The ego vehicle must approach the T-intersection with defined initial distance, and the scenario terminates once the ego vehicle navigates through or stops at the intersection.",
+  "road_side_structures": [
+    {
+      "object": "House",
+      "position": "Positioned on the left-hand side of the ego vehicle's road, near the T-intersection."
+    },
+    {
+      "object": "House",
+      "position": "Positioned on the right-hand side of the cross road, near the T-intersection."
+    },
+    {
+      "object": "Street Sign",
+      "position": "Positioned near the T-intersection on the right side of the ego vehicle's road."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the car on the main road; two non-ego cars are adversarials. 2. Enumeration: adversarials length is 2. 3. Chronology: initially ego approaches T-intersection, one car stationary at stop line, another on cross road; midpoint ego nears intersection; ending ego must yield or proceed. 4. Evidence: stationary car fixed at stop line across frames; moving car progresses along cross road; ego advances toward intersection."
+}

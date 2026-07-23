@@ -1,0 +1,27 @@
+{
+  "scenario": "The ego vehicle travels straight through a foggy urban intersection while an adversarial car crosses from the left and another adversarial car crosses from the right.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward through the intersection and continues along the road."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car approaches the intersection from the left and crosses straight through the intersection from left to right."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car approaches the intersection from the right and crosses straight through the intersection from right to left."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a straight two-lane urban road approaching a four-way intersection with crosswalks, with one adversarial car approaching from the left cross street and another adversarial car approaching from the right cross street.",
+  "requirements_and_restrictions": "The ego vehicle must maintain a set distance from the intersection at spawn, and the scenario terminates once the ego vehicle has cleared the intersection and traveled a specified distance beyond it.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Positioned at the corner of the intersection near the left cross street."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the centered car in the top-down view; two non-ego cars are adversarials. 2. Enumeration: adversarials length is 2. 3. Chronology: initially ego approaches intersection while left car waits and right car approaches; midpoint left car enters intersection followed by right car, creating potential conflict; ending all vehicles clear intersection. 4. Evidence: left car's position shifts from left cross street into intersection; right car's position shifts from right cross street into intersection; ego maintains straight trajectory throughout."
+}

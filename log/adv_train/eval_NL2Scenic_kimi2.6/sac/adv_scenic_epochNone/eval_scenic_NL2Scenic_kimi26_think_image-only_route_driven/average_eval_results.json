@@ -1,0 +1,31 @@
+{
+  "num_pickle_files": 10,
+  "source_files": [
+    "image-only/scenario_14/scenario_14_rl_scenic_seed_0/eval_results/OPT_diverging_lead_leaving_TA_after_node_l_ROUTE-0_results.pkl",
+    "image-only/scenario_15/scenario_15_rl_scenic_seed_0/eval_results/OPT_exit_turning_reversing_right_ROUTE-0_results.pkl",
+    "image-only/scenario_18/scenario_18_rl_scenic_seed_0/eval_results/OPT_lc_r_2_ROUTE-0_results.pkl",
+    "image-only/scenario_25/scenario_25_rl_scenic_seed_0/eval_results/OPT_r11_town05_ins_sl_ROUTE-0_results.pkl",
+    "image-only/scenario_26/scenario_26_rl_scenic_seed_0/eval_results/OPT_r16_town05_ins_sl_ROUTE-0_results.pkl",
+    "image-only/scenario_28/scenario_28_rl_scenic_seed_0/eval_results/OPT_r21_town07_ins_sr_ROUTE-0_results.pkl",
+    "image-only/scenario_30/scenario_30_rl_scenic_seed_0/eval_results/OPT_r31_town05_ins_oppo_ROUTE-0_results.pkl",
+    "image-only/scenario_38/scenario_38_rl_scenic_seed_0/eval_results/OPT_right_turn_with_oncoming_obj_turning_right_ROUTE-0_results.pkl",
+    "image-only/scenario_41/scenario_41_rl_scenic_seed_0/eval_results/OPT_u-turn_with_obj_from_left_crossing_after_node_ROUTE-0_results.pkl",
+    "image-only/scenario_8/scenario_8_rl_scenic_seed_0/eval_results/OPT_DetectAndRespondToSchoolBus_ROUTE-0_results.pkl"
+  ],
+  "average_metrics": {
+    "avg_acceleration": 0.347747,
+    "avg_lane_invasion_freq": 0.1125,
+    "avg_red_light_freq": 0.2,
+    "avg_stop_sign_freq": 0.1,
+    "avg_time_spent": 0.06075,
+    "avg_yaw_velocity": 0.497633,
+    "collision_rate": 0.4,
+    "comfort_os": 0.680707,
+    "final_score": 0.718493,
+    "out_of_road_length": 0.0,
+    "route_completion": 0.600976,
+    "route_following_stability": 0.756484,
+    "safety_os": 0.7125,
+    "task_os": 0.76557
+  }
+}

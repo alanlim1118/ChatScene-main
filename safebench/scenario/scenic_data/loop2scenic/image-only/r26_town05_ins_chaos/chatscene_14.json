@@ -1,0 +1,27 @@
+{
+  "scenario": "The ego vehicle navigates a straight road approaching an intersection while an adversarial car runs a red light from the cross street.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along its lane toward the intersection."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight through the intersection from the cross street, disregarding the traffic signal."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is positioned on a straight multi-lane road approaching a signalized intersection, while the adversarial car is located on the perpendicular cross street to the right of the ego, entering the intersection from the right side.",
+  "requirements_and_restrictions": "The ego vehicle must approach the intersection under a green light condition, and the adversarial vehicle must violate its red signal; the scenario terminates upon potential conflict resolution or collision at the intersection.",
+  "road_side_structures": [
+    {
+      "object": "Building",
+      "position": "Positioned on the right side of the road adjacent to the intersection."
+    },
+    {
+      "object": "Building",
+      "position": "Positioned on the left side of the road near the parking area."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the green car from top-down view; the purple car in the intersection is the adversarial. 2. Enumeration: one adversarial car. 3. Chronology: initial ego approaches intersection, adversarial enters from right; midpoint paths converge at intersection; ending conflict occurs. 4. Evidence: adversarial's position shifts from right cross street into intersection center; ego maintains straight trajectory."
+}

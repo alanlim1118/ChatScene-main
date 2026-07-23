@@ -1,0 +1,22 @@
+{
+  "scenario": "The ego vehicle approaches a 4-way intersection while an adversarial vehicle turns left across the ego's path and a pedestrian crosses the intersection.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward through the intersection."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car turns left across the ego vehicle's path at the intersection."
+    },
+    {
+      "object": "Pedestrian",
+      "behavior": "The pedestrian crosses the intersection from the left side to the right side."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is positioned on a straight road approaching a 4-way intersection, with an adversarial car approaching from the cross street on the right intending to turn left, and a pedestrian crossing within the intersection area.",
+  "requirements_and_restrictions": "Initial distances to the intersection are defined for the ego vehicle and the adversarial car, and the scenario terminates once the ego vehicle has cleared the intersection.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the centered car from first-person perspective; adversarial car and pedestrian are non-ego entities. 2. Enumeration: two adversarials (one Car, one Pedestrian). 3. Chronology: initial all approach intersection; midpoint adversarial car initiates left turn while pedestrian crosses; ending ego proceeds straight as adversarial car completes turn. 4. Evidence: dashed arrow shows ego's straight path; curved arrow shows adversarial car's left turn trajectory; dotted line shows pedestrian's crossing path."
+}

@@ -1,0 +1,68 @@
+{
+    "OPT_Following Vehicle Approaching Lead Vehicle Moving at Lower Constant Speed_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_LEADING_DIST": {
+                "low": 10.0,
+                "high": 20.0
+            },
+            "OPT_ADV_SPEED": {
+                "low": 3.0,
+                "high": 5.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_LEADING_DIST": {
+                "low": 13.34,
+                "high": 18.22
+            },
+            "OPT_ADV_SPEED": {
+                "low": 3.56,
+                "high": 4.61
+            }
+        },
+        "opt_time_2": {
+            "OPT_LEADING_DIST": {
+                "low": 13.78,
+                "high": 17.74
+            },
+            "OPT_ADV_SPEED": {
+                "low": 3.69,
+                "high": 4.47
+            }
+        },
+        "opt_time_3": {
+            "OPT_LEADING_DIST": {
+                "low": 13.95,
+                "high": 17.45
+            },
+            "OPT_ADV_SPEED": {
+                "low": 3.7,
+                "high": 4.39
+            }
+        },
+        "opt_time_4": {
+            "OPT_LEADING_DIST": {
+                "low": 14.25,
+                "high": 17.39
+            },
+            "OPT_ADV_SPEED": {
+                "low": 3.71,
+                "high": 4.34
+            }
+        },
+        "opt_time_5": {
+            "OPT_LEADING_DIST": {
+                "low": 14.3,
+                "high": 17.2
+            },
+            "OPT_ADV_SPEED": {
+                "low": 3.74,
+                "high": 4.34
+            }
+        },
+        "select_id": [
+            45,
+            46
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+  "scenario": "The ego vehicle brakes to yield to a pedestrian crossing the intersection while an adversarial vehicle enters from the left.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight into the intersection and suddenly brakes to yield to the crossing pedestrian."
+  },
+  "adversarials": [
+    {
+      "object": "Pedestrian",
+      "behavior": "The pedestrian crosses the intersection from left to right in front of the ego vehicle."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car approaches from the left arm and enters the intersection."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a straight road approaching a multi-lane 4-way intersection, with a pedestrian crossing from the left side and an adversarial car entering from the left arm of the intersection.",
+  "requirements_and_restrictions": "The scenario occurs under dark weather conditions with limited visibility; the ego vehicle must brake to avoid collision with the pedestrian.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego vehicle is identified from the first-person perspective as the car approaching the intersection. 2. Enumeration: Two adversarials exist—a pedestrian and a car. 3. Chronology: Initially, the ego approaches the intersection; at the midpoint, the pedestrian appears crossing left to right and the adversarial car enters from the left; in the ending phase, the ego brakes to yield while both adversarials move through the intersection. 4. Evidence: The pedestrian's headlights shift laterally across the ego's path, and the adversarial car's headlights approach from the left arm and enter the intersection."
+}

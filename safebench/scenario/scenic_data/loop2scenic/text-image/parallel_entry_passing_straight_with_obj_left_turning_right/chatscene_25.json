@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle drives straight through an intersection while an adversarial vehicle cuts across its path to execute a right-hand turn.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car drives straight forward through the intersection."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car turns right across the ego vehicle's path through the intersection."
+    }
+  ],
+  "spatial_relation": "Both the ego and adversarial vehicles start parallel to each other on the same arm of a 4-way intersection, with the adversarial vehicle positioned to the left of the ego vehicle in an adjacent lane.",
+  "requirements_and_restrictions": "The two vehicles start at the same arm of the intersection with defined initial parallel positioning; the scenario terminates after the conflict at the intersection resolves.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The blue vehicle is ego; the pink vehicle is adversarial. 2. Chronology: Initially both vehicles start parallel at the intersection arm. At midpoint, the ego proceeds straight while the adversary initiates a right turn across the ego's path. In ending, the conflict occurs as paths cross. 3. Evidence: The image shows blue arrow straight and pink arrow curving right; video confirms the adversary's lateral movement across the ego's trajectory."
+}

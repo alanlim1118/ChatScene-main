@@ -1,0 +1,23 @@
+{
+  "scenario": "The ego vehicle travels on a multi-lane highway and performs an emergency avoidance maneuver to prevent a collision with a truck that drifts into its lane.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward on the highway, then swerves sharply to the right and onto the shoulder to avoid a collision, then decelerates and comes to a stop on the roadside."
+  },
+  "adversarials": [
+    {
+      "object": "Truck",
+      "behavior": "The truck drifts from the left lane across the center line into the ego vehicle's lane, then continues moving forward in the ego lane."
+    }
+  ],
+  "spatial_relation": "The ego vehicle travels in the right lane of a multi-lane highway, with a truck initially positioned in the left lane adjacent to the ego. The highway has a paved shoulder on the right side and vegetation along both sides of the road.",
+  "requirements_and_restrictions": "The scenario requires the ego vehicle to maintain a safe following distance from vehicles ahead. The scenario terminates once the ego vehicle has come to a complete stop on the roadside shoulder after the avoidance maneuver.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Positioned on the left side of the highway, visible in the distance ahead of the ego vehicle."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the camera-host vehicle from the first-person dashboard perspective; the truck is the only adversarial. 2. Chronology: Initially, ego follows traffic straight on the highway. At midpoint, the truck drifts into the ego lane. At ending, ego swerves right onto the shoulder and stops. 3. Evidence: The truck's lateral position shifts from left lane to ego lane across frames; ego's trajectory deviates right onto the shoulder with speed dropping from 53 km/h to 14 km/h."
+}

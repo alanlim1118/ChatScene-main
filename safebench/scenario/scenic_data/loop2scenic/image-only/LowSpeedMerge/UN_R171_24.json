@@ -1,0 +1,22 @@
+{
+  "scenario": "The ego vehicle performs a lane merge into a gap between two vehicles traveling in the same direction on a multi-lane road.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car changes lanes from the left lane to the right lane, merging into a gap between two other vehicles."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward in the right lane ahead of the desired merge location."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward in the right lane behind the desired merge location."
+    }
+  ],
+  "spatial_relation": "The ego vehicle starts in the left lane of a two-lane straight road, with two adversarial cars positioned in the right lane ahead of and behind the desired merge location, creating a gap for the ego to merge into.",
+  "requirements_and_restrictions": "The ego vehicle must merge into the specified gap between the two adversarial vehicles without collision, and the scenario terminates once the merge maneuver is completed.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the green-highlighted car in left lane; two white cars in right lane are adversarials. 2. Enumeration: Two adversarial cars, one ahead and one behind merge gap. 3. Chronology: Initially ego is in left lane with two cars in right lane; midpoint ego signals and steers right into gap; ending ego completes merge in right lane. 4. Evidence: Arrow shows ego trajectory curving right; 'Desired Merge Location' label indicates target gap between two vehicles."
+}

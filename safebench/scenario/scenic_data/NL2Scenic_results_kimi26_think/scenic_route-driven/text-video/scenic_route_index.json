@@ -1,0 +1,50 @@
+{
+  "text-video:18:0": {
+    "pickle_key": "scenario_id_18_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/NL2Scenic_results_kimi26_think/scenic/text-video/MD_Intersection_Deadlock_Resolution6.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "text-video:28:0": {
+    "pickle_key": "scenario_id_28_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/NL2Scenic_results_kimi26_think/scenic/text-video/MD_Unprotected_Left_Turn9.scenic",
+    "town": "Town05",
+    "weather": "ClearNight"
+  },
+  "text-video:37:0": {
+    "pickle_key": "scenario_id_37_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/NL2Scenic_results_kimi26_think/scenic/text-video/lc_disc.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "text-video:39:0": {
+    "pickle_key": "scenario_id_39_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/NL2Scenic_results_kimi26_think/scenic/text-video/moving_deceleration_navigationnotpossible.scenic",
+    "town": "Town03",
+    "weather": null
+  },
+  "text-video:3:0": {
+    "pickle_key": "scenario_id_3_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/NL2Scenic_results_kimi26_think/scenic/text-video/CCRm_50kph.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "text-video:6:0": {
+    "pickle_key": "scenario_id_6_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/NL2Scenic_results_kimi26_think/scenic/text-video/CPFA_50_50kph.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "text-video:7:0": {
+    "pickle_key": "scenario_id_7_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/NL2Scenic_results_kimi26_think/scenic/text-video/CPNA_25_50kph.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "text-video:8:0": {
+    "pickle_key": "scenario_id_8_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/NL2Scenic_results_kimi26_think/scenic/text-video/CPTA.scenic",
+    "town": "Town05",
+    "weather": null
+  }
+}

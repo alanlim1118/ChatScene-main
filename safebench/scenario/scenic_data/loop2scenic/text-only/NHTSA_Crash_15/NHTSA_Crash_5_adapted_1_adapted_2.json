@@ -1,0 +1,18 @@
+{
+  "scenario": "Vehicle A begins a left turn at a signalized intersection and is struck by southbound Vehicle B that accelerates through the intersection.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car waits at the intersection and then begins to turn left when the traffic signal changes."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car accelerates hard southbound through the intersection and strikes the ego vehicle during its left turn."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is positioned northbound at a signalized intersection waiting to turn left, while the adversarial vehicle approaches southbound on the opposing straight lane toward the same intersection.",
+  "requirements_and_restrictions": "The ego vehicle must be stopped at the intersection awaiting a left turn when the signal changes; the adversarial vehicle accelerates from a distance on the southbound approach; the scenario terminates upon collision between the two vehicles.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Vehicle A is the ego (left-turning, labeled first); Vehicle B is the adversarial (striking vehicle). 2. Enumeration: one adversarial entry. 3. Chronology: initial ego waits northbound, adversarial approaches southbound; midpoint ego begins left turn, adversarial accelerates hard; ending collision occurs in intersection. 4. Evidence: ego's orientation shifts from straight to turning; adversarial's rapid closure distance and impact confirms acceleration and collision."
+}

@@ -1,0 +1,22 @@
+{
+  "scenario": "The ego vehicle approaches an intersection where a pedestrian dummy runs from behind an obstruction vehicle into the ego's path.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along its lane toward the intersection."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car remains stationary as an obstruction vehicle positioned in the adjacent lane to the right of the ego vehicle."
+    },
+    {
+      "object": "Pedestrian",
+      "behavior": "The pedestrian dummy accelerates from behind the obstruction vehicle and runs across the ego vehicle's path toward the impact point."
+    }
+  ],
+  "spatial_relation": "The ego vehicle travels on a straight road approaching an intersection, with an obstruction vehicle stationary in a parallel lane to the right, and a pedestrian dummy positioned behind the obstruction vehicle ready to cross the ego's path.",
+  "requirements_and_restrictions": "The pedestrian dummy has a specified acceleration distance of 4.00 m from its starting position to the impact point, with the impact point located 1.00 m from the front of the obstruction vehicle; the scenario terminates upon collision or avoidance.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the centered white car from top-down view; two adversarials are the black obstruction vehicle and the pedestrian dummy. 2. Enumeration: adversarials length is 2. 3. Chronology: initially ego approaches, obstruction vehicle is stationary, pedestrian is hidden behind it; midpoint pedestrian accelerates across path; ending impact or near-miss occurs. 4. Evidence: diagram labels show G=4.00m acceleration distance, I=1.00m dummy-to-obstruction distance, and L marks the 50% impact point on the ego's trajectory."
+}

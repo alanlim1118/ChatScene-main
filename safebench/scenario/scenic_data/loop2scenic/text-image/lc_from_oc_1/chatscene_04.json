@@ -1,0 +1,22 @@
+{
+  "scenario": "The ego vehicle changes lanes from the left lane to the right lane while navigating between oncoming traffic in the left lane and a leading vehicle ahead in the right lane.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car steers from the left lane into the right lane to complete a lane change maneuver."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight ahead in the left lane as oncoming traffic approaching the ego vehicle."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward in the right lane ahead of the ego vehicle as the leading vehicle."
+    }
+  ],
+  "spatial_relation": "On a two-lane straight road, the ego vehicle starts in the left lane, an adversarial car approaches from the opposite direction in the left lane, and another adversarial car travels ahead in the right lane.",
+  "requirements_and_restrictions": "The ego vehicle must complete the lane change while maintaining safe separation from the oncoming traffic in the left lane and the leading vehicle in the right lane; the scenario terminates once the ego vehicle has fully established itself in the right lane.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The blue car is ego; two pink cars are adversarials. 2. Enumeration: two adversarials, both cars with distinct behaviors. 3. Chronology: initially ego in left lane with oncoming car approaching and leading car ahead in right lane; midpoint ego steers rightward across lane boundary; ending ego settles in right lane. 4. Evidence: ego's trajectory curves rightward across dashed lane markings; oncoming car's position shifts closer from opposite direction; leading car remains fixed ahead in right lane."
+}

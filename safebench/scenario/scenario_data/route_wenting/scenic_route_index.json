@@ -1,0 +1,8 @@
+{
+  "NHTSA_Crash:5:0": {
+    "pickle_key": "scenario_id_NHTSA_Crash__5_route_id_0",
+    "scenic_file": "safebench/scenario/scenario_data/scenic_data_wenting/Self_Gemini_3flash_R1_original/NHTSA_Crash/scenario_005.scenic",
+    "town": "Town05",
+    "weather": "ClearNoon"
+  }
+}

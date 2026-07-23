@@ -1,0 +1,27 @@
+{
+  "scenario": "The ego vehicle travels on a snowy rural road and collides with an adversarial car that drifts into its lane while overtaking another vehicle.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along its lane on a snowy road and maintains course until impact."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car overtakes a slower vehicle ahead and drifts leftward into the ego's lane, causing a head-on collision."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car travels slowly ahead in the same direction as the ego vehicle and is being overtaken by the other adversarial car."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a narrow two-lane snowy rural road with bare trees and buildings on both sides. An adversarial car is ahead in the same lane moving slowly, and a second adversarial car is behind it in the opposing lane overtaking.",
+  "requirements_and_restrictions": "The scenario terminates upon collision between the ego vehicle and the overtaking adversarial car.",
+  "road_side_structures": [
+    {
+      "object": "Bench",
+      "position": "Near the buildings on the right side of the road."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the dashcam vehicle; two non-ego cars are adversarials. 2. Enumeration: adversarials length is 2. 3. Chronology: initially ego approaches two cars ahead; midpoint overtaking car drifts left into ego lane; ending head-on collision occurs. 4. Evidence: overtaking car's lateral position shifts from opposing lane into ego lane; slow car remains ahead in same lane throughout."
+}

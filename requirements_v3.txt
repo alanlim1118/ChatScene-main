@@ -4,7 +4,6 @@ antlr4-python3-runtime==4.13.2
 anyio==4.13.0
 attrs==26.1.0
 blessed==1.42.0
-carla @ file:///home/dellpro2/CC/carla_0.9.15/PythonAPI/carla/dist/carla-0.9.15-cp310-cp310-linux_x86_64.whl#sha256=3bef7911dbd35aaa3cbdc738436147f17742529bcf4d3b8d0ae25d68d947524f
 certifi==2026.5.20
 charset-normalizer==3.4.7
 click==8.4.0

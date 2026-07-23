@@ -1,0 +1,92 @@
+{
+    "OPT_enter_turning_forward_left_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_ADV_SPEED": {
+                "low": 5.0,
+                "high": 8.0
+            },
+            "OPT_ADV_START_DIST": {
+                "low": 15.0,
+                "high": 30.0
+            },
+            "OPT_ADV_CUT_DIST": {
+                "low": 10.0,
+                "high": 20.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_ADV_SPEED": {
+                "low": 5.68,
+                "high": 7.19
+            },
+            "OPT_ADV_START_DIST": {
+                "low": 17.05,
+                "high": 25.06
+            },
+            "OPT_ADV_CUT_DIST": {
+                "low": 11.37,
+                "high": 14.94
+            }
+        },
+        "opt_time_2": {
+            "OPT_ADV_SPEED": {
+                "low": 5.79,
+                "high": 7.18
+            },
+            "OPT_ADV_START_DIST": {
+                "low": 16.77,
+                "high": 24.32
+            },
+            "OPT_ADV_CUT_DIST": {
+                "low": 11.36,
+                "high": 14.74
+            }
+        },
+        "opt_time_3": {
+            "OPT_ADV_SPEED": {
+                "low": 5.87,
+                "high": 7.13
+            },
+            "OPT_ADV_START_DIST": {
+                "low": 17.16,
+                "high": 23.6
+            },
+            "OPT_ADV_CUT_DIST": {
+                "low": 11.77,
+                "high": 14.8
+            }
+        },
+        "opt_time_4": {
+            "OPT_ADV_SPEED": {
+                "low": 5.9,
+                "high": 7.05
+            },
+            "OPT_ADV_START_DIST": {
+                "low": 17.19,
+                "high": 23.15
+            },
+            "OPT_ADV_CUT_DIST": {
+                "low": 11.98,
+                "high": 14.78
+            }
+        },
+        "opt_time_5": {
+            "OPT_ADV_SPEED": {
+                "low": 5.94,
+                "high": 7.02
+            },
+            "OPT_ADV_START_DIST": {
+                "low": 17.06,
+                "high": 22.76
+            },
+            "OPT_ADV_CUT_DIST": {
+                "low": 12.15,
+                "high": 14.83
+            }
+        },
+        "select_id": [
+            3,
+            24
+        ]
+    }
+}

@@ -1,0 +1,27 @@
+{
+  "scenario": "The ego vehicle travels on a multi-lane road at night and encounters a large truck that suddenly changes lanes from the left, forcing the ego vehicle to brake and avoid a collision.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward in its lane and brakes to avoid colliding with a truck that cuts in from the left lane."
+  },
+  "adversarials": [
+    {
+      "object": "Truck",
+      "behavior": "The truck changes from the left lane into the ego vehicle's lane without warning, moving directly in front of the ego vehicle."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is traveling in the right lane of a multi-lane straight road at night, with a large truck initially positioned in the left adjacent lane before cutting into the ego's lane.",
+  "requirements_and_restrictions": "The scenario begins with the ego vehicle at a certain distance behind the truck's initial position in the adjacent lane, and terminates after the ego vehicle brakes to avoid collision with the truck.",
+  "road_side_structures": [
+    {
+      "object": "Street Sign",
+      "position": "Mounted on poles along the right side of the road, visible with red banners."
+    },
+    {
+      "object": "Garden Lamp",
+      "position": "Positioned along both sides of the road on tall poles, illuminating the nighttime scene."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego vehicle is identified from the first-person dashboard camera perspective; the truck in the left lane is the adversarial. 2. Chronological Analysis: Initially, the ego travels straight behind other vehicles with a truck visible to the left. At midpoint, the truck abruptly moves right into the ego's lane. In ending, the ego brakes hard as the truck occupies the same lane directly ahead. 3. Evidence: The truck's lateral position shifts from left of frame to directly ahead; the ego's forward motion visibly decelerates as the truck fills the forward view."
+}

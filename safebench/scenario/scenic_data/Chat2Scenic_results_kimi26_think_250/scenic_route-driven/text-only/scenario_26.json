@@ -1,0 +1,44 @@
+{
+    "OPT_enter_lead_r_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_ADV_SPEED": {
+                "low": 5.0,
+                "high": 10.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_ADV_SPEED": {
+                "low": 7.34,
+                "high": 9.5
+            }
+        },
+        "opt_time_2": {
+            "OPT_ADV_SPEED": {
+                "low": 7.46,
+                "high": 9.21
+            }
+        },
+        "opt_time_3": {
+            "OPT_ADV_SPEED": {
+                "low": 7.58,
+                "high": 9.14
+            }
+        },
+        "opt_time_4": {
+            "OPT_ADV_SPEED": {
+                "low": 7.68,
+                "high": 9.09
+            }
+        },
+        "opt_time_5": {
+            "OPT_ADV_SPEED": {
+                "low": 7.72,
+                "high": 9.02
+            }
+        },
+        "select_id": [
+            7,
+            44
+        ]
+    }
+}

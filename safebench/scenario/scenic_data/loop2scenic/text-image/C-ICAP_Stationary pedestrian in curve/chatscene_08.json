@@ -1,0 +1,26 @@
+{
+  "scenario": "The ego vehicle follows a lead car that swerves left to avoid a child in the road, while a dog is present in the right lane.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along the middle lane and reacts to the sudden maneuver of the lead vehicle ahead."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car swerves urgently to the left to avoid the child ahead in the same lane."
+    },
+    {
+      "object": "Pedestrian",
+      "behavior": "The pedestrian remains in a half-squatting position stationary in the middle of the road."
+    },
+    {
+      "object": "Dog",
+      "behavior": "The dog remains stationary in the right lane."
+    }
+  ],
+  "spatial_relation": "On a three-lane straight road with white dotted middle lane lines, the ego vehicle follows a lead car in the middle lane, with a half-squatting child positioned ahead in the middle lane and a dog located in the right lane.",
+  "requirements_and_restrictions": "Initial distances are defined between the ego and the lead vehicle, and between the lead vehicle and the child; the scenario terminates once the ego vehicle has passed the child or reacted to the lead vehicle's evasive maneuver.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the VUT (blue car) from first-person perspective; VT lead car, child, and dog are adversarials. 2. Enumeration: three adversarials total. 3. Chronology: initially ego follows VT in middle lane with child ahead and dog in right lane; midpoint VT swerves left to avoid child; ending ego must react to avoid collision. 4. Evidence: VT's curved arrow shows leftward trajectory; child and dog remain static positions across phases."
+}

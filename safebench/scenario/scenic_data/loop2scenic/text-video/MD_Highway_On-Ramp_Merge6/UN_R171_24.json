@@ -1,0 +1,22 @@
+{
+  "scenario": "The ego vehicle merges from an on-ramp onto a multi-lane highway while a front vehicle also merges ahead and an adversary vehicle travels behind in the target lane.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels along the on-ramp and merges left into the highway lane."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels ahead of the ego on the on-ramp and merges into the main highway lane before the ego vehicle."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward in the target highway lane behind the merging vehicles."
+    }
+  ],
+  "spatial_relation": "The ego vehicle starts on a curving on-ramp approaching a multi-lane highway, with a front vehicle ahead on the same ramp and an adversary vehicle already on the highway in the target lane behind the merge point.",
+  "requirements_and_restrictions": "Initial distances between the ego, front vehicle, and highway adversary are defined to ensure safe merging; the scenario terminates once the ego has fully merged and established position in the highway lane.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the red car on the on-ramp; front vehicle is the dark car ahead on the ramp; highway adversary is the dark car already on the highway. 2. Enumeration: two adversarials, both Cars. 3. Chronology: initially ego and front vehicle approach on ramp with highway adversary behind; midpoint front vehicle merges first, ego follows; ending all three travel in same highway lane. 4. Evidence: front vehicle's lateral position shifts from ramp to highway before ego's; highway adversary maintains constant forward position in lane behind merge area."
+}

@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego car executes a right turn at an intersection while an adversarial car approaching from the left also makes a right turn.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car executes a right turn at the intersection."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car approaches from the left and executes a right turn at the intersection."
+    }
+  ],
+  "spatial_relation": "Both vehicles are at an intersection, with the ego car positioned to turn right and the adversarial car approaching from the left side also intending to turn right.",
+  "requirements_and_restrictions": "The scenario involves simultaneous right turns from different approaches at the intersection; termination occurs once both vehicles have completed their turning maneuvers.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the camera-host vehicle; one adversarial car approaches from left. 2. Enumeration: one adversarial car. 3. Chronology: initial both vehicles approach intersection; midpoint both initiate right turns; ending both complete turns. 4. Evidence: ego trajectory arcs right from first-person view; adversarial visible from left entering intersection and turning right."
+}

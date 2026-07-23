@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego car travels straight in the center lane while a lead car ahead performs a weaving maneuver across lanes.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward in the center lane."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car weaves in a wavy arrow trajectory, curving upward toward the middle lane before veering back down."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is positioned in the center lane on a multi-lane straight road, with an adversarial car located ahead and to the right in an adjacent lane.",
+  "requirements_and_restrictions": "",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The blue car is ego from explicit label; the pink car is the adversarial. 2. Enumeration: one adversarial car. 3. Chronology: Initially ego is centered straight, pink car ahead-right. Midpoint pink car curves up toward middle lane. Ending pink car veers back down. 4. Evidence: Pink car's trajectory arrow shows lateral weaving motion relative to static lane markings."
+}

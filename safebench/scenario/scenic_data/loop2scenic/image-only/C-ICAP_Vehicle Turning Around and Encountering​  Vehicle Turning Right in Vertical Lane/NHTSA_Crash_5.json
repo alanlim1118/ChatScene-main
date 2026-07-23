@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle turns left at a signalized intersection while an adversarial vehicle approaches from the opposite direction straight through the intersection.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car turns left at the intersection and proceeds along the curved trajectory."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward through the intersection from the opposite direction."
+    }
+  ],
+  "spatial_relation": "The ego vehicle starts on the westbound approach of a four-way signalized intersection, positioned to turn left, while the adversarial vehicle starts on the northbound approach traveling straight south through the intersection; their paths converge at the estimated collision point near the center of the intersection.",
+  "requirements_and_restrictions": "The ego vehicle must approach the intersection from a defined initial distance; the scenario terminates upon completion of the intersection traversal or upon reaching the estimated collision point with the adversarial vehicle.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the VUT labeled car turning left; the adversarial is the opposing red car. 2. Enumeration: one adversarial car. 3. Chronology: initial both approach intersection; midpoint ego initiates left turn while adversarial proceeds straight; ending paths cross at estimated collision point. 4. Evidence: blue curved arrow shows ego trajectory; red car's straight path opposes; traffic lights visible at corners confirm signalized intersection."
+}

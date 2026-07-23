@@ -1,0 +1,116 @@
+{
+  "text-only:1:0": {
+    "pickle_key": "scenario_id_1_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/text-only/CARLA_Leaderboard_10.scenic",
+    "town": "Town04",
+    "weather": null
+  },
+  "text-only:21:0": {
+    "pickle_key": "scenario_id_21_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/text-only/UN_R171_4.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "text-only:26:0": {
+    "pickle_key": "scenario_id_26_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/text-only/approach_overlapping_lead_l.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "text-only:27:0": {
+    "pickle_key": "scenario_id_27_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/text-only/enter_lead_r.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "text-only:30:0": {
+    "pickle_key": "scenario_id_30_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/text-only/exit_parallel_forward_right.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "text-only:31:0": {
+    "pickle_key": "scenario_id_31_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/text-only/follow_overlapping_l.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "text-only:32:0": {
+    "pickle_key": "scenario_id_32_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/text-only/left_turn_with_obj_from_right_making_a_u-turn.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "text-only:33:0": {
+    "pickle_key": "scenario_id_33_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/text-only/left_turn_with_oncoming_obj_passing_straight_intersecting.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "text-only:35:0": {
+    "pickle_key": "scenario_id_35_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/text-only/pass_obj_in_intersection_parallel_right.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "text-only:36:0": {
+    "pickle_key": "scenario_id_36_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/text-only/pass_obj_left_moving_away_turning_left.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "text-only:37:0": {
+    "pickle_key": "scenario_id_37_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/text-only/pass_obj_left_moving_toward_making_u-turn.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "text-only:38:0": {
+    "pickle_key": "scenario_id_38_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/text-only/pass_obj_left_moving_toward_turning_left.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "text-only:40:0": {
+    "pickle_key": "scenario_id_40_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/text-only/pass_straight_with_obj_from_right_crossing_before_node.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "text-only:43:0": {
+    "pickle_key": "scenario_id_43_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/text-only/pass_straight_with_oncoming_obj_making_a_u-turn.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "text-only:44:0": {
+    "pickle_key": "scenario_id_44_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/text-only/passed_in_lane_l.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "text-only:45:0": {
+    "pickle_key": "scenario_id_45_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/text-only/right_turn_approaching_lead.scenic",
+    "town": "Town05",
+    "weather": null
+  },
+  "text-only:4:0": {
+    "pickle_key": "scenario_id_4_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/text-only/CARLA_Leaderboard_16.scenic",
+    "town": "Town01",
+    "weather": null
+  },
+  "text-only:6:0": {
+    "pickle_key": "scenario_id_6_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/text-only/CARLA_Leaderboard_18.scenic",
+    "town": "Town01",
+    "weather": null
+  },
+  "text-only:7:0": {
+    "pickle_key": "scenario_id_7_route_id_0",
+    "scenic_file": "safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/text-only/CARLA_Leaderboard_20.scenic",
+    "town": "Town01",
+    "weather": null
+  }
+}

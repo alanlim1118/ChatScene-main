@@ -1,0 +1,28 @@
+{
+  "bench_id": "image-only",
+  "id_to_file": {
+    "1": "AnimalCrashWithoutPriorVehicleManeuver.scenic",
+    "10": "LowSpeedMerge.scenic",
+    "11": "Vehicle Taking Evasive Action Without Prior Vehicle Maneuver.scenic",
+    "12": "VehicleMakingAManeuver_VehicleTravelingInOppositeDirection.scenic",
+    "14": "approach_lat_entering_traffic_area_from_right_forward.scenic",
+    "15": "approach_oncoming.scenic",
+    "17": "diverging_lead_leaving_TA_after_node_l.scenic",
+    "18": "exit_turning_reversing_right.scenic",
+    "2": "C-ICAP_Construction area ahead.scenic",
+    "21": "lc_r_2.scenic",
+    "22": "left_turn_approaching_lead.scenic",
+    "23": "left_turn_with_obj_from_left_entering_before_node.scenic",
+    "28": "pass_straight_with_oncoming_obj_turning_left.scenic",
+    "29": "r11_town05_ins_sl.scenic",
+    "3": "C-ICAP_Daytime - motorcycle cutting-in.scenic",
+    "30": "r16_town05_ins_sl.scenic",
+    "31": "r1_town05_ins_c.scenic",
+    "32": "r21_town07_ins_sr.scenic",
+    "34": "r31_town05_ins_oppo.scenic",
+    "38": "r46_town06_hw_c.scenic",
+    "4": "C-ICAP_Daytime - turning right and encountering an illegally parked vehicle.scenic",
+    "40": "right_turn_standstill.scenic"
+  },
+  "version": 1
+}

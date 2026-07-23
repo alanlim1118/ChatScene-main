@@ -1,0 +1,68 @@
+{
+    "OPT_CARLA_Leaderboard_17_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_ADV_SPEED": {
+                "low": 5.0,
+                "high": 8.0
+            },
+            "OPT_ADV_SWERVE_TIME": {
+                "low": 0.5,
+                "high": 1.5
+            }
+        },
+        "opt_time_1": {
+            "OPT_ADV_SPEED": {
+                "low": 5.86,
+                "high": 6.88
+            },
+            "OPT_ADV_SWERVE_TIME": {
+                "low": 0.59,
+                "high": 0.88
+            }
+        },
+        "opt_time_2": {
+            "OPT_ADV_SPEED": {
+                "low": 6.05,
+                "high": 6.99
+            },
+            "OPT_ADV_SWERVE_TIME": {
+                "low": 0.64,
+                "high": 0.88
+            }
+        },
+        "opt_time_3": {
+            "OPT_ADV_SPEED": {
+                "low": 6.22,
+                "high": 6.92
+            },
+            "OPT_ADV_SWERVE_TIME": {
+                "low": 0.68,
+                "high": 0.86
+            }
+        },
+        "opt_time_4": {
+            "OPT_ADV_SPEED": {
+                "low": 6.22,
+                "high": 6.92
+            },
+            "OPT_ADV_SWERVE_TIME": {
+                "low": 0.68,
+                "high": 0.86
+            }
+        },
+        "opt_time_5": {
+            "OPT_ADV_SPEED": {
+                "low": 6.22,
+                "high": 6.92
+            },
+            "OPT_ADV_SWERVE_TIME": {
+                "low": 0.68,
+                "high": 0.86
+            }
+        },
+        "select_id": [
+            4,
+            29
+        ]
+    }
+}

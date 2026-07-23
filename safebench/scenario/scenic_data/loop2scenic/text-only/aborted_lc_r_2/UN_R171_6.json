@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego car initiates a right lane change but aborts and returns to its original lane, while an adversarial car follows straight in the adjacent right lane.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car steers toward the right lane but then veers back into its original path to perform an aborted lane change."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car moves straight ahead in the adjacent right lane behind the ego vehicle."
+    }
+  ],
+  "spatial_relation": "On a multi-lane straight road, the ego car is positioned in the left lane with an adversarial car traveling in the right lane directly behind and to the right of the ego.",
+  "requirements_and_restrictions": "The ego vehicle must maintain initial spacing from the adversarial car behind it in the adjacent lane; the scenario terminates after the ego completes its aborted lane change maneuver.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the car performing the lane change; one adversarial car follows behind. 2. Enumeration: one adversarial car. 3. Chronology: initial ego in left lane, adversarial in right lane behind; midpoint ego steers right then aborts; ending ego returns to original lane, adversarial continues straight. 4. Evidence: ego's lateral position shifts right then back; adversarial maintains constant forward vector in right lane."
+}

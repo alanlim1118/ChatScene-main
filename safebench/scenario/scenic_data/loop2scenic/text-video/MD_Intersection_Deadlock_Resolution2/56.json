@@ -1,0 +1,30 @@
+{
+  "scenario": "The ego vehicle travels straight through a dark urban 4-way intersection while multiple adversarial vehicles execute turning maneuvers from the left and right arms.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward through the intersection while following a front vehicle."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward through the intersection ahead of the ego vehicle."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car executes a left turn from the left arm of the intersection."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car turns left from the right arm of the intersection."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car turns right from the right arm of the intersection."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is positioned on a straight road approaching a 4-way intersection, with a front vehicle ahead in the same lane, a left-turning vehicle approaching from the left arm, and two vehicles on the right arm making left and right turns respectively.",
+  "requirements_and_restrictions": "The ego vehicle must navigate through the intersection while maintaining safe distance from the front vehicle and avoiding conflicts with cross-traffic from the left and right arms; the scenario terminates once the ego has cleared the intersection.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the camera-host vehicle from first-person perspective; four non-ego vehicles are adversarials. 2. Enumeration: front straight vehicle, left-turning vehicle, left-turning vehicle from right arm, right-turning vehicle from right arm => adversarials length 4. 3. Chronology: initially ego approaches intersection behind front vehicle with others visible at arms; midpoint all vehicles enter intersection with complex crossing paths; ending ego and front vehicle exit straight while others complete turns. 4. Evidence: front vehicle maintains straight trajectory ahead of ego; left arm vehicle's headlights arc across from left to right; right arm vehicles' headlights show diverging left and right turn paths across frames."
+}

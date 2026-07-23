@@ -1,0 +1,22 @@
+{
+  "scenario": "The ego vehicle follows a front car through a dark urban 4-way intersection and both brake to yield to oncoming traffic passing straight through the junction.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car approaches the intersection behind a lead vehicle, brakes to avoid collision when the lead vehicle slows, then proceeds through the intersection after yielding."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight through the intersection from the opposing arm, passing in front of the ego vehicle's path."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car leads the ego vehicle into the intersection, brakes to yield to oncoming traffic, then completes a left turn."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is positioned on a multi-lane road approaching a 4-way intersection, following a lead car in the same lane, while an oncoming adversarial vehicle approaches from the perpendicular opposing arm on the left side of the intersection.",
+  "requirements_and_restrictions": "Initial distances to the intersection are defined for the ego and lead vehicle; the scenario terminates once the ego vehicle has navigated through the intersection after yielding to oncoming traffic.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the following car from third-person perspective; lead car and oncoming car are adversarials. 2. Enumeration: two adversarials total. 3. Chronology: initially ego follows lead car approaching intersection; midpoint lead car brakes and ego brakes; oncoming car passes through; ending both ego and lead car complete left turn. 4. Evidence: lead car's brake lights illuminate and gap to ego shrinks; oncoming headlights traverse left-to-right across intersection."
+}

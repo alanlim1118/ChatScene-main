@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle follows a straight road while an adversarial vehicle cuts into its lane from the right, causing a rear-end collision conflict.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward in its lane and decelerates as the adversarial vehicle cuts in ahead, eventually colliding with it."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car moves from the right adjacent lane into the ego vehicle's lane ahead of the ego, then decelerates or stops, causing a rear-end conflict."
+    }
+  ],
+  "spatial_relation": "The ego vehicle and the adversarial vehicle are on a multi-lane straight road, with the adversarial vehicle initially positioned to the right of the ego vehicle before cutting into the ego's lane.",
+  "requirements_and_restrictions": "The scenario involves a lane cut-in maneuver by the adversarial vehicle that results in a rear-end conflict with the ego vehicle; the scenario terminates after the collision or near-collision event.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the white car from first-person perspective; the red car is the adversarial. 2. Enumeration: One adversarial car. 3. Chronology: Initially, ego follows its lane while the red car is in the right adjacent lane. At midpoint, the red car cuts left into the ego's lane directly ahead. In ending, the ego closes distance and collides with the red car. 4. Evidence: The red car's lateral position shifts from right of center to directly ahead of the ego; the ego's speed drops from 118 km/h to near zero as gap closes."
+}

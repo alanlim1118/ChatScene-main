@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego car travels straight on a highway while an adversarial car merges from an entrance ramp into the ego's lane ahead.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along the main highway lane."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car drives along the entrance ramp and merges into the main highway lane ahead of the ego vehicle."
+    }
+  ],
+  "spatial_relation": "The ego car is on the main highway lane, while the adversarial car approaches from a curved entrance ramp on the right side that joins the main road ahead of the ego.",
+  "requirements_and_restrictions": "Initial distances are defined between the ego on the main highway and the adversarial car on the entrance ramp; the scenario terminates after the adversarial car completes its merge ahead of the ego.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the car on the main highway from first-person perspective; the ramp car is adversarial. 2. Enumeration: one adversarial car. 3. Chronology: initially both approach merge point; midpoint adversarial enters ramp terminus; ending adversarial completes merge ahead. 4. Evidence: ramp car's position shifts from curved ramp onto straight main lane, ending ahead of ego."
+}

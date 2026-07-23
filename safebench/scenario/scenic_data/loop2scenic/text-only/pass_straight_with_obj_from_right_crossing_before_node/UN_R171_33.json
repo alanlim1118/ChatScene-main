@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego car travels straight through an intersection while an adversarial object crosses the street from the right before reaching the intersection.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward through the intersection."
+  },
+  "adversarials": [
+    {
+      "object": "Pedestrian",
+      "behavior": "The pedestrian crosses the street from the right side before reaching the intersection node."
+    }
+  ],
+  "spatial_relation": "The ego car is on a straight road approaching an intersection, while a pedestrian is positioned to the right of the ego's path and crosses the street ahead of the intersection.",
+  "requirements_and_restrictions": "The ego car must maintain a set distance from the intersection at spawn, and the scenario terminates once the ego car has passed through the intersection.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the car from first-person perspective; the crossing entity is an adversarial pedestrian. 2. Enumeration: one Pedestrian adversarial. 3. Chronology: initially ego approaches intersection and pedestrian is at right roadside; midpoint pedestrian crosses street while ego continues forward; ending ego passes through intersection as pedestrian clears the path. 4. Evidence: pedestrian's lateral position shifts from right curb across the lane toward the left; ego maintains constant forward trajectory through the intersection."
+}

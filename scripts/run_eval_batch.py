@@ -7,11 +7,16 @@ scenario YAML, then runs each scenario via subprocess. Supports --mode eval
 (evaluate entire bench once using saved scenario_N.json) and --mode
 train_scenario (OPT optimization across the bench).
 
+Bench dirs whose .scenic files aren't named scenario_NNN.scenic fall back to
+a scenario_id_manifest.json in the bench dir for discovery (see
+scripts/build_scenario_id_manifest.py).
+
 All unrecognized flags are forwarded to run_eval.py.
 
 Notes:
   - Use --test_policy ppo with adv_scenic.yaml (not the default sac).
-  - --average only matches OPT_scenario_*_ROUTE-0_results.pkl (use --route_id 0).
+  - --average matches OPT_<name>_ROUTE-<id>_results.pkl (use --route_id 0
+    unless your YAML lists multiple routes).
 """
 
 import argparse
@@ -25,6 +30,10 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple
 import yaml
 
 _REPO_ROOT = osp.abspath(osp.join(osp.dirname(__file__), ".."))
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
+
+from safebench.util import scenario_id_manifest
 
 SCENARIO_RE = re.compile(r"^scenario_(\d+)\.scenic$")
 RUN_EVAL_SCRIPT = osp.join(_REPO_ROOT, "scripts", "run_eval.py")
@@ -88,8 +97,15 @@ def discover_scenario_ids(root_dir: str, scenario_cfg: str) -> List[int]:
             if match:
                 ids.append(int(match.group(1)))
         if not ids:
+            # Bench dirs with non-scenario_NNN.scenic filenames: fall back to
+            # a pre-built manifest (see scripts/build_scenario_id_manifest.py).
+            manifest = scenario_id_manifest.load_manifest(scan_dir)
+            if manifest:
+                ids = [int(sid) for sid in manifest["id_to_file"]]
+        if not ids:
             raise FileNotFoundError(
-                f"No scenario_*.scenic files found in: {scan_dir}"
+                f"No scenario_*.scenic files found in: {scan_dir} "
+                "(and no scenario_id_manifest.json to fall back to)"
             )
         return sorted(set(ids))
 

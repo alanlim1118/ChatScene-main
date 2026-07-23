@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle approaches a stationary shared bicycle on a foggy straight multi-lane road.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along its lane."
+  },
+  "adversarials": [
+    {
+      "object": "Bicycle",
+      "behavior": "The bicycle remains stationary on the road."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a long straight multi-lane road with a white dotted center line, and a stationary shared bicycle is positioned 0.5 m to the right of the lane center line directly ahead of the ego vehicle.",
+  "requirements_and_restrictions": "The scenario is conducted in simulated foggy conditions with visibility of 150 m to 200 m. The ego vehicle must detect and respond to the stationary bicycle in its path.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The VUT (ego) is the labeled car; the shared bicycle is the only adversarial. 2. Enumeration: one Bicycle adversarial. 3. Chronology: initially ego approaches stationary bicycle ahead; midpoint ego closes distance; ending ego reaches or reacts to bicycle. 4. Evidence: bicycle remains fixed in lane while ego advances; fog limits visibility per description."
+}

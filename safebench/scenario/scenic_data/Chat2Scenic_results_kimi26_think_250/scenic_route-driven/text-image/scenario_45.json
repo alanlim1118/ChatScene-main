@@ -1,0 +1,92 @@
+{
+    "OPT_r42_town05_ins_rl_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_ADV_SPEED": {
+                "low": 7.0,
+                "high": 10.0
+            },
+            "OPT_FOLLOWER_SPEED": {
+                "low": 7.0,
+                "high": 10.0
+            },
+            "OPT_ADV_FOLLOWER_SPEED": {
+                "low": 7.0,
+                "high": 10.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_ADV_SPEED": {
+                "low": 8.28,
+                "high": 9.52
+            },
+            "OPT_FOLLOWER_SPEED": {
+                "low": 7.7,
+                "high": 9.31
+            },
+            "OPT_ADV_FOLLOWER_SPEED": {
+                "low": 7.0,
+                "high": 8.58
+            }
+        },
+        "opt_time_2": {
+            "OPT_ADV_SPEED": {
+                "low": 8.36,
+                "high": 9.35
+            },
+            "OPT_FOLLOWER_SPEED": {
+                "low": 7.94,
+                "high": 9.17
+            },
+            "OPT_ADV_FOLLOWER_SPEED": {
+                "low": 7.14,
+                "high": 8.45
+            }
+        },
+        "opt_time_3": {
+            "OPT_ADV_SPEED": {
+                "low": 8.38,
+                "high": 9.22
+            },
+            "OPT_FOLLOWER_SPEED": {
+                "low": 8.05,
+                "high": 9.09
+            },
+            "OPT_ADV_FOLLOWER_SPEED": {
+                "low": 7.16,
+                "high": 8.28
+            }
+        },
+        "opt_time_4": {
+            "OPT_ADV_SPEED": {
+                "low": 8.41,
+                "high": 9.2
+            },
+            "OPT_FOLLOWER_SPEED": {
+                "low": 8.09,
+                "high": 9.06
+            },
+            "OPT_ADV_FOLLOWER_SPEED": {
+                "low": 7.23,
+                "high": 8.27
+            }
+        },
+        "opt_time_5": {
+            "OPT_ADV_SPEED": {
+                "low": 8.42,
+                "high": 9.15
+            },
+            "OPT_FOLLOWER_SPEED": {
+                "low": 8.14,
+                "high": 9.02
+            },
+            "OPT_ADV_FOLLOWER_SPEED": {
+                "low": 7.26,
+                "high": 8.23
+            }
+        },
+        "select_id": [
+            34,
+            47
+        ]
+    }
+}

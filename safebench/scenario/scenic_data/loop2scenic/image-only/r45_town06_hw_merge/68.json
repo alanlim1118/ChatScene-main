@@ -1,0 +1,27 @@
+{
+  "scenario": "The ego vehicle approaches a T-intersection where an adversarial car is waiting to turn left from the side road.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward along the main road approaching the T-intersection."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car remains stationary at the T-intersection stop line on the side road, waiting to turn left onto the main road."
+    }
+  ],
+  "spatial_relation": "The ego vehicle is on a straight two-lane main road approaching a T-intersection, while the adversarial car is positioned on the side road at the intersection stop line on the right side of the ego's path.",
+  "requirements_and_restrictions": "The ego vehicle must maintain a set distance from the intersection upon spawning, and the scenario terminates once the ego vehicle has safely passed through the intersection.",
+  "road_side_structures": [
+    {
+      "object": "House",
+      "position": "Multiple houses line the left side of the main road along the sidewalk."
+    },
+    {
+      "object": "Tree",
+      "position": "Numerous trees are scattered throughout the residential area on the left side of the main road and densely populate the forested area on the right side of the road."
+    }
+  ],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the green car on the main road from first-person perspective; the blue car at the stop line is the adversarial. 2. Chronology: Initially, ego approaches T-intersection while adversarial waits stationary. Midpoint, ego nears intersection as adversarial remains stopped. Ending, ego passes through intersection. 3. Evidence: The blue car's position is fixed at the stop line across all phases; the green car advances along the main road toward and through the intersection."
+}

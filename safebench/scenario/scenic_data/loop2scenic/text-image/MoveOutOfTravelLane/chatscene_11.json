@@ -1,0 +1,22 @@
+{
+  "scenario": "The ego vehicle pulls out of a straight urban travel lane into a parallel parking area between two parked cars.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight along the urban road, then signals and maneuvers laterally into a parking space located between two stationary vehicles."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car remains stationary in a parked position ahead of the desired parking location."
+    },
+    {
+      "object": "Car",
+      "behavior": "The car remains stationary in a parked position behind the desired parking location."
+    }
+  ],
+  "spatial_relation": "On a straight urban street with multiple lanes, the ego vehicle approaches a row of parallel-parked vehicles; two parked cars flank an empty parking space that the ego intends to occupy.",
+  "requirements_and_restrictions": "The ego vehicle must initiate the maneuver from a defined distance upstream of the parking gap, and the scenario terminates once the ego is fully parked within the designated space.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: Ego is the moving vehicle; two parked cars are adversarials. 2. Enumeration: two stationary Cars => adversarials length 2. 3. Chronology: initial ego approaches gap; midpoint ego signals and steers toward space; ending ego settles between parked cars. 4. Evidence: image shows curved arrow into gap between two white parked vehicles on straight road."
+}

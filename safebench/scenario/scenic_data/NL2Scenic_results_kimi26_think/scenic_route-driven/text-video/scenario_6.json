@@ -1,0 +1,92 @@
+{
+    "OPT_CPFA_50_50kph_ROUTE-0": {
+        "opt_time_0": {
+            "OPT_PED_SPEED": {
+                "low": 2.0,
+                "high": 3.5
+            },
+            "OPT_CROSSING_DISTANCE": {
+                "low": 15.0,
+                "high": 25.0
+            },
+            "OPT_LATERAL_OFFSET": {
+                "low": 2.5,
+                "high": 4.0
+            }
+        },
+        "opt_time_1": {
+            "OPT_PED_SPEED": {
+                "low": 2.0,
+                "high": 3.5
+            },
+            "OPT_CROSSING_DISTANCE": {
+                "low": 15.0,
+                "high": 25.0
+            },
+            "OPT_LATERAL_OFFSET": {
+                "low": 2.5,
+                "high": 4.0
+            }
+        },
+        "opt_time_2": {
+            "OPT_PED_SPEED": {
+                "low": 2.0,
+                "high": 3.5
+            },
+            "OPT_CROSSING_DISTANCE": {
+                "low": 15.0,
+                "high": 25.0
+            },
+            "OPT_LATERAL_OFFSET": {
+                "low": 2.5,
+                "high": 4.0
+            }
+        },
+        "opt_time_3": {
+            "OPT_PED_SPEED": {
+                "low": 2.16,
+                "high": 2.2
+            },
+            "OPT_CROSSING_DISTANCE": {
+                "low": 16.87,
+                "high": 18.67
+            },
+            "OPT_LATERAL_OFFSET": {
+                "low": 3.52,
+                "high": 4.0
+            }
+        },
+        "opt_time_4": {
+            "OPT_PED_SPEED": {
+                "low": 2.17,
+                "high": 2.19
+            },
+            "OPT_CROSSING_DISTANCE": {
+                "low": 17.37,
+                "high": 18.56
+            },
+            "OPT_LATERAL_OFFSET": {
+                "low": 3.59,
+                "high": 3.9
+            }
+        },
+        "opt_time_5": {
+            "OPT_PED_SPEED": {
+                "low": 2.17,
+                "high": 2.19
+            },
+            "OPT_CROSSING_DISTANCE": {
+                "low": 17.42,
+                "high": 18.38
+            },
+            "OPT_LATERAL_OFFSET": {
+                "low": 3.6,
+                "high": 3.86
+            }
+        },
+        "select_id": [
+            31,
+            32
+        ]
+    }
+}

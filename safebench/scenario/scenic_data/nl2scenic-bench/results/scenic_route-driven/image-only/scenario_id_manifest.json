@@ -1,0 +1,11 @@
+{
+  "bench_id": "image-only",
+  "id_to_file": {
+    "11": "FollowingVehicleMakingAManeuverAndApproachingLeadVehicle.scenic",
+    "19": "diverging_lead_leaving_TA_after_node_l.scenic",
+    "25": "left_turn_with_obj_from_left_entering_before_node.scenic",
+    "26": "neighbor_entering_r.scenic",
+    "34": "r21_town07_ins_sr.scenic"
+  },
+  "version": 1
+}

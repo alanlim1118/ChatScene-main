@@ -1,0 +1,18 @@
+{
+  "scenario": "The ego vehicle rear-ends another vehicle that is traveling at constant speed on a straight road.",
+  "ego": {
+    "object": "Car",
+    "behavior": "The car travels straight forward and collides with the rear of another vehicle."
+  },
+  "adversarials": [
+    {
+      "object": "Car",
+      "behavior": "The car travels straight forward at a constant speed ahead of the ego vehicle."
+    }
+  ],
+  "spatial_relation": "Both vehicles are on a straight road, with the ego vehicle positioned behind and approaching the adversarial vehicle from the rear.",
+  "requirements_and_restrictions": "The ego vehicle must approach the adversarial vehicle from behind at a higher speed, and the scenario terminates upon collision with the rear of the adversarial vehicle.",
+  "road_side_structures": [],
+  "temporary_modifications": [],
+  "reasoning_chain": "1. Actors: The ego is the white vehicle from third-person view; the red vehicle is the adversarial. 2. Chronology: Initially, ego is behind the adversarial. At midpoint, ego closes the gap. At ending, ego strikes the rear of the adversarial. 3. Evidence: The red vehicle appears from the left and maintains constant position relative to road; white vehicle's position shifts from right of frame to overlapping with red vehicle, confirming rear-end collision."
+}
