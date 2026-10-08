@@ -1,8 +1,10 @@
-3==0.0.0
+# Pinned from the working chatscene-v3 venv. Installed by scripts/setup_conda_envs.sh.
+# carla (CARLA wheel) and safebench are installed separately by that script; scenic 3 comes from PyPI below.
+--extra-index-url https://download.pytorch.org/whl/cu117
 annotated-types==0.7.0
 antlr4-python3-runtime==4.13.2
 anyio==4.13.0
-attrs==26.1.0
+attrs==22.2.0
 blessed==1.42.0
 certifi==2026.5.20
 charset-normalizer==3.4.7
@@ -12,13 +14,18 @@ cpprb==10.7.0
 cycler==0.12.1
 Cython==3.2.5
 decorator==4.4.2
+dill==0.4.1
+discrete-signals==0.8.3
 distro==1.9.0
 dotmap==1.3.30
+easydict==1.13
 ephem==4.1.4
 exceptiongroup==1.3.1
 filelock==3.29.0
 fonttools==4.63.0
 fsspec==2026.4.0
+funcy==1.18
+future==1.0.0
 gpustat==1.1.1
 gym==0.23.1
 gym-notices==0.1.0
@@ -34,10 +41,13 @@ jinxed==2.0.0
 jiter==0.15.0
 joblib==1.2.0
 kiwisolver==1.5.0
+kmodes==0.10.2
 lazy-loader==0.5
+lenses==0.5.0
 manifold3d==3.5.0
 mapbox_earcut==2.0.0
 matplotlib==3.5.3
+metric-temporal-logic==0.4.1
 moviepy==1.0.3
 networkx==3.4.2
 nltk==3.9.4
@@ -47,9 +57,12 @@ openai==2.37.0
 opencv-python==4.7.0.72
 packaging==26.2
 pandas==1.5.3
+parsimonious==0.9.0
+patsy==1.0.2
 pegen==0.3.0
 pillow==12.2.0
 proglog==0.1.12
+progressbar2==3.55.0
 psutil==7.2.2
 pycocotools==2.0.7
 pydantic==2.13.4
@@ -60,6 +73,7 @@ pyglet==1.5.26
 pyparsing==3.3.2
 python-dateutil==2.9.0.post0
 python-fcl==0.7.0.11
+python-utils==4.0.0
 pytz==2026.2
 PyWavelets==1.8.0
 PyYAML==6.0
@@ -67,9 +81,8 @@ regex==2026.5.9
 requests==2.34.2
 rtree==1.4.1
 rv-ltl==0.1.0
-safebench==1.0.0
 safetensors==0.7.0
-scenic==3.1.1
+scenic==3.1.0
 scikit-image==0.25.2
 scikit-learn==1.7.2
 scipy==1.15.3
@@ -78,8 +91,11 @@ sentence-transformers==2.2.1
 sentencepiece==0.2.1
 setGPU==0.0.7
 shapely==2.1.2
+singledispatch==4.1.2
 six==1.17.0
 sniffio==1.3.1
+sortedcontainers==2.4.0
+statsmodels==0.14.6
 threadpoolctl==3.6.0
 tifffile==2025.5.10
 tokenizers==0.22.2
@@ -92,4 +108,5 @@ trimesh==4.12.2
 typing-inspection==0.4.2
 typing_extensions==4.15.0
 urllib3==2.7.0
+verifai==2.2.0
 wcwidth==0.7.0

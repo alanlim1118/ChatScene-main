@@ -1,9 +1,11 @@
+# Pinned from the working chatscene-v2 venv. Installed by scripts/setup_conda_envs.sh.
+# carla (CARLA wheel), scenic 2 (editable ./Scenic) and safebench are installed separately by that script.
+--extra-index-url https://download.pytorch.org/whl/cu128
 annotated-types==0.7.0
 antlr4-python3-runtime==4.13.2
 anyio==4.13.0
 attrs==26.1.0
 blessed==1.44.0
-carla @ file:///home/dellpro2/CC/carla_0.9.15/PythonAPI/carla/dist/carla-0.9.15-cp310-cp310-linux_x86_64.whl
 certifi==2026.5.20
 charset-normalizer==3.4.7
 click==8.4.1
@@ -79,9 +81,7 @@ PyWavelets==1.8.0
 PyYAML==6.0
 regex==2026.5.9
 requests==2.34.2
--e git+https://github.com/alanlim1118/ChatScene-main.git@55c49a731dcb685c0f2617c6719f18a5b0ac4675#egg=safebench
 safetensors==0.8.0
--e git+https://github.com/alanlim1118/ChatScene-main.git@55c49a731dcb685c0f2617c6719f18a5b0ac4675#egg=scenic&subdirectory=Scenic
 scikit-image==0.19.3
 scikit-learn==1.7.2
 scipy==1.15.3
