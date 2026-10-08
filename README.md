@@ -9,7 +9,35 @@ Check out the <a href="https://javyduck.github.io/chatscene">demo simulations</a
 
 **Recommended system: Ubuntu 20.04 or 22.04**
 
-### 1. Local Installation
+### Route-driven setup (Scenic 2 + Scenic 3 conda envs)
+
+The route-driven workflow ([ROUTE_DRIVEN_SCENIC_GUIDE.md](ROUTE_DRIVEN_SCENIC_GUIDE.md)) uses two environments in the repo root, both on CARLA 0.9.15 (tested on Ubuntu 24.04):
+
+| Env | Scenic | Used for | Activate |
+|-----|--------|----------|----------|
+| `chatscene-v3/` | 3.1.0 (PyPI) | route generation (`generate_route_batch.sh`, `generate_scenic_route_pickle.py`) | `source env.scenic3.sh` |
+| `chatscene-v2/` | 2.1.0b4 (editable `./Scenic`) | `train_scenario` / eval (`run_train_scenario_batch_v2.sh`, `run_eval_v2_batch.py`, `generate_route_v2_batch.sh`) | `source env.scenic2.sh` |
+
+Step 1: Clone the repo to `~/yungloon/ChatScene-main` (the path `env.scenic2.sh` / `env.scenic3.sh` expect) and install [CARLA 0.9.15](https://github.com/carla-simulator/carla/releases/tag/0.9.15), plus `sudo apt install libomp5`.
+
+Step 2: Create both conda envs (needs `conda` on `PATH`):
+
+```
+cd ~/yungloon/ChatScene-main
+scripts/setup_conda_envs.sh --carla-root /path/to/CARLA_0.9.15
+```
+
+This creates `chatscene-v2/` and `chatscene-v3/` as conda prefix envs, installs the pinned `requirements_v2.txt` / `requirements_v3.txt` (torch cu128 / cu117), the CARLA wheel from `--carla-root`, Scenic and `safebench`, and sets up `carla_compat_libs/` (`libtiff.so.5` / `libjpeg.so.9`, which CARLA's `libcarla` needs and newer Ubuntu no longer ships). Run `scripts/setup_conda_envs.sh v2` or `v3` to build only one; `--force` recreates an existing env. Create both: `env.scenic2.sh` also loads the compat libs from `chatscene-v3/`.
+
+Step 3: Edit `CARLA_ROOT` in `env.scenic2.sh` and `env.scenic3.sh` to match your CARLA install, then check:
+
+```
+source env.scenic3.sh && python -c "import carla, scenic, torch; print(scenic.__file__)"
+```
+
+Step 4: Copy the scenario data over separately — `safebench/scenario/scenic_data/`, `safebench/scenario/scenario_data/` and `log/` are not tracked in git.
+
+### 1. Local Installation (original ChatScene, Scenic 2 + CARLA 0.9.13)
 
 Step 1: Setup conda environment
 
