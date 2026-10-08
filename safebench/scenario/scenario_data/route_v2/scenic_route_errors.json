@@ -1,8 +1,0 @@
-{
-  "errors": [
-    {
-      "error": "RuntimeError('Failed to create a runnable Scenic simulation after 10 attempts for safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_overlap_c2s/NHTSA_Crash/scenario_003.scenic. Last error: NameError(\"name \\'egoTrajectory\\' is not defined\")')",
-      "scenic_file": "safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_overlap_c2s/NHTSA_Crash/scenario_003.scenic"
-    }
-  ]
-}

@@ -104,6 +104,26 @@ def get_parser(scenicFile):
     return args
 
 
+def _release_synchronous_mode(params):
+    """Put the CARLA server back in asynchronous mode before Scenic 2 connects.
+
+    Scenic 2's CarlaSimulator calls client.load_world() unconditionally. If a previous
+    run (Scenic 3 route generation, an earlier eval, ...) left the server in synchronous
+    mode, load_world waits for a client tick that never comes and the server hangs.
+    CarlaSimulator re-enables synchronous mode right after the map is loaded, so the
+    simulation itself still runs synchronously.
+    """
+    import carla
+    client = carla.Client(params.get('address', '127.0.0.1'), int(params.get('port', 2000)))
+    client.set_timeout(float(params.get('timeout', 10.0)))
+    world = client.get_world()
+    settings = world.get_settings()
+    if settings.synchronous_mode:
+        settings.synchronous_mode = False
+        settings.fixed_delta_seconds = None
+        world.apply_settings(settings)
+
+
 class ScenicSimulator:
     """Scenic 2.x version: compile scenario, sample scenes, set up CARLA simulations.
 
@@ -140,6 +160,9 @@ class ScenicSimulator:
         totalTime = time.time() - startTime
         if self.args.verbosity >= 1:
             print(f'Scenario constructed in {totalTime:.2f} seconds.')
+        _release_synchronous_mode(merged_params)
+        # CarlaSimulator.__init__ loads the map, then switches the world and TM back to
+        # synchronous mode with fixed_delta_seconds = timestep.
         self.simulator = errors.callBeginningScenicTrace(self.scenario.getSimulator)
         if hasattr(self.simulator, 'render'):
             self.simulator.render = False

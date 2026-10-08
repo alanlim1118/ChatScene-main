@@ -27,6 +27,7 @@ from safebench.scenario.tools.scenario_utils_v2 import scenic_parse
 from safebench.util.logger import Logger, setup_logger_kwargs
 from safebench.util.metric_util import get_route_scores, get_perception_scores
 from safebench.util.scenic_utils_v2 import ScenicSimulator
+from safebench.util import scenario_dir as scenario_layout
 
 class ScenicRunnerV2:
     def __init__(self, agent_config, scenario_config):
@@ -477,9 +478,16 @@ class ScenicRunnerV2:
             self.logger.log(f'>> Continue training from previous checkpoint, epoch: {start_episode}.')
         return start_episode
     
+    def _scene_map_path(self):
+        """opt_params.json inside a self-contained scenario directory, or None for the legacy layouts."""
+        scenario_dir = self.scenario_config.get('scenario_dir')
+        return scenario_layout.opt_params_path(scenario_dir) if scenario_dir else None
+
     def dump_scene_map(self, scenario_id):
         bench_id = self.scenario_config.get('bench_id')
-        if bench_id:
+        if self._scene_map_path():
+            out_path = self._scene_map_path()
+        elif bench_id:
             scenic_dir = os.path.join(self.scenario_config['scenic_dir'], str(bench_id))
             os.makedirs(scenic_dir, exist_ok=True)
             out_path = os.path.join(scenic_dir, f"scenario_{scenario_id}.json")
@@ -494,7 +502,9 @@ class ScenicRunnerV2:
         
     def load_scene_map(self, scenario_id):
         bench_id = self.scenario_config.get('bench_id')
-        if bench_id:
+        if self._scene_map_path():
+            in_path = self._scene_map_path()
+        elif bench_id:
             scenic_dir = os.path.join(self.scenario_config['scenic_dir'], str(bench_id))
             in_path = os.path.join(scenic_dir, f"scenario_{scenario_id}.json")
         else:

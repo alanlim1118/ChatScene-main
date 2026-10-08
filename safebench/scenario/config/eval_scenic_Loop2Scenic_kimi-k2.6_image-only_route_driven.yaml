@@ -1,0 +1,18 @@
+policy_type: 'scenic'
+scenario_category: 'scenic'
+
+route_dir: 'safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic_route-driven/image-only'
+scenic_dir: 'safebench/scenario/scenic_data/Loop2Scenic_kimi-k2.6/scenic_route-driven'
+bench_id: 'image-only'
+scenic_mode2d: true
+sample_num: 50
+opt_step: 10
+select_num: 2
+
+method: 'scenic'
+scenario_id: 1
+route_id: [0]
+
+ego_action_dim: 2
+ego_state_dim: 4
+ego_action_limit: 1.0

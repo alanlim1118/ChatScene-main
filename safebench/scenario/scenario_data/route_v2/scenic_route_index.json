@@ -1,8 +1,0 @@
-{
-  "NHTSA_Crash:9:0": {
-    "pickle_key": "scenario_id_NHTSA_Crash__9_route_id_0",
-    "scenic_file": "safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_overlap_c2s/NHTSA_Crash/scenario_009.scenic",
-    "town": "Town05",
-    "weather": "ClearNoon"
-  }
-}

@@ -1,6 +1,0 @@
-{
-  "carla_map": "Town05",
-  "map_file_path": "../../maps/Town05.xodr",
-  "blueprint": "vehicle.tesla.model3",
-  "weather": "ClearNoon"
-}

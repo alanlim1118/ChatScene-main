@@ -9,6 +9,14 @@ and --mode train_scenario (OPT optimisation across the bench).
 
 All unrecognised flags are forwarded to run_eval_v2.py.
 
+Self-contained scenario directories (no YAML paths, ids or manifest):
+
+  python scripts/run_eval_v2_batch.py --scenario_dir safebench/scenario/scenic_data/<dataset> \
+      --mode train_scenario --test_policy ppo --agent_cfg adv_scenic_ppo.yaml ...
+
+runs every <dataset>/<id>/ that has a route.pickle (see safebench/util/scenario_dir.py);
+--scenarios <id> ... restricts the set.
+
 Notes:
   - Use --test_policy ppo with adv_scenic.yaml (not the default sac).
   - --average only matches OPT_scenario_*_ROUTE-0_results.pkl (use --route_id 0).
@@ -28,6 +36,11 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple
 import yaml
 
 _REPO_ROOT = osp.abspath(osp.join(osp.dirname(__file__), ".."))
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
+
+from safebench.util import scenario_id_manifest
+import run_eval_batch
 
 SCENARIO_RE = re.compile(r"^scenario_(\d+)\.scenic$")
 RUN_EVAL_V2_SCRIPT = osp.join(_REPO_ROOT, "scripts", "run_eval_v2.py")
@@ -78,8 +91,16 @@ def discover_scenario_ids(scenic_dir: str) -> List[int]:
             ids.append(int(match.group(1)))
 
     if not ids:
+        # Bench dirs with non-scenario_NNN.scenic filenames: fall back to
+        # a pre-built manifest (see scripts/build_scenario_id_manifest.py).
+        manifest = scenario_id_manifest.load_manifest(scenic_dir)
+        if manifest:
+            ids = [int(sid) for sid in manifest["id_to_file"]]
+
+    if not ids:
         raise FileNotFoundError(
-            f"No scenario_*.scenic files found in: {scenic_dir}"
+            f"No scenario_*.scenic files found in: {scenic_dir} "
+            "(and no scenario_id_manifest.json to fall back to)"
         )
     return sorted(set(ids))
 
@@ -164,12 +185,16 @@ def main() -> int:
             "All unrecognised flags are forwarded to run_eval_v2.py."
         )
     )
-    parser.add_argument(
-        "scenic_dir",
-        nargs="?",
-        default=None,
-        help="Directory containing scenario_*.scenic files",
-    )
+    # In --scenario_dir mode the optional positional would swallow the value of the
+    # first forwarded flag (e.g. `--mode train_scenario` -> scenic_dir='train_scenario').
+    scenario_dir_mode = any(a == "--scenario_dir" or a.startswith("--scenario_dir=") for a in sys.argv[1:])
+    if not scenario_dir_mode:
+        parser.add_argument(
+            "scenic_dir",
+            nargs="?",
+            default=None,
+            help="Directory containing scenario_*.scenic files",
+        )
     parser.add_argument(
         "--scenic_dir",
         dest="scenic_dir_flag",
@@ -212,7 +237,23 @@ def main() -> int:
         help="Output path for average_eval_results.json",
     )
 
+    parser.add_argument(
+        "--scenario_dir",
+        type=str,
+        default=None,
+        help="Dataset directory of self-contained <id>/ scenario dirs (replaces scenario_*.scenic discovery)",
+    )
+    parser.add_argument(
+        "--scenarios",
+        nargs="+",
+        default=None,
+        help="With --scenario_dir: only these scenario ids (directory names)",
+    )
+
     args, forward_args = parser.parse_known_args()
+
+    if args.scenario_dir is not None:
+        return run_eval_batch.main_scenario_dirs(args, forward_args, run_script=RUN_EVAL_V2_SCRIPT)
 
     scenic_dir = args.scenic_dir_flag or args.scenic_dir
     if scenic_dir is None:

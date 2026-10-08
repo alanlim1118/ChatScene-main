@@ -1,8 +1,0 @@
-{
-  "errors": [
-    {
-      "error": "FileNotFoundError(2, 'No such file or directory')",
-      "scenic_file": "safebench/scenario/scen"
-    }
-  ]
-}

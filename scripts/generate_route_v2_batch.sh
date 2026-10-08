@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 #
-# Loop scripts/generate_scenic_route_pickle.py over a bench directory's
-# .scenic files, one fresh Python process per file (via --scenic-file).
+# Scenic 2.x counterpart of scripts/generate_route_batch.sh. Loops
+# scripts/generate_scenic_route_pickle_v2.py over a bench directory's .scenic
+# files, one fresh Python process per file (via --scenic-file).
 #
 # --scenic-dir batch mode reuses one Python process across every file, and
 # Scenic keeps a fair amount of process-global state (scenic.syntax.veneer's
@@ -14,8 +15,15 @@
 # entirely - at the cost of a few seconds of process/connect overhead per
 # file instead of paying it once for the whole batch.
 #
+# Differences from generate_route_batch.sh (the Scenic 3.x version):
+#   - Runs generate_scenic_route_pickle_v2.py (safebench.util.scenic_utils_v2)
+#     instead of generate_scenic_route_pickle.py.
+#   - Sources env.scenic2.sh by default (the Scenic 2.x venv) instead of
+#     env.scenic3.sh.
+#   - The v2 generator has no --carla-timeout flag, so it is not passed.
+#
 # Usage:
-#   scripts/generate_route_batch.sh <bench-dir> [file1.scenic file2.scenic ...] [options]
+#   scripts/generate_route_v2_batch.sh <bench-dir> [file1.scenic file2.scenic ...] [options]
 #
 # If no filenames are given, every *.scenic file directly inside <bench-dir>
 # is processed. Filenames are relative to <bench-dir> and must be listed
@@ -23,13 +31,13 @@
 #
 # Examples:
 #   # Whole modality directory (safe to re-run - --resume skips finished ones)
-#   scripts/generate_route_batch.sh \
-#     safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/text-video
+#   scripts/generate_route_v2_batch.sh \
+#     safebench/scenario/scenic_data/chatscene_kimi26think/chatscene_kimik26think_R1/image-only
 #
 #   # Just a curated list of known-executable files
-#   scripts/generate_route_batch.sh \
-#     safebench/scenario/scenic_data/nl2scenic-bench/results/scenic/video-only \
-#     ULT_1.scenic lateral_cut_in_rural.scenic
+#   scripts/generate_route_v2_batch.sh \
+#     safebench/scenario/scenic_data/chatscene_kimi26think/chatscene_kimik26think_R1/video-only \
+#     BLO_3.scenic HORM_3.scenic
 #
 # Options:
 #   --bench-id NAME          Bench id passed through (default: basename of bench-dir)
@@ -38,12 +46,14 @@
 #   --tm-port N              Traffic manager port (default: 8005)
 #   --max-scene-attempts N   (default: 200)
 #   --warmup-ticks N         (default: 20)
-#   --max-record-seconds N   (default: 30)
-#   --carla-timeout N        (default: 60)
+#   --max-record-seconds N   (default: 20)
+#   --carla-timeout N        (default: 60) CARLA RPC client timeout, seconds
+#   --file-timeout N         (default: 60) per-file wall-clock cap, seconds;
+#                            a file exceeding it is killed and marked failed
 #   --no-video               Disable --record-video
 #   --no-resume              Force regeneration of already-completed scenarios
-#   --env-script PATH        Sourced before running (default: env.scenic3.sh)
-#   --log PATH               Log file (default: /tmp/<bench-id>_batch_loop_<timestamp>.log)
+#   --env-script PATH        Sourced before running (default: env.scenic2.sh)
+#   --log PATH               Log file (default: /tmp/<bench-id>_v2_batch_loop_<timestamp>.log)
 #   --restart-carla-every N  Kill and relaunch the CARLA server every N files
 #                            processed (default: 0 = never restart). Use this
 #                            if CARLA tends to crash/degrade after running many
@@ -62,17 +72,18 @@ PORT=2005
 TM_PORT=8005
 MAX_SCENE_ATTEMPTS=200
 WARMUP_TICKS=20
-MAX_RECORD_SECONDS=30
+MAX_RECORD_SECONDS=20
 CARLA_TIMEOUT=60
+FILE_TIMEOUT=60
 RECORD_VIDEO=1
 RESUME_FLAG=""
-ENV_SCRIPT="env.scenic3.sh"
+ENV_SCRIPT="env.scenic2.sh"
 LOGFILE=""
 RESTART_CARLA_EVERY=0
 CARLA_ROOT="$HOME/yungloon/fail2drive/f2d_carla"
 
 usage() {
-  sed -n '2,52p' "${BASH_SOURCE[0]}"
+  sed -n '2,62p' "${BASH_SOURCE[0]}"
 }
 
 if [ "$#" -eq 0 ] || [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
@@ -100,6 +111,7 @@ while [ "$#" -gt 0 ]; do
     --warmup-ticks) WARMUP_TICKS="$2"; shift 2 ;;
     --max-record-seconds) MAX_RECORD_SECONDS="$2"; shift 2 ;;
     --carla-timeout) CARLA_TIMEOUT="$2"; shift 2 ;;
+    --file-timeout) FILE_TIMEOUT="$2"; shift 2 ;;
     --no-video) RECORD_VIDEO=0; shift ;;
     --no-resume) RESUME_FLAG="--no-resume"; shift ;;
     --env-script) ENV_SCRIPT="$2"; shift 2 ;;
@@ -119,7 +131,7 @@ BENCH_DIR="${BENCH_DIR%/}"
 
 [ -n "$BENCH_ID" ] || BENCH_ID="$(basename "$BENCH_DIR")"
 [ -n "$OUT_PICKLE" ] || OUT_PICKLE="$BENCH_DIR/scenic_route.pickle"
-[ -n "$LOGFILE" ] || LOGFILE="/tmp/${BENCH_ID}_batch_loop_$(date +%Y%m%d_%H%M%S).log"
+[ -n "$LOGFILE" ] || LOGFILE="/tmp/${BENCH_ID}_v2_batch_loop_$(date +%Y%m%d_%H%M%S).log"
 : > "$LOGFILE"
 
 if [ "${#FILES[@]}" -eq 0 ]; then
@@ -209,6 +221,22 @@ restart_carla() {
   start_carla
 }
 
+# Per-file liveness guard. CARLA can segfault (Signal 11) under sustained
+# load - running hundreds of sims back-to-back with video recording - or be
+# left unstable after a per-file timeout SIGKILLs a Scenic process mid-sim.
+# Without this the batch keeps firing files at a dead server and every one
+# fails. Called before each file: if the RPC port isn't accepting
+# connections, (re)start the server so the next file gets a live CARLA.
+ensure_carla() {
+  if timeout 3 bash -c "cat < /dev/null > /dev/tcp/127.0.0.1/$PORT" 2>/dev/null; then
+    return 0
+  fi
+  echo "--- CARLA not responding on port $PORT; (re)starting server ---" >> "$LOGFILE"
+  echo "CARLA not responding on port $PORT - (re)starting..." >&2
+  stop_carla 2>/dev/null || true
+  start_carla
+}
+
 VIDEO_FLAG=""
 [ "$RECORD_VIDEO" -eq 1 ] && VIDEO_FLAG="--record-video"
 
@@ -232,7 +260,19 @@ for fn in "${FILES[@]}"; do
   fi
 
   echo "=== $fn ===" >> "$LOGFILE"
-  python scripts/generate_scenic_route_pickle.py \
+  # Make sure CARLA is alive before spending this file's time budget on it
+  # (recovers from a mid-run segfault or a previous timeout that destabilized
+  # the server). Done outside the timeout wrapper so restart time is not
+  # charged against this file's --file-timeout.
+  ensure_carla
+  # Per-file wall-clock cap: some Scenic files hang in scene sampling (e.g. a
+  # 4-way-intersection require loop that rarely satisfies), which would
+  # otherwise stall the whole batch indefinitely. `timeout --signal=KILL`
+  # after a grace SIGTERM guarantees the process (and its CARLA connection)
+  # is torn down so the next file gets a fresh interpreter. Exit code 124
+  # (SIGTERM) or 137 (SIGKILL) => this file timed out.
+  timeout --kill-after=15s "${FILE_TIMEOUT}s" \
+    python scripts/generate_scenic_route_pickle_v2.py \
     --scenic-file "$f" \
     --out-pickle "$OUT_PICKLE" \
     --bench-id "$BENCH_ID" \
@@ -243,8 +283,16 @@ for fn in "${FILES[@]}"; do
     --carla-timeout "$CARLA_TIMEOUT" \
     --port "$PORT" --tm-port "$TM_PORT" \
     $VIDEO_FLAG $RESUME_FLAG >> "$LOGFILE" 2>&1
+  rc=$?
 
-  if [ -f "$ERR_FILE" ]; then
+  if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ]; then
+    echo "--- TIMEOUT for $fn (exceeded ${FILE_TIMEOUT}s, killed) ---" >> "$LOGFILE"
+    rm -f "$ERR_FILE"
+    FAILED_FILES+=("$fn (timeout)")
+    # A SIGKILL mid-simulation can leave CARLA in synchronous mode with
+    # orphaned actors; reset it so the next file starts from a clean world.
+    restart_carla
+  elif [ -f "$ERR_FILE" ]; then
     echo "--- error for $fn ---" >> "$LOGFILE"
     cat "$ERR_FILE" >> "$LOGFILE"
     echo >> "$LOGFILE"

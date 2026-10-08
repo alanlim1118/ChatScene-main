@@ -11,6 +11,79 @@ This guide summarizes how to:
 - Average evaluation metrics across runs with `scripts/average_eval_results.py`
 - Organize directories / configs for **bench layout** Scenic files (e.g. `ChatScene/scenario_001.scenic`)
 
+> **New datasets:** prefer the self-contained scenario-directory layout in [Section 0](#0-self-contained-scenario-directories-recommended).
+> It needs no numeric ids, route index, `scenario_id_manifest.json`, or per-bench YAML paths.
+
+---
+
+## 0) Self-contained scenario directories (recommended)
+
+Every scenario lives in its own directory, named by its scenario id, and every
+artifact for it sits next to the Scenic code
+(conventions in [safebench/util/scenario_dir.py](safebench/util/scenario_dir.py)):
+
+```text
+safebench/scenario/scenic_data/NL2Scenic/        # <dataset>
+  assets/maps/CARLA/<Town>.xodr                  # referenced by the .scenic files: localPath('../assets/maps/CARLA/...')
+  aborted_lc_r_1/                                # <scenario_id>
+    aborted_lc_r_1.scenic                        # original Scenic code (ego scripted) - route generation input
+    aborted_lc_r_1_route_driven.scenic           # optional route-driven variant - preferred by train_scenario/eval
+    route.pickle                                 # written by route generation (one route)
+    route_error.txt                              # only if route generation failed (traceback)
+    video/aborted_lc_r_1_fpv.mp4                 # recorded during route generation
+    video/aborted_lc_r_1_bev.mp4
+    opt_params.json                              # written by train_scenario, read by eval
+```
+
+The scenario id is just the directory name, so any name works (`BLO_3`, `aborted_enter_lead_l`, ...).
+
+### 0.1 Generate routes (+ FPV/BEV video)
+
+```bash
+source env.scenic3.sh
+
+# whole dataset: one fresh subprocess per scenario, skips ones that already have route.pickle
+python scripts/generate_scenic_route_pickle.py \
+  --scenario-dir safebench/scenario/scenic_data/NL2Scenic \
+  --port 2010 --tm-port 8010 \
+  --max-scene-attempts 50 --warmup-ticks 20 --max-record-seconds 30
+
+# one scenario (or: --scenarios BLO_3 aborted_lc_r_1 on the dataset dir)
+python scripts/generate_scenic_route_pickle.py \
+  --scenario-dir safebench/scenario/scenic_data/NL2Scenic/BLO_3 --port 2010 --tm-port 8010
+```
+
+- Video is **on by default** in this mode (`--no-record-video` to disable).
+- `--no-resume` regenerates existing routes. Empty `.scenic` files are skipped.
+- Failures write `<id>/route_error.txt` and the batch continues; a later success removes it.
+- `param carla_map = Town` (identifier, not a string literal) is resolved automatically.
+
+### 0.2 train_scenario → eval
+
+```bash
+# one scenario
+python scripts/run_eval.py --mode train_scenario \
+  --scenario_dir safebench/scenario/scenic_data/NL2Scenic/aborted_lc_r_1 \
+  --agent_cfg adv_scenic_ppo.yaml --test_policy ppo --port 2010 --tm_port 8010 --device cpu
+python scripts/run_eval.py --mode eval \
+  --scenario_dir safebench/scenario/scenic_data/NL2Scenic/aborted_lc_r_1 \
+  --agent_cfg adv_scenic_ppo.yaml --test_policy ppo --port 2010 --tm_port 8010 --device cpu
+
+# whole dataset (runs every scenario that has route.pickle; eval also needs opt_params.json)
+python scripts/run_eval_batch.py --scenario_dir safebench/scenario/scenic_data/NL2Scenic \
+  --mode train_scenario --agent_cfg adv_scenic_ppo.yaml --test_policy ppo --port 2010 --tm_port 8010 --device cpu
+python scripts/run_eval_batch.py --scenario_dir safebench/scenario/scenic_data/NL2Scenic \
+  --mode eval --agent_cfg adv_scenic_ppo.yaml --test_policy ppo --port 2010 --tm_port 8010 --device cpu --average
+```
+
+- `--scenario_dir` accepts a scenario directory or a `.scenic` file inside one (to pin a specific file).
+- Default scenario YAML is [eval_scenic_scenario_dir.yaml](safebench/scenario/config/eval_scenic_scenario_dir.yaml)
+  (only `sample_num` / `opt_step` / `select_num` etc.; no paths). Pass `--scenario_cfg` to override.
+- Logs: `log/adv_train/<mode>/<policy>/<agent_cfg>_epoch<N>/<scenario_cfg>/<dataset>/<scenario_id>/`.
+- **Route-driven variant:** if `<id>/<id>_route_driven.scenic` exists, train/eval use it; otherwise the original
+  file runs (with a warning) and its ego is *not* pinned to `globalParameters.spawnPt` - see Section 3 and
+  `ROUTE_DRIVEN_CONVERSION_PLAYBOOK.md` to write the variant.
+
 ---
 
 ## 1) Directory layout (bench layout)

@@ -1,8 +1,0 @@
-{
-  "errors": [
-    {
-      "error": "RuntimeError('Failed to create a runnable Scenic simulation after 5 attempts for safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_overlap_nl2scenic/NHTSA_PreCrash/scenario_008.scenic. Last error: NameError(\"name \\'advTrajectory\\' is not defined\")')",
-      "scenic_file": "safebench/scenario/scenario_data/scenic_data_chatscene/chatscene_overlap_nl2scenic/NHTSA_PreCrash/scenario_008.scenic"
-    }
-  ]
-}

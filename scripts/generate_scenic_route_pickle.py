@@ -24,6 +24,8 @@ if TYPE_CHECKING:
     from safebench.agent.osc_ego_recorder import EgoVideoRecorder  # noqa: F401
 
 from safebench.util import scenario_id_manifest
+from safebench.util import scenario_dir as scenario_layout
+import scenario_dir_route_gen
 
 
 SCENARIO_RE = re.compile(r"scenario_(\d+)\.scenic$")
@@ -107,6 +109,8 @@ class RouteRecord:
     trajectory: List[Tuple[float, float, float]]
     waypoints: List[Tuple[float, float, float]]
     lanePts: List[Tuple[float, float]]
+    # Directory the FPV/BEV recorder wrote to for the successful attempt (None if not recording).
+    video_dir: Optional[str] = None
 
 
 def _make_pickle_key(key_mode: str, bench_id: str, scenario_id: int, route_id: int) -> str:
@@ -131,7 +135,7 @@ def _run_scenic_and_record_ego(
     video_height: int,
     bev_height: float,
     max_record_seconds: float = 0.0,
-) -> Tuple[Dict[str, float], List[Tuple[float, float, float]]]:
+) -> Tuple[Dict[str, float], List[Tuple[float, float, float]], Optional[str]]:
     if not simulator.setSimulation(scene, max_steps=max_steps):
         raise RuntimeError("Failed to create Scenic CARLA simulation")
 
@@ -269,7 +273,7 @@ def _run_scenic_and_record_ego(
             recorder.stop()
 
     traj_xyz = _downsample_by_dist_xyz(traj_xyz, min_waypoint_dist)
-    return spawnPt, traj_xyz
+    return spawnPt, traj_xyz, (recorder.scene_dir if recorder is not None else None)
 
 
 def _record_to_pickle_entry(record: RouteRecord) -> Dict:
@@ -359,7 +363,11 @@ def generate_one(
     with open(scenic_file, "r", encoding="utf-8") as f:
         scenic_text = f.read()
 
-    town = _parse_required_param(scenic_text, CARLA_MAP_RE, "param carla_map", scenic_file)
+    # Accepts both `param carla_map = 'Town05'` and the indirect
+    # `Town = 'Town05'` / `param carla_map = Town` form.
+    town = scenario_layout.parse_carla_map(scenic_text)
+    if town is None:
+        raise ValueError(f"Missing `param carla_map` in Scenic file: {scenic_file}")
     # `weather` is optional: many Scenic files define it via a Weather(...)/
     # WeatherConditions(...) constructor or Uniform(...) rather than a plain
     # string literal. When it isn't a literal, we don't override it below -
@@ -401,7 +409,10 @@ def generate_one(
 
     simulator = ScenicSimulator(scenic_file, params, mode2D=mode2d, fixed_delta_seconds=fixed_delta_seconds)
     original_name = osp.splitext(osp.basename(scenic_file))[0]
-    video_prefix = f"{bench_id}__{original_name}__scenario_{scenario_id:03d}__route_{route_id}"
+    if isinstance(scenario_id, int):
+        video_prefix = f"{bench_id}__{original_name}__scenario_{scenario_id:03d}__route_{route_id}"
+    else:
+        video_prefix = f"{original_name}__route_{route_id}"
 
     if warmup_ticks > 0:
         # Optional stabilization before spawning (navmesh/streaming can lag right after map load).
@@ -418,11 +429,12 @@ def generate_one(
     last_error: Optional[BaseException] = None
     spawnPt = None
     traj_xyz: Optional[List[Tuple[float, float, float]]] = None
+    recorded_video_dir: Optional[str] = None
 
     for attempt in range(1, max_scene_attempts + 1):
         try:
             scene, _ = simulator.generateScene()
-            spawnPt, traj_xyz = _run_scenic_and_record_ego(
+            spawnPt, traj_xyz, recorded_video_dir = _run_scenic_and_record_ego(
                 simulator,
                 scene,
                 max_steps=max_steps,
@@ -485,6 +497,7 @@ def generate_one(
         trajectory=trajectory,
         waypoints=waypoints,
         lanePts=lanePts,
+        video_dir=recorded_video_dir,
     )
 
 
@@ -492,6 +505,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--scenic-file", type=str, default=None)
     parser.add_argument("--scenic-dir", type=str, default=None)
+    scenario_dir_route_gen.add_arguments(parser)
     parser.add_argument("--glob", type=str, default="**/*.scenic")
 
     parser.add_argument("--scenario-id", type=int, default=None)
@@ -522,7 +536,9 @@ def main() -> None:
         "Scenic's default (10s) is often too short for heavier towns.",
     )
 
-    parser.add_argument("--record-video", action="store_true", default=False)
+    # Default: on with --scenario-dir, off otherwise.
+    parser.add_argument("--record-video", action="store_true", default=None)
+    parser.add_argument("--no-record-video", action="store_false", dest="record_video")
     parser.add_argument(
         "--recordings-dir",
         type=str,
@@ -573,8 +589,34 @@ def main() -> None:
                 raise SystemExit(f"Entry {k} has invalid spawnPt: {sp}")
         return
 
-    if (args.scenic_file is None) == (args.scenic_dir is None):
-        raise SystemExit("Provide exactly one of --scenic-file or --scenic-dir")
+    if sum(x is not None for x in (args.scenic_file, args.scenic_dir, args.scenario_dir)) != 1:
+        raise SystemExit("Provide exactly one of --scenic-file, --scenic-dir or --scenario-dir")
+
+    if args.scenario_dir is not None:
+        if args.record_video is None:
+            args.record_video = True
+        sys.exit(scenario_dir_route_gen.run(args, __file__, lambda scenic_file, **kw: generate_one(
+            scenic_file,
+            scenic_dir=None,
+            port=args.port,
+            tm_port=args.tm_port,
+            fixed_delta_seconds=args.fixed_delta_seconds,
+            max_steps=args.max_steps,
+            mode2d=args.mode2d,
+            route_id=args.route_id,
+            key_mode=args.key_mode,
+            min_waypoint_dist=args.min_waypoint_dist,
+            video_fps=args.video_fps,
+            video_width=args.video_width,
+            video_height=args.video_height,
+            bev_height=args.bev_height,
+            max_scene_attempts=args.max_scene_attempts,
+            warmup_ticks=args.warmup_ticks,
+            carla_timeout=args.carla_timeout,
+            max_record_seconds=args.max_record_seconds,
+            **kw,
+        )))
+    args.record_video = bool(args.record_video)
 
     out_pickle = args.out_pickle
     out_index = osp.join(osp.dirname(out_pickle), "scenic_route_index.json")

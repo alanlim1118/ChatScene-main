@@ -17,6 +17,7 @@ import os
 import os.path as osp
 import pickle
 import re
+import shutil
 import sys
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Sequence, Tuple, TYPE_CHECKING
@@ -25,6 +26,9 @@ from typing import Dict, List, Optional, Sequence, Tuple, TYPE_CHECKING
 _REPO_ROOT = osp.abspath(osp.join(osp.dirname(__file__), ".."))
 if _REPO_ROOT not in sys.path:
     sys.path.insert(0, _REPO_ROOT)
+
+from safebench.util import scenario_id_manifest
+import scenario_dir_route_gen
 
 if TYPE_CHECKING:
     # Only for type checking; runtime imports are lazy to keep `--help` lightweight.
@@ -120,6 +124,8 @@ class RouteRecord:
     trajectory: List[Tuple[float, float, float]]
     waypoints: List[Tuple[float, float, float]]
     lanePts: List[Tuple[float, float]]
+    # Directory the FPV/BEV recorder wrote to for the successful attempt (None if not recording).
+    video_dir: Optional[str] = None
 
 
 def _make_pickle_key(key_mode: str, bench_id: str, scenario_id: int, route_id: int) -> str:
@@ -145,7 +151,7 @@ def _run_scenic_and_record_ego(
     bev_height: float,
     max_record_seconds: float = 0.0,
     ego_autopilot: bool = True,
-) -> Tuple[Dict[str, float], List[Tuple[float, float, float]]]:
+) -> Tuple[Dict[str, float], List[Tuple[float, float, float]], Optional[str]]:
     if not simulator.setSimulation(scene, max_steps=max_steps):
         raise RuntimeError("Failed to create Scenic CARLA simulation")
 
@@ -217,6 +223,11 @@ def _run_scenic_and_record_ego(
         recorder.start()
 
     # Main tick loop: include ego behavior (unlike Safebench ScenicRunner which skips ego).
+    # `run_ok` stays False if the loop raises (e.g. an adversary behavior hits a
+    # runtime error), so the finally block can delete this attempt's recording
+    # subdir. Otherwise every failed scene-retry attempt leaves an orphaned
+    # recordings/<prefix>__<map>__<ts>/ dir behind - hundreds per bad file.
+    run_ok = False
     try:
         while True:
             # Step Scenic scenario logic/monitors.
@@ -278,6 +289,7 @@ def _run_scenic_and_record_ego(
                 terminationReason = f"reached record time limit ({max_record_seconds:.1f}s)"
                 terminationType = TerminationType.timeLimit
                 break
+        run_ok = True
     finally:
         if ego_on_autopilot:
             try:
@@ -286,9 +298,15 @@ def _run_scenic_and_record_ego(
                 pass
         if recorder is not None:
             recorder.stop()
+            # Drop the recording of a failed attempt so only successfully
+            # captured routes keep a recordings/ subdir (one per route).
+            if not run_ok:
+                scene_dir = getattr(recorder, "scene_dir", None)
+                if scene_dir and osp.isdir(scene_dir):
+                    shutil.rmtree(scene_dir, ignore_errors=True)
 
     traj_xyz = _downsample_by_dist_xyz(traj_xyz, min_waypoint_dist)
-    return spawnPt, traj_xyz
+    return spawnPt, traj_xyz, (recorder.scene_dir if recorder is not None else None)
 
 
 def _record_to_pickle_entry(record: RouteRecord) -> Dict:
@@ -365,6 +383,7 @@ def generate_one(
     warmup_ticks: int,
     max_record_seconds: float = 0.0,
     ego_autopilot: bool = True,
+    carla_timeout: float = 60.0,
 ) -> RouteRecord:
     try:
         from safebench.util.scenic_utils_v2 import ScenicSimulator
@@ -385,7 +404,19 @@ def generate_one(
     if scenario_id is None:
         scenario_id = _parse_scenario_num_from_filename(scenic_file)
     if scenario_id is None:
-        raise ValueError(f"Could not infer --scenario-id from filename: {scenic_file}")
+        # Fallback for bench dirs whose .scenic files aren't scenario_NNN.scenic:
+        # consult a pre-built scenario_id_manifest.json in the file's directory
+        # (see scripts/build_scenario_id_manifest.py). Read-only here - this does
+        # not assign new ids, only resolves ids someone already assigned.
+        scenario_id = scenario_id_manifest.id_for_file(
+            osp.dirname(scenic_file), osp.basename(scenic_file)
+        )
+    if scenario_id is None:
+        raise ValueError(
+            f"Could not infer --scenario-id from filename: {scenic_file}. "
+            "Pass --scenario-id explicitly, or build a manifest first with "
+            "scripts/build_scenario_id_manifest.py."
+        )
 
     if bench_id is None:
         bench_id = _bench_id_from_path(scenic_file, scenic_dir)
@@ -398,10 +429,18 @@ def generate_one(
         "render": 0,
         "town": town,
         "weather": weather,
+        # Scenic 2's CARLA model defaults `param timeout = 10`, which frequently
+        # times out the RPC client while loading heavier maps (e.g. Town05).
+        # Mirror v1's --carla-timeout and raise it via the same global param.
+        "timeout": float(carla_timeout),
     }
 
     simulator = ScenicSimulator(scenic_file, params, fixed_delta_seconds=fixed_delta_seconds)
-    video_prefix = f"{bench_id}__scenario_{scenario_id:03d}__route_{route_id}"
+    original_name = osp.splitext(osp.basename(scenic_file))[0]
+    if isinstance(scenario_id, int):
+        video_prefix = f"{bench_id}__{original_name}__scenario_{scenario_id:03d}__route_{route_id}"
+    else:
+        video_prefix = f"{original_name}__route_{route_id}"
 
     if warmup_ticks > 0:
         # Optional stabilization before spawning (navmesh/streaming can lag right after map load).
@@ -416,11 +455,12 @@ def generate_one(
     last_error: Optional[BaseException] = None
     spawnPt = None
     traj_xyz: Optional[List[Tuple[float, float, float]]] = None
+    recorded_video_dir: Optional[str] = None
 
     for attempt in range(1, max_scene_attempts + 1):
         try:
             scene, _ = simulator.generateScene()
-            spawnPt, traj_xyz = _run_scenic_and_record_ego(
+            spawnPt, traj_xyz, recorded_video_dir = _run_scenic_and_record_ego(
                 simulator,
                 scene,
                 max_steps=max_steps,
@@ -484,6 +524,7 @@ def generate_one(
         trajectory=trajectory,
         waypoints=waypoints,
         lanePts=lanePts,
+        video_dir=recorded_video_dir,
     )
 
 
@@ -491,6 +532,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--scenic-file", type=str, default=None)
     parser.add_argument("--scenic-dir", type=str, default=None)
+    scenario_dir_route_gen.add_arguments(parser)
     parser.add_argument("--glob", type=str, default="**/*.scenic")
 
     parser.add_argument("--scenario-id", type=int, default=None)
@@ -512,7 +554,9 @@ def main() -> None:
     parser.add_argument("--port", type=int, default=2002)
     parser.add_argument("--tm-port", type=int, default=8002)
 
-    parser.add_argument("--record-video", action="store_true", default=False)
+    # Default: on with --scenario-dir, off otherwise.
+    parser.add_argument("--record-video", action="store_true", default=None)
+    parser.add_argument("--no-record-video", action="store_false", dest="record_video")
     parser.add_argument(
         "--recordings-dir",
         type=str,
@@ -544,6 +588,14 @@ def main() -> None:
     )
     parser.add_argument("--no-ego-autopilot", action="store_false", dest="ego_autopilot")
 
+    parser.add_argument(
+        "--carla-timeout",
+        type=float,
+        default=60.0,
+        help="CARLA RPC client timeout in seconds (Scenic `param timeout`). Scenic 2's "
+             "default of 10s often times out while loading heavier maps like Town05.",
+    )
+
     parser.add_argument("--resume", action="store_true", default=True)
     parser.add_argument("--no-resume", action="store_false", dest="resume")
     parser.add_argument("--fail-fast", action="store_true", default=False)
@@ -570,8 +622,34 @@ def main() -> None:
                 raise SystemExit(f"Entry {k} has invalid spawnPt: {sp}")
         return
 
-    if (args.scenic_file is None) == (args.scenic_dir is None):
-        raise SystemExit("Provide exactly one of --scenic-file or --scenic-dir")
+    if sum(x is not None for x in (args.scenic_file, args.scenic_dir, args.scenario_dir)) != 1:
+        raise SystemExit("Provide exactly one of --scenic-file, --scenic-dir or --scenario-dir")
+
+    if args.scenario_dir is not None:
+        if args.record_video is None:
+            args.record_video = True
+        sys.exit(scenario_dir_route_gen.run(args, __file__, lambda scenic_file, **kw: generate_one(
+            scenic_file,
+            scenic_dir=None,
+            port=args.port,
+            tm_port=args.tm_port,
+            fixed_delta_seconds=args.fixed_delta_seconds,
+            max_steps=args.max_steps,
+            route_id=args.route_id,
+            key_mode=args.key_mode,
+            min_waypoint_dist=args.min_waypoint_dist,
+            video_fps=args.video_fps,
+            video_width=args.video_width,
+            video_height=args.video_height,
+            bev_height=args.bev_height,
+            max_scene_attempts=args.max_scene_attempts,
+            warmup_ticks=args.warmup_ticks,
+            max_record_seconds=args.max_record_seconds,
+            ego_autopilot=args.ego_autopilot,
+            carla_timeout=args.carla_timeout,
+            **kw,
+        )))
+    args.record_video = bool(args.record_video)
 
     out_pickle = args.out_pickle
     out_index = osp.join(osp.dirname(out_pickle), "scenic_route_index.json")
@@ -589,10 +667,28 @@ def main() -> None:
         if not scenic_files:
             raise SystemExit(f"No Scenic files found under {args.scenic_dir} with glob {args.glob}")
 
+    # Bench dirs (one per distinct parent directory of a discovered .scenic
+    # file) whose scenario_id manifest we've already built/loaded this run -
+    # avoids rebuilding it once per file when a directory has many files.
+    built_manifest_dirs: Dict[str, Dict] = {}
+
     errors: List[Dict] = []
     for sf in scenic_files:
         try:
             inferred_scenario = _parse_scenario_num_from_filename(sf)
+            if inferred_scenario is None and args.scenario_id is None:
+                # Bench dir with non-scenario_NNN.scenic naming: resolve via
+                # its scenario_id manifest, so both --scenic-dir batches and
+                # --scenic-file single runs skip already-completed scenarios
+                # via --resume the same way generate_one() resolves ids.
+                bench_dir = osp.dirname(sf)
+                if scenic_root is not None:
+                    # Directory-batch mode may build/extend the manifest
+                    # (idempotent, preserves any existing assignments) so this
+                    # run - and later eval-time lookups - agree on ids.
+                    if bench_dir not in built_manifest_dirs:
+                        built_manifest_dirs[bench_dir] = scenario_id_manifest.load_or_build(bench_dir)
+                inferred_scenario = scenario_id_manifest.id_for_file(bench_dir, osp.basename(sf))
             scenario_id = args.scenario_id if args.scenario_id is not None else inferred_scenario
             bench_id = args.bench_id if args.bench_id is not None else _bench_id_from_path(sf, scenic_root)
             key = _make_pickle_key(args.key_mode, bench_id, scenario_id or -1, args.route_id)
@@ -622,6 +718,7 @@ def main() -> None:
                 warmup_ticks=args.warmup_ticks,
                 max_record_seconds=args.max_record_seconds,
                 ego_autopilot=args.ego_autopilot,
+                carla_timeout=args.carla_timeout,
             )
             data[rec.key] = _record_to_pickle_entry(rec)
             idx_key = f"{rec.bench_id}:{rec.scenario_id}:{rec.route_id}"

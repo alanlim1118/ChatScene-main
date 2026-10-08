@@ -25,6 +25,7 @@ import xml.etree.ElementTree as ET
 from safebench.scenario.tools.route_parser import RouteParser, TRIGGER_THRESHOLD, TRIGGER_ANGLE_THRESHOLD
 from safebench.scenario.scenario_manager.scenario_config import ScenarioConfig
 from safebench.util import scenario_id_manifest
+from safebench.scenario.tools.scenario_dir_parse import scenario_dir_parse
 
 
 def calculate_distance_transforms(transform_1, transform_2):
@@ -114,9 +115,12 @@ def scenic_parse(config, logger):
     """
         Parse scenic config, especially for loading the scenic files.
     """
+    if config.get('scenario_dir'):
+        return scenario_dir_parse(config, logger, _scenic_base_extra_params(config))
+
     mode = config['mode']
     scenic_dir = config['scenic_dir']
-    
+
     route_file_formatter = osp.join(config['route_dir'], 'scenic_route.pickle')
     with open(route_file_formatter, 'rb') as f:
         data_full = pickle.load(f)

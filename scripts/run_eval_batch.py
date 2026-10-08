@@ -13,6 +13,14 @@ scripts/build_scenario_id_manifest.py).
 
 All unrecognized flags are forwarded to run_eval.py.
 
+Self-contained scenario directories (no YAML paths, ids or manifest):
+
+  python scripts/run_eval_batch.py --scenario_dir safebench/scenario/scenic_data/NL2Scenic \
+      --mode train_scenario --test_policy ppo --agent_cfg adv_scenic_ppo.yaml ...
+
+runs every <dataset>/<id>/ that has a route.pickle (see
+safebench/util/scenario_dir.py); --scenarios <id> ... restricts the set.
+
 Notes:
   - Use --test_policy ppo with adv_scenic.yaml (not the default sac).
   - --average matches OPT_<name>_ROUTE-<id>_results.pkl (use --route_id 0
@@ -34,6 +42,7 @@ if _REPO_ROOT not in sys.path:
     sys.path.insert(0, _REPO_ROOT)
 
 from safebench.util import scenario_id_manifest
+from safebench.util import scenario_dir as scenario_layout
 
 SCENARIO_RE = re.compile(r"^scenario_(\d+)\.scenic$")
 RUN_EVAL_SCRIPT = osp.join(_REPO_ROOT, "scripts", "run_eval.py")
@@ -212,6 +221,90 @@ def run_average(
     return subprocess.run(cmd, cwd=_REPO_ROOT).returncode
 
 
+def main_scenario_dirs(args, forward_args: List[str], run_script: str = RUN_EVAL_SCRIPT) -> int:
+    """Batch over self-contained <dataset>/<id>/ scenario directories.
+
+    Also used by run_eval_v2_batch.py with run_script=run_eval_v2.py.
+    """
+    mode = _get_forwarded_value(forward_args, "--mode") or _get_forwarded_value(forward_args, "-m", "eval")
+    scenario_cfg = _get_forwarded_value(forward_args, "--scenario_cfg", "eval_scenic_scenario_dir.yaml")
+    agent_cfg = _get_forwarded_value(forward_args, "--agent_cfg", "adv_scenic.yaml")
+    test_policy = _get_forwarded_value(forward_args, "--test_policy", "sac")
+    test_epoch_raw = _get_forwarded_value(forward_args, "--test_epoch")
+    test_epoch = int(test_epoch_raw) if test_epoch_raw is not None else None
+
+    try:
+        scenario_dirs = scenario_layout.discover(args.scenario_dir)
+    except FileNotFoundError as exc:
+        print(f"Error: {exc}", file=sys.stderr)
+        return 1
+    if args.scenarios:
+        wanted = set(args.scenarios)
+        found = {scenario_layout.scenario_id(d) for d in scenario_dirs}
+        if wanted - found:
+            print(f"Warning: requested scenarios not found and will be skipped: {sorted(wanted - found)}")
+        scenario_dirs = [d for d in scenario_dirs if scenario_layout.scenario_id(d) in wanted]
+
+    runnable: List[str] = []
+    skipped: List[Tuple[str, str]] = []
+    for d in scenario_dirs:
+        sid = scenario_layout.scenario_id(d)
+        if not scenario_layout.has_route(d):
+            skipped.append((sid, "no route.pickle"))
+        elif mode in ("eval", "train_agent") and not osp.isfile(scenario_layout.opt_params_path(d)):
+            skipped.append((sid, "no opt_params.json (run --mode train_scenario first)"))
+        else:
+            runnable.append(d)
+
+    print(f"Mode: {mode}")
+    print(f"Found {len(scenario_dirs)} scenario dir(s) under {args.scenario_dir}; {len(runnable)} runnable")
+    if skipped:
+        print(f"Skipping {len(skipped)}:")
+        for sid, why in skipped:
+            print(f"  {sid}: {why}")
+    if not runnable:
+        print("Error: nothing to run.", file=sys.stderr)
+        return 1
+
+    succeeded: List[str] = []
+    failed: List[Tuple[str, int]] = []
+    for index, d in enumerate(runnable, start=1):
+        sid = scenario_layout.scenario_id(d)
+        cmd = [sys.executable, run_script, *forward_args, "--scenario_dir", d]
+        print(f"\n[{index}/{len(runnable)}] {sid}")
+        print(" ".join(cmd))
+        if args.dry_run:
+            continue
+        rc = subprocess.run(cmd, cwd=_REPO_ROOT).returncode
+        if rc == 0:
+            succeeded.append(sid)
+        else:
+            failed.append((sid, rc))
+            print(f"Scenario {sid} failed with exit code {rc}.", file=sys.stderr)
+            if not args.continue_on_error:
+                print("Stopping because --no-continue_on_error was set.")
+                break
+
+    print("\n=== Batch summary ===")
+    if args.dry_run:
+        print(f"Dry run only. {len(runnable)} command(s) prepared, 0 executed.")
+        return 0
+    print(f"Succeeded ({len(succeeded)}): {succeeded}")
+    print(f"Failed ({len(failed)}): {failed}")
+
+    if args.average:
+        bench_output_dir = osp.join(
+            _REPO_ROOT, "log", "adv_train", mode, test_policy,
+            f"{agent_cfg.split('.')[0]}_epoch{test_epoch}", scenario_cfg.split(".")[0],
+            scenario_layout.dataset_name(runnable[0]),
+        )
+        if succeeded:
+            avg_rc = run_average(bench_output_dir, args.average_output)
+            if avg_rc != 0:
+                return avg_rc
+    return 1 if failed else 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description=(
@@ -257,7 +350,23 @@ def main() -> int:
         help="Output path for average_eval_results.json",
     )
 
+    parser.add_argument(
+        "--scenario_dir",
+        type=str,
+        default=None,
+        help="Dataset directory of self-contained <id>/ scenario dirs (replaces YAML-based discovery)",
+    )
+    parser.add_argument(
+        "--scenarios",
+        nargs="+",
+        default=None,
+        help="With --scenario_dir: only these scenario ids (directory names)",
+    )
+
     args, forward_args = parser.parse_known_args()
+
+    if args.scenario_dir is not None:
+        return main_scenario_dirs(args, forward_args)
 
     scenario_cfg = _get_forwarded_value(forward_args, "--scenario_cfg")
     if scenario_cfg is None:

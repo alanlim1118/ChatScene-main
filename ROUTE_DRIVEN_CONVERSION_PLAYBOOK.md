@@ -166,13 +166,121 @@ egoSpawnPt = new OrientedPoint at EgoSpawnPt, facing (-(yaw + 90) deg)
 (`X deg` is Scenic's degrees→radians unit operator, so `-(yaw + 90) deg`
 == `-radians(yaw + 90)`; `facing` normalizes the angle.)
 
+### 4.1 Why this exact formula — provenance and verification
+
+This is a **unit/convention correction, not a stylistic preference**. The value
+travels from CARLA to Scenic with no conversion anywhere along the way, so the
+conversion has to happen in the `.scenic` file. The full chain, all verifiable
+in this repo:
+
+| Step | Where | What it does |
+|---|---|---|
+| 1. Written | `scripts/generate_scenic_route_pickle.py` → `spawn_yaw = float(t0.rotation.yaw)` | `t0` is a `carla.Transform`; `carla.Rotation.yaw` is **degrees**. Stored raw in the pickle. |
+| 2. Injected | `safebench/scenario/tools/scenario_utils.py` → `updated_config.extra_params['yaw'] = spawnPt['yaw']` | Passed through untouched into `globalParameters.yaw`. |
+| 3. Corroboration | same file, `carla.Rotation(yaw=float(actor_dict['yaw']))` | The same field is fed straight back into a CARLA `Rotation` — only valid if it is degrees. |
+| 4. Consumed | `facing` in Scenic | Expects **radians** in Scenic's heading convention (0 = +y, CCW). |
+
+Scenic's own converter (`scenic/simulators/carla/utils/utils.py`) is exactly
+this formula — check it directly rather than trusting this document:
+
+```python
+def carlaToScenicHeading(rot):
+    return normalizeAngle(-math.radians(rot.yaw + 90))
+```
+
+**Empirical check (verified 2026-07-25 on `scenicnl-bench_kimi26`, 33 route
+pickle entries across 5 modalities).** Because the route pickle records the
+ego's transform while it tracks a lane, the stored yaw *is* the lane's
+direction there — so each computed heading can be compared against
+`network.roadDirection` evaluated at that exact coordinate:
+
+| Formula | Median error | Max error | Within 5° |
+|---|---|---|---|
+| `facing (-(yaw + 90) deg)` | **0.00°** | **0.00°** | 33/33 |
+| `facing yaw` (raw) | 100.93° | 179.15° | 0/33 |
+
+Exact to floating point on every file. Raw yaw is off by ~100° on average and
+points nearly backwards in the worst case. Concrete instance:
+`InterDrive_r1_town05_ins_c` stores `yaw = 89.4886`; the formula yields
+`-(89.4886 + 90) = -179.49°`, and the sampled scene's ego heading is `-179.5`.
+
+To re-run this check on a new bench, compare `-radians(yaw+90)` against
+`network.roadDirection[Vector(x, y)]` for every `spawnPt` in its pickle. Note
+`roadDirection[...]` returns an `Orientation` in Scenic 3 — read its `.yaw`
+attribute, don't `float()` it.
+
+### 4.2 Scenic 2.x benches, and the `chatscene_kimi26think` case study
+
+`heading` is radians in Scenic 2 as well (`OrientedPoint at P, with heading H`),
+so a raw CARLA `yaw` is numerically wrong there too. But **wrong-and-unread is
+not the same as broken** — the distinction matters when deciding whether to
+touch a working bench.
+
+**`safebench/scenario/scenic_data/chatscene_kimi26think/scenic_route-driven`
+(87 files) is correct — there is nothing wrong with it.** It previously used
+`egoSpawnPt = OrientedPoint at EgoSpawnPt, with heading yaw`, and it always
+produced geometrically correct scenes. Audited 2026-07-25, three ways:
+
+1. **Nothing read the value.** Zero hits across all 87 files for
+   `egoSpawnPt.heading`, `offset by ... egoSpawnPt`, or
+   `(behind|ahead of|left of|right of) egoSpawnPt`.
+2. **Every intermediate is road-derived, not heading-inherited:**
+   `IntSpawnPt = OrientedPoint following roadDirection from egoSpawnPt for D`
+   (52x — takes *position* from the ego point but *heading* from the vector
+   field), `advHeading = advLane.orientation[projectPt]` (38x),
+   `IntSpawnPt = advManeuver.connectingLane.centerline.start` (13x). So the 68
+   `.heading` reads in the bench all trace to lane geometry, never to `yaw`.
+3. **Measured at runtime.** All 87 declare `ego = Car at egoSpawnPt`, and the
+   sampled ego heading came out equal to `-(yaw + 90)` (the road direction) and
+   never to raw `yaw` — e.g. `LowSpeedMerge`: ego heading `-179.33`,
+   `-(yaw+90) = -179.33`, raw `yaw` would have been `78.27`.
+
+Point 3 is the load-bearing one and the easiest to get wrong by inspection:
+`Car at <OrientedPoint>` specifies **position only**. The heading comes from the
+driving model's class default (the road), so the point's own heading is ignored.
+This is the same property that makes most conversions immune to the yaw pitfall
+regardless of which formula they use.
+
+**Those files were nevertheless updated to `with heading (-(yaw + 90) deg)` on
+2026-07-25** as hygiene, so the stored value is meaningful if anything ever does
+read it. Verified no behavioral change: each file differed by exactly one line,
+and a 10-file sample across all five modalities regenerated with **identical**
+ego headings and `pin_off = 0.00 m`. No train/eval rerun was required.
+
+**The general rule for a Scenic 2 bench you did not write:** raw `yaw` is a
+*latent* defect, not an active one. Run the §4 grep (including `offset by`)
+before concluding either way — if it returns hits on the pinned point, the bench
+really is producing wrong geometry; if it returns none, the scenes are correct
+and correcting the formula is optional cleanup with no behavioral effect.
+
 **When does the bug actually bite?** Only when an adversary's *placement or
 orientation* derives from `egoSpawnPt`'s heading. Grep before you ship:
 
 ```bash
-rg -n 'egoSpawnPt\.heading|behind egoSpawnPt|ahead of egoSpawnPt|left of egoSpawnPt|right of egoSpawnPt|facing egoSpawnPt' \
-   safebench/scenario/scenario_data/scenic_data_wenting/scenic_route-driven
+rg -n 'egoSpawnPt\.heading|(behind|ahead of|left of|right of) egoSpawnPt|facing egoSpawnPt|offset by' \
+   <your>/scenic_route-driven
 ```
+
+**Do not omit `offset by` from that grep.** `at <point> offset by X @ Y`
+resolves the offset in the point's *local frame*, so it reads the point's
+heading just as surely as `ahead of` does — but it doesn't mention `heading`
+anywhere, so the older grep in this playbook missed it entirely. On
+`scenicnl-bench_kimi26`, `offset by` was the **only** heading-consuming form
+present: four files (`sync_lcs_l_2`, `UN_R171_7`,
+`pass_obj_in_intersection_parallel_left`,
+`lateral_ego_overtake_truck_invade`) depend on the corrected heading solely
+through it, and a grep without `offset by` reports zero hits and a false all-clear.
+
+While auditing those sites, note the component order (verified experimentally
+on this repo's Scenic 3): **`offset by X @ Y` means X = lateral (positive =
+right), Y = longitudinal (positive = forward)** — *not* the other way round.
+LLM-generated benches frequently swap these, writing
+`offset by <longitudinal_gap> @ <lane_width>` and sending a 20-40 m gap
+sideways. That is a defect in the original file, and per §2 rule 2 you preserve
+it verbatim; but be aware it can make a file unsatisfiable once the ego is
+pinned (off-road containment violations, or an adversary ~90° off-axis failing
+a `can see` require), because the original masked it by resampling the ego
+somewhere the offset happened to land legally.
 
 Every hit must use the **corrected** `facing (-(yaw + 90) deg)` form (or be
 rewritten to use a VectorField as in §3.3). Files that anchor adversaries only
@@ -347,7 +455,7 @@ flagged ⚠ (must use the §4 fix or a VectorField).
 - [ ] Heading uses `facing (-(yaw + 90) deg)` (not `facing yaw`).
 - [ ] Ego Scenic behavior + ego-only params removed.
 - [ ] Adversary placement uses a VectorField, or corrected-heading operators.
-- [ ] `rg 'egoSpawnPt\.heading|(behind|ahead of|left of|right of) egoSpawnPt|facing egoSpawnPt'` → every hit is heading-safe.
+- [ ] `rg 'egoSpawnPt\.heading|(behind|ahead of|left of|right of) egoSpawnPt|facing egoSpawnPt|offset by'` → every hit is heading-safe (`offset by` reads the point's heading too — see §4).
 - [ ] Adversary behaviors, monitors, `require`s, `regionContainedIn`, blueprints untouched.
 - [ ] `terminate when` / `terminate after` lines byte-identical to the original.
 - [ ] Termination audit (§7.1): 0 mismatches.

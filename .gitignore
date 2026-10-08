@@ -19,3 +19,10 @@ chatscene-v3/
 
 # Editor config
 .cursor/
+
+# Run outputs (pretrained checkpoints live in safebench/agent/model_ckpt)
+log/
+
+# Scenario datasets (transferred separately, not via git)
+safebench/scenario/scenario_data/
+safebench/scenario/scenic_data/

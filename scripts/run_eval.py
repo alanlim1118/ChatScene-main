@@ -16,6 +16,7 @@ import torch
 from safebench.util.run_util import load_config
 from safebench.util.torch_util import set_seed, set_torch_variable
 from safebench.carla_runner import CarlaRunner
+from safebench.util import scenario_dir as scenario_layout
 
 
 if __name__ == '__main__':
@@ -29,7 +30,8 @@ if __name__ == '__main__':
     parser.add_argument('--auto_ego', action='store_true')
     parser.add_argument('--mode', '-m', type=str, default='eval', choices=['train_agent', 'train_scenario', 'eval'])
     parser.add_argument('--agent_cfg', nargs='*', type=str, default=['adv_scenic.yaml'])
-    parser.add_argument('--scenario_cfg', nargs='*', type=str, default=['eval_scenic.yaml'])
+    parser.add_argument('--scenario_cfg', nargs='*', type=str, default=None,
+                        help='default: eval_scenic_scenario_dir.yaml with --scenario_dir, else eval_scenic.yaml')
     parser.add_argument('--continue_agent_training', '-cat', type=bool, default=False)
     parser.add_argument('--continue_scenario_training', '-cst', type=bool, default=False)
 
@@ -47,8 +49,19 @@ if __name__ == '__main__':
     parser.add_argument('--test_policy', type=str, default='sac')
     parser.add_argument('--route_id', type=int, default=0)
     parser.add_argument('--scenario_id', type=int, default=0)
+    parser.add_argument('--scenario_dir', type=str, default=None,
+                        help='Self-contained scenario: a <id>/ directory holding <id>.scenic + route.pickle '
+                             '(or a .scenic file inside one). Replaces --scenario_id and the YAML route_dir/scenic_dir/bench_id.')
     parser.add_argument('--test_epoch', type=int, default=None)
     args = parser.parse_args()
+
+    if args.scenario_cfg is None:
+        args.scenario_cfg = ['eval_scenic_scenario_dir.yaml' if args.scenario_dir else 'eval_scenic.yaml']
+
+    scenario_dir, scenic_file, scenario_name = None, None, args.scenario_id
+    if args.scenario_dir is not None:
+        scenario_dir, scenic_file = scenario_layout.resolve(args.scenario_dir)
+        scenario_name = scenario_layout.scenario_id(scenario_dir)
 
     err_list = []
     for agent_cfg in args.agent_cfg:
@@ -64,7 +77,7 @@ if __name__ == '__main__':
             agent_config['policy_name'] = args.test_policy
           
             ## load the corresponding model ##
-            agent_config['load_dir'] = osp.join(agent_config['load_dir'], f'scenario_{args.scenario_id}')
+            agent_config['load_dir'] = osp.join(agent_config['load_dir'], f'scenario_{scenario_name}')
             
             # load scenario config
             scenario_config_path = osp.join(args.ROOT_DIR, 'safebench/scenario/config', scenario_cfg)
@@ -72,15 +85,23 @@ if __name__ == '__main__':
             scenario_config['scenario_id'] = args.scenario_id
                         
             args.output_dir = osp.join('log', 'adv_train', args.mode, agent_config['policy_name'], f"{agent_cfg.split('.')[0]}_epoch{args.test_epoch}", f"{scenario_cfg.split('.')[0]}")
-            bench_id = scenario_config.get('bench_id')
-            if bench_id:
-                args.output_dir = osp.join(args.output_dir, str(bench_id))
-            args.exp_name = 'scenario_' + str(scenario_config['scenario_id'])
+            if scenario_dir is not None:
+                # Self-contained scenario dir: log under <dataset>/<scenario_id>/, ignore YAML bench layout.
+                args.output_dir = osp.join(args.output_dir, scenario_layout.dataset_name(scenario_dir))
+                args.exp_name = scenario_name
+            else:
+                bench_id = scenario_config.get('bench_id')
+                if bench_id:
+                    args.output_dir = osp.join(args.output_dir, str(bench_id))
+                args.exp_name = 'scenario_' + str(scenario_config['scenario_id'])
             args_dict = vars(args)
             # main entry with a selected mode
             agent_config.update(args_dict)
             print(agent_config['load_dir'])
             scenario_config.update(args_dict)
+            if scenario_dir is not None:
+                # After update(): args_dict carries the raw --scenario_dir/--scenario_id values.
+                scenario_config.update(scenario_id=scenario_name, scenario_dir=scenario_dir, scenic_file=scenic_file)
             if scenario_config['policy_type'] == 'scenic':
                 from safebench.scenic_runner import ScenicRunner
                 scenario_config['num_scenario'] = 1 # 'the num_scenario can only be one for scenic'

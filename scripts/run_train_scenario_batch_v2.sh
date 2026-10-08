@@ -1,44 +1,43 @@
 #!/usr/bin/env bash
 #
-# Run SafeBench's train_scenario (or eval) over one or more scenic bench
-# configs, in small chunks of scenario ids, restarting the CARLA server
-# between chunks.
+# Scenic 2.x counterpart of scripts/run_train_scenario_batch.sh.
 #
-# CARLA degrades (and eventually crashes / stops loading worlds) after many
-# scenarios have been run back-to-back against one long-lived server process.
-# scripts/run_eval_batch.py already isolates each scenario in its own Python
-# subprocess, but the CARLA server on the other end is shared for the whole
-# batch. This wrapper splits the discovered scenario ids into chunks of
-# --chunk-size and kills/relaunches the server after every chunk, so no CARLA
+# Runs SafeBench's train_scenario (or eval) over one or more Scenic **2.x**
+# route-driven bench configs by invoking scripts/run_eval_v2.py once per
+# scenario id, in small chunks, restarting the CARLA server between chunks.
+#
+# Differences from run_train_scenario_batch.sh (the Scenic 3.x version):
+#   - Invokes scripts/run_eval_v2.py (ScenicRunnerV2 / scenic_utils_v2) instead
+#     of run_eval.py.
+#   - Sources env.scenic2.sh by default (the Scenic 2.x venv) instead of
+#     env.scenic3.sh.
+#   - Scenario-id discovery reuses run_eval_v2_batch.discover_scenario_ids
+#     (legacy scenario_NNN.scenic pattern first, scenario_id_manifest.json
+#     fallback) against the bench dir scenic_dir/<bench_id>.
+#
+# CARLA degrades / eventually segfaults after many scenarios back-to-back on
+# one long-lived server. Each scenario is isolated in its own run_eval_v2.py
+# process and the server is killed/relaunched after every --chunk-size
+# scenarios (and immediately after any per-scenario timeout), so no CARLA
 # instance ever serves more than that many scenarios.
 #
-# It also owns the server's lifecycle end-to-end: if nothing is listening on
-# --port when it starts, it launches CARLA itself.
-#
 # Usage:
-#   scripts/run_train_scenario_batch.sh [config1.yaml config2.yaml ...] [options]
+#   scripts/run_train_scenario_batch_v2.sh [config1.yaml config2.yaml ...] [options]
 #
-# With no positional configs, the five Chat2Scenic_results_kimi26_think_250
-# route-driven modality configs are used.
+# With no positional configs, the five chatscene_kimi26think route-driven
+# modality configs are used.
 #
 # Examples:
-#   # Everything (134 scenarios across 5 modalities), CARLA restart every 5
-#   scripts/run_train_scenario_batch.sh
+#   # Everything (all 5 modalities), CARLA restart every 5 scenarios
+#   scripts/run_train_scenario_batch_v2.sh
 #
 #   # Preview the chunking/commands without touching CARLA
-#   scripts/run_train_scenario_batch.sh --dry-run
+#   scripts/run_train_scenario_batch_v2.sh --dry-run
 #
-#   # One modality, a subset of ids
-#   scripts/run_train_scenario_batch.sh \
-#     eval_scenic_Chat2Scenic_kimi26_think_250_image-only_route_driven.yaml \
-#     --scenario_range 1-5
-#
-# Each scenario runs under `timeout --scenario-timeout`. SafebenchScenicDataLoader.
-# generate_scene() (safebench/scenario/scenario_data_loader.py) resamples in an
-# UNBOUNDED while-loop until setSimulation() succeeds, so a scenario whose spawn
-# point is permanently blocked ("Unable to spawn object unnamed Car") spins
-# forever and stalls the whole batch. The timeout turns that into a recorded
-# failure and moves on.
+#   # One modality, a subset of ids, eval mode
+#   scripts/run_train_scenario_batch_v2.sh \
+#     eval_scenic_v2_kimi26think_image-only_route_driven.yaml \
+#     --mode eval --scenario_range 1-5
 #
 # Options:
 #   --chunk-size N        Scenarios per CARLA lifetime (default: 5)
@@ -48,9 +47,10 @@
 #   --skip-ids "..."      Ids to never run, space/comma separated. Bare "7"
 #                         skips id 7 in every config; "image-only:7" skips it
 #                         only in the config whose bench_id is image-only.
-#   --mode NAME           run_eval.py mode (default: train_scenario)
+#   --mode NAME           run_eval_v2.py mode: train_scenario | eval (default: train_scenario)
 #   --test_policy NAME    Ego policy (default: sac)
-#   --agent_cfg NAME      Agent config (default: adv_scenic.yaml)
+#   --agent_cfg NAME      Agent config (default: adv_scenic_sac.yaml; use
+#                         adv_scenic_ppo.yaml / adv_scenic_td3.yaml to match --test_policy)
 #   --route_id N          Route id (default: 0)
 #   --device NAME         torch device (default: cpu)
 #   --port N              CARLA RPC port (default: 2005)
@@ -58,9 +58,10 @@
 #   --scenario_ids "..."  Space-separated subset of ids (applied to every config)
 #   --scenario_range A-B  Inclusive id range (applied to every config)
 #   --no-resume           Re-run scenarios that already have a scenario_<id>.json
-#   --env-script PATH     Sourced before running (default: env.scenic3.sh)
+#   --save-video          Pass --save_video to run_eval_v2.py (eval mode)
+#   --env-script PATH     Sourced before running (default: env.scenic2.sh)
 #   --carla-root PATH     CARLA install dir (default: $HOME/yungloon/fail2drive/f2d_carla)
-#   --log PATH            Log file (default: /tmp/train_scenario_batch_<timestamp>.log)
+#   --log PATH            Log file (default: /tmp/train_scenario_batch_v2_<timestamp>.log)
 #   --dry-run             Print resolved chunks/commands, start nothing
 #   -h, --help            Show this help and exit
 
@@ -74,7 +75,7 @@ SCENARIO_TIMEOUT="15m"
 SKIP_IDS=""
 MODE="train_scenario"
 TEST_POLICY="sac"
-AGENT_CFG="adv_scenic.yaml"
+AGENT_CFG="adv_scenic_sac.yaml"
 ROUTE_ID=0
 DEVICE="cpu"
 PORT=2005
@@ -82,22 +83,22 @@ TM_PORT=8005
 SCENARIO_IDS=""
 SCENARIO_RANGE=""
 RESUME=1
-ENV_SCRIPT="env.scenic3.sh"
+ENV_SCRIPT="env.scenic2.sh"
 CARLA_ROOT="$HOME/yungloon/fail2drive/f2d_carla"
 LOGFILE=""
 DRY_RUN=0
 SAVE_VIDEO=0
 
 DEFAULT_CONFIGS=(
-  eval_scenic_Chat2Scenic_kimi26_think_250_image-only_route_driven.yaml
-  eval_scenic_Chat2Scenic_kimi26_think_250_text-image_route_driven.yaml
-  eval_scenic_Chat2Scenic_kimi26_think_250_text-only_route_driven.yaml
-  eval_scenic_Chat2Scenic_kimi26_think_250_text-video_route_driven.yaml
-  eval_scenic_Chat2Scenic_kimi26_think_250_video-only_route_driven.yaml
+  eval_scenic_v2_kimi26think_image-only_route_driven.yaml
+  eval_scenic_v2_kimi26think_text-only_route_driven.yaml
+  eval_scenic_v2_kimi26think_text-image_route_driven.yaml
+  eval_scenic_v2_kimi26think_text-video_route_driven.yaml
+  eval_scenic_v2_kimi26think_video-only_route_driven.yaml
 )
 
 usage() {
-  sed -n '2,50p' "${BASH_SOURCE[0]}"
+  sed -n '2,73p' "${BASH_SOURCE[0]}"
 }
 
 if [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ]; then
@@ -141,6 +142,11 @@ if [ "${#CONFIGS[@]}" -eq 0 ]; then
   CONFIGS=("${DEFAULT_CONFIGS[@]}")
 fi
 
+if [ "$MODE" != "train_scenario" ] && [ "$MODE" != "eval" ]; then
+  echo "Error: --mode must be train_scenario or eval (got: $MODE)" >&2
+  exit 1
+fi
+
 if ! [[ "$CHUNK_SIZE" =~ ^[0-9]+$ ]] || [ "$CHUNK_SIZE" -lt 1 ]; then
   echo "Error: --chunk-size must be a positive integer (got: $CHUNK_SIZE)" >&2
   exit 1
@@ -153,7 +159,7 @@ for cfg in "${CONFIGS[@]}"; do
   fi
 done
 
-[ -n "$LOGFILE" ] || LOGFILE="/tmp/train_scenario_batch_$(date +%Y%m%d_%H%M%S).log"
+[ -n "$LOGFILE" ] || LOGFILE="/tmp/train_scenario_batch_v2_$(date +%Y%m%d_%H%M%S).log"
 : > "$LOGFILE"
 
 if [ -f "$ENV_SCRIPT" ]; then
@@ -168,9 +174,8 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# CARLA lifecycle (same approach as scripts/generate_route_batch.sh): the
-# server is matched by its -carla-rpc-port=$PORT argument, so this never
-# touches another port's / another user's CARLA instance on a shared machine.
+# CARLA lifecycle (matched by -carla-rpc-port=$PORT, so this never touches
+# another port's / another user's CARLA instance on a shared machine).
 # ---------------------------------------------------------------------------
 
 carla_is_up() {
@@ -189,9 +194,6 @@ stop_carla() {
       break
     fi
   done
-  # The port closing doesn't guarantee the old Unreal Engine process has
-  # finished releasing GPU/VRAM/render-context resources yet - give it a
-  # buffer before anything tries to start a new instance on the same GPU.
   echo "Cooling down for 10s before restart..." >&2
   sleep 10
 }
@@ -220,9 +222,6 @@ start_carla() {
       return 1
     fi
   done
-  # The RPC port can open slightly before the world-loading subsystem is ready
-  # to serve requests - a short grace period avoids the first post-restart
-  # scenario spuriously hitting "CARLA could not load world".
   sleep 8
   echo "CARLA is up on port $PORT." >&2
 }
@@ -233,15 +232,15 @@ restart_carla() {
 }
 
 # ---------------------------------------------------------------------------
-# Scenario discovery: reuse run_eval_batch.py's own resolution (legacy
-# scenario_NNN.scenic pattern first, scenario_id_manifest.json fallback), then
-# apply the id subset, the skip list, and the resume filter.
+# Scenario discovery: reuse run_eval_v2_batch.py's own resolution (legacy
+# scenario_NNN.scenic pattern first, scenario_id_manifest.json fallback)
+# against scenic_dir/<bench_id>, then apply the id subset, skip list, and
+# resume filter (an existing scenic_dir/<bench_id>/scenario_<id>.json).
 # ---------------------------------------------------------------------------
 
-# discover_ids <cfg> -> space-separated scenario ids on stdout
 discover_ids() {
   local cfg="$1"
-  python - "$cfg" "$SCENARIO_IDS" "$SCENARIO_RANGE" "$RESUME" "$SKIP_IDS" <<'PY'
+  python - "$cfg" "$SCENARIO_IDS" "$SCENARIO_RANGE" "$RESUME" "$SKIP_IDS" "$MODE" <<'PY'
 import os
 import os.path as osp
 import sys
@@ -249,21 +248,21 @@ import sys
 sys.path.insert(0, os.getcwd())
 sys.path.insert(0, osp.join(os.getcwd(), "scripts"))
 
-from run_eval_batch import discover_scenario_ids, resolve_scenario_ids
+from run_eval_v2_batch import discover_scenario_ids, resolve_scenario_ids
 
 import yaml
 
-cfg, ids_arg, range_arg, resume, skip_arg = sys.argv[1:6]
+cfg, ids_arg, range_arg, resume, skip_arg, mode = sys.argv[1:7]
 root = os.getcwd()
-
-ids = discover_scenario_ids(root, cfg)
-explicit = [int(x) for x in ids_arg.split()] if ids_arg.strip() else None
-ids = resolve_scenario_ids(ids, explicit, range_arg or None)
 
 with open(osp.join(root, "safebench/scenario/config", cfg)) as f:
     conf = yaml.safe_load(f)
 bench_id = str(conf.get("bench_id", ""))
 bench_dir = osp.join(root, conf["scenic_dir"], bench_id)
+
+ids = discover_scenario_ids(bench_dir)
+explicit = [int(x) for x in ids_arg.split()] if ids_arg.strip() else None
+ids = resolve_scenario_ids(ids, explicit, range_arg or None)
 
 # Skip list: bare "7" applies everywhere, "image-only:7" only to that bench.
 skip = set()
@@ -277,14 +276,19 @@ for tok in skip_arg.replace(",", " ").split():
         skip.add(int(tok))
 ids = [i for i in ids if i not in skip]
 
-if resume == "1":
+if mode == "eval":
+    # eval REQUIRES the OPT-selection JSON produced by train_scenario, so only
+    # keep ids that have one. (ScenicRunnerV2 skips already-eval'd routes
+    # internally via logger.check_eval_dir, so no JSON-based resume here.)
+    ids = [i for i in ids if osp.isfile(osp.join(bench_dir, f"scenario_{i}.json"))]
+elif resume == "1":
+    # train_scenario resume: skip ids that already produced a scenario_<id>.json.
     ids = [i for i in ids if not osp.isfile(osp.join(bench_dir, f"scenario_{i}.json"))]
 
 print(" ".join(str(i) for i in ids))
 PY
 }
 
-# bench_dir_for <cfg> -> absolute path of scenic_dir/<bench_id>
 bench_dir_for() {
   local cfg="$1"
   python - "$cfg" <<'PY'
@@ -295,6 +299,18 @@ root = os.getcwd()
 with open(osp.join(root, "safebench/scenario/config", cfg)) as f:
     conf = yaml.safe_load(f)
 print(osp.join(root, conf["scenic_dir"], str(conf.get("bench_id", ""))))
+PY
+}
+
+# bench_id_for <cfg> -> the config's bench_id on stdout
+bench_id_for() {
+  local cfg="$1"
+  python - "$cfg" <<'PY'
+import os, os.path as osp, sys, yaml
+cfg = sys.argv[1]
+with open(osp.join(os.getcwd(), "safebench/scenario/config", cfg)) as f:
+    conf = yaml.safe_load(f)
+print(str(conf.get("bench_id", "")))
 PY
 }
 
@@ -325,6 +341,10 @@ for cfg in "${CONFIGS[@]}"; do
   }
   read -r -a IDS <<< "$ids_str"
   bench_dir="$(bench_dir_for "$cfg")"
+  # run_eval_v2.py does `scenario_config.update(vars(args))`, so a None
+  # args.bench_id would clobber the YAML bench_id and scenic_parse would find
+  # no files. Always pass --bench_id explicitly (same as run_eval_v2_batch.py).
+  bench_id_val="$(bench_id_for "$cfg")"
 
   echo "=== $cfg ==="
   echo "  bench dir: $bench_dir"
@@ -345,11 +365,8 @@ for cfg in "${CONFIGS[@]}"; do
 
     echo "  [chunk $chunk_index] ids: ${chunk[*]}"
 
-    # One scenario per run_eval.py process, each under its own timeout. This is
-    # what run_eval_batch.py does internally, unrolled here so the timeout
-    # applies per scenario rather than per chunk.
     for id in "${chunk[@]}"; do
-      cmd=(python scripts/run_eval.py
+      cmd=(python scripts/run_eval_v2.py
         --scenario_cfg "$cfg"
         --mode "$MODE"
         --agent_cfg "$AGENT_CFG"
@@ -357,7 +374,8 @@ for cfg in "${CONFIGS[@]}"; do
         --route_id "$ROUTE_ID"
         --port "$PORT" --tm_port "$TM_PORT"
         --device "$DEVICE"
-        --scenario_id "$id")
+        --scenario_id "$id"
+        --bench_id "$bench_id_val")
       if [ "$SAVE_VIDEO" -eq 1 ]; then
         cmd+=(--save_video)
       fi
@@ -390,9 +408,6 @@ for cfg in "${CONFIGS[@]}"; do
 
       if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ]; then
         echo "    scenario_id=$id TIMED OUT after $SCENARIO_TIMEOUT - killed, restarting CARLA" | tee -a "$LOGFILE"
-        # The simulation was killed mid-run, so the server is left holding
-        # actors/state - always take a fresh one rather than waiting for the
-        # end-of-chunk restart.
         restart_carla || echo "Warning: CARLA restart failed after timeout on scenario $id" >&2
       elif [ "$rc" -ne 0 ]; then
         echo "    scenario_id=$id failed with exit code $rc" | tee -a "$LOGFILE"
